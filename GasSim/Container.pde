@@ -21,4 +21,25 @@ public class Container{
     n = 0;
     T = 0;
   }
+  
+  void changePressure(float a){
+  }
+  void changeTemperature(float a){
+  }
+  void changeMoles(float a){
+  }
+  void changeVolume(){
+    V = boxWidth * boxHeight;
+  }
+  void adjustWidth(){
+    
+  }
+  void mousePressed() 
+{
+  if(pmouseX <= 210 + boxWidth && pmouseX >= 190  && pmouseX >= 150 && pmouseX <= boxHeight + 150){
+    fill(150);
+  }
+}
+  
+  
 }

@@ -28,7 +28,7 @@ public class Particle{
       //fill();
     }
   }
-  void setX(float xx){
+  void setX(float xx){//position
     x = xx;
   }
   void setY(float yy){

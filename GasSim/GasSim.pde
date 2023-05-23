@@ -11,4 +11,6 @@ void draw() {
   
   Particle test1 = new Particle(500,400, 30,"Helium", 30);
   test1.display();
+ 
+ 
 }
