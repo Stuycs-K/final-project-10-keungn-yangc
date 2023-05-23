@@ -9,6 +9,7 @@ public class Container{
   private  int n;
   private  final double R = 0.0821;
   private  double T;
+  private double rightWallX;
   
   public Container() {
     constantVar = new String[] {"P", "V", "n", "T"};
@@ -20,6 +21,12 @@ public class Container{
     V =0;
     n = 0;
     T = 0;
+    fill(255);
+    strokeWeight(3);
+    rect(200, 150, boxWidth, boxHeight);
+    rightWallX = 200 + boxWidth;
+    //System.out.println(rightWallX);
+  
   }
   
   void changePressure(float a){
@@ -34,10 +41,10 @@ public class Container{
   void adjustWidth(){
     
   }
-  void mousePressed() 
+  void mouseDragged() 
 {
-  if(pmouseX <= 210 + boxWidth && pmouseX >= 190  && pmouseX >= 150 && pmouseX <= boxHeight + 150){
-    fill(150);
+  if(mouseX >= (rightWallX-10) && mouseX >= (10 + rightWallX)){
+    background(150);
   }
 }
   
