@@ -1,5 +1,7 @@
 public class Container{
   private String[] constantVar;
+  private int boxX;
+  private int boxY;
   private  int boxWidth;
   private  int boxHeight;
   private  int wallCollisions;
@@ -12,6 +14,8 @@ public class Container{
   
   public Container() {
     constantVar = new String[] {"P", "V", "n", "T"};
+    boxX = 200;
+    boxY = 150;
     boxWidth = 600;
     boxHeight = 450;
     wallCollisions = 0;
@@ -20,5 +24,9 @@ public class Container{
     V =0;
     n = 0;
     T = 0;
+  }
+  
+  public void display() {
+  rect(boxX, boxY, container.boxWidth, container.boxHeight);
   }
 }

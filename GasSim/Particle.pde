@@ -1,37 +1,53 @@
 public class Particle{
-  float x,y,xspeed,yspeed;
-  String element;
+  PVector position, velocity;
+  float mass, radius;
+  int period;
+  color c;
   
-  public Particle(float x_, float y_, float xspeed_, String ele, float yspeed_){
-    x = x_;
-    y = y_;
-    xspeed = xspeed_;
-    yspeed = yspeed_;
-    element = ele;
+  public Particle(float x, float y, float xSpeed, float ySpeed, int period_) {
+    position = new PVector(x, y);
+    velocity = new PVector(xSpeed, ySpeed);
+    period = period_;
+    if(period == 1) {
+      mass = 4;
+      radius = 140/10;
     }
+    if(period == 2) {
+      mass = 20;
+      radius = 154/10;
+    }
+    if(period == 3) {
+      mass = 40;
+      radius = 188/10;
+    }
+  }
     
 
     void display() {
-    
-    
-    if(element.equals("Helium")){
-      fill(0);
-      ellipse(x,y,25,25);
-      
-    }
-    if(element.equals("Neon")){
-      ellipse(x,y,35,35);
-      //fill();
-    }
-    if(element.equals("Argon")){
-      ellipse(x,y,45,45);
-      //fill();
-    }
+      noStroke();
+      fill(31, 123, 43);
+    circle(position.x, position.y, radius*2);
+
   }
+  
   void setX(float xx){
-    x = xx;
+    position.x = xx;
   }
   void setY(float yy){
-    y = yy;
+    position.y = yy;
+  }
+  
+ 
+  void move(){
+    position.add(velocity);
+  }
+  
+  public void wallCollide(Container container) {
+    if (position.x < radius + container.boxX || position.x > container.boxX + container.boxWidth - radius) {
+      velocity.x *= -1;
+    }
+    if (position.y < radius + container.boxY || position.y > container.boxY + container.boxHeight - radius) {
+      velocity.y *= -1;
+    }
   }
 }
