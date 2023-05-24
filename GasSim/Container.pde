@@ -14,6 +14,8 @@ public class Container{
   
   public Container() {
     constantVar = new String[] {"P", "V", "n", "T"};
+    boxX = 200;
+    boxY = 150;
     boxWidth = 600;
     boxHeight = 450;
     wallCollisions = 0;
@@ -25,6 +27,6 @@ public class Container{
   }
   
   public void display() {
-  rect(200, 150, container.boxWidth, container.boxHeight);
+  rect(boxX, boxY, container.boxWidth, container.boxHeight);
   }
 }

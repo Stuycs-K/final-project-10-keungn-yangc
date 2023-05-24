@@ -42,5 +42,12 @@ public class Particle{
     position.add(velocity);
   }
   
-  
+  public void wallCollide(Container container) {
+    if (position.x < radius + container.boxX || position.x > container.boxX + container.boxWidth - radius) {
+      velocity.x *= -1;
+    }
+    if (position.y < radius + container.boxY || position.y > container.boxY + container.boxHeight - radius) {
+      velocity.y *= -1;
+    }
+  }
 }

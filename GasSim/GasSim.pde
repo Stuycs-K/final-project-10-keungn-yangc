@@ -7,12 +7,13 @@ void setup() {
 }
 
 void draw() {
+  background(0);
   stroke(0);
   fill(255);
   container.display();
   test1.move();
   test1.display();
-  
+  test1.wallCollide(container);
   
   /*
   if (position.x + radius >= width || position.x - radius <= 0) {
