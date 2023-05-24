@@ -1,16 +1,61 @@
-//Container container = new Container();
+Container container = new Container();
+  Particle test1 = new Particle(500,400, 10, 10, 1);
+  ArrayList<particle> pL = new ArrayList<Particle>();
+    private int pumpBX;
+  private int pumpBY;
+  boolean mouseOnPump(){
+    if(pmouseX >= 100 && pmouseX <= 180 && pmouseY >= 200 && pmouseY <= 270){
+      fill(255, 204, 0);
+      ellipse(300,300,100,100);
+      return true;
+    }
+    return false;
+  }
+  void mousePressed(){
+    
+    if(mouseOnPump()){
+      
+      container.addSomeParticles();
+      ArrayList<Particle> test;
+    test = container.getArrayL();
+      for(int i = 0; i< test.size(); i++){
+        System.out.println(test.get(i));
+      }
+    }
+  }
+  
 void setup() {
   size(1000, 750);
   background(0);
+  
 }
 
 void draw() {
-  stroke(255);
-  //fill(255);
-  //rect(200, 150, container.boxWidth, container.boxHeight);
-  Container container = new Container();
-  Particle test1 = new Particle(500,400, 30,"Helium", 30);
+  background(0);
+  stroke(0);
+  fill(255);
+  for(Particle p : test){
+    
+  container.display();
+  test1.move();
   test1.display();
- 
- 
+  test1.wallCollide(container);
+  
+  /*
+  if (position.x + radius >= width || position.x - radius <= 0) {
+      if (position.x + radius >= width) {
+        x = width - radius;
+      } else{
+        x = radius;
+      }
+      xspeed = -1 * xspeed;
+    }
+    if (y + radius >= height || y - radius <= 0) {
+      if (y + radius >= height) {
+        y = height - radius;
+      } else {
+        y = radius;
+      }
+      yspeed = -1 * yspeed;
+    }*/
 }
