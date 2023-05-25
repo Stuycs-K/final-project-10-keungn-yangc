@@ -1,5 +1,26 @@
 Container container = new Container();
   Particle test1 = new Particle(500,400, 10, 10, 1);
+  Particle test2 = new Particle(500,400, 10, 10, 1);
+  ArrayList<Particle> pL = new ArrayList<Particle>();
+    private int pumpBX;
+  private int pumpBY;
+  boolean mouseOnPump(){
+    if(pmouseX >= 100 && pmouseX <= 180 && pmouseY >= 200 && pmouseY <= 270){
+      //fill(255, 204, 0);
+      //ellipse(300,300,100,100);//shows it was clicked
+      return true;
+    }
+    return false;
+  }
+  void mousePressed(){
+
+    if(mouseOnPump()){
+
+      container.addSomeParticles();
+      pL = container.getArrayL();
+      
+    }
+  }
 void setup() {
   size(1000, 750);
   background(0);
@@ -11,10 +32,22 @@ void draw() {
   stroke(0);
   fill(255);
   container.display();
-  test1.move();
-  test1.display();
-  test1.wallCollide(container);
-  
+  //test1.move();
+  //test1.display();
+  //test1.wallCollide(container);
+  //test2.move();
+  //test2.wallCollide(container);
+  //test2.display();
+  //test2.wallCollide(container);
+ 
+  for(Particle p : pL){
+    p.move();
+    p.wallCollide(container);
+    p.display();
+    System.out.println(pL.size());
+
+  }
+ 
   /*
   if (position.x + radius >= width || position.x - radius <= 0) {
       if (position.x + radius >= width) {
