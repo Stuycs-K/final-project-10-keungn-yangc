@@ -54,6 +54,24 @@ private int resizeKnobY;
   line(resizeKnobX, resizeKnobY, resizeKnobX+40, resizeKnobY);
   line(resizeKnobX, resizeKnobY+50, resizeKnobX+40, resizeKnobY+50);
   }
+  boolean mouseOnVolB(){
+    if(mouseX >= resizeKnobX && mouseX <= resizeKnobX + 60 && mouseY >= resizeKnobY && mouseY <= resizeKnobY + 50){
+      
+      return true;
+     
+    }
+    return false;
+  }
+  
+  void changeWidth(){
+    if(mouseX < 900){
+    boxWidth = mouseX;
+    System.out.println(boxWidth);
+    }
+  }
+  public void changeVol(){
+    
+  }
 
 
 

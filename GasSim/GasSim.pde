@@ -15,7 +15,7 @@ Container container = new Container();
     }
     return false;
   }
-  void mousePressed(){
+  void mouseClicked(){
 
 
     if(mouseOnPump()){
@@ -23,6 +23,13 @@ Container container = new Container();
       container.addSomeParticles();
       pL = container.getArrayL();
       
+    }
+  }
+  
+  void mouseDragged(){
+    if(container.mouseOnVolB()){
+       System.out.println("true");
+       container.changeWidth();
     }
   }
 
