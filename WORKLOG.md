@@ -21,7 +21,13 @@ info
 - Adjust coloring of the background, particles, and box 
 - Move method calls around in GasSim to produce intended animations
 
-### date y
+### 5/24
+- Trying my best with collisions...........
+
+### 5/25
+- Made collisions work kind of but still suboptimal
+- Working on implementing delay for collisions
+- Adjust spawn point to accommodate for larger particle sizes
 
 info
 
