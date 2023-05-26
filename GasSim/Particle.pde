@@ -42,25 +42,25 @@ public class Particle{
  
   void move(Container container){
     position.add(velocity);
-    if(position.x + radius > container.boxX + container.boxWidth) {
-        position.x = container.boxWidth - radius;
+    if(position.x + radius - 10> container.boxX + container.boxWidth) {
+        position.x = container.boxX + container.boxWidth - radius;
       }
-      if(position.y + radius > container.boxY + container.boxHeight) {
-        position.y = container.boxHeight - radius;
+      if(position.y + radius -10> container.boxY + container.boxHeight) {
+        position.y = container.boxY + container.boxHeight - radius;
       }
-      if(position.x - radius < container.boxX){
+      if(position.x - radius +10< container.boxX){
         position.x = container.boxX + radius;
       }
-      if(position.y - radius < container.boxY){
+      if(position.y - radius + 10 < container.boxY){
         position.y = container.boxY + radius;
       }
   }
   
   public void wallCollide(Container container) {
-    if (position.x < radius + container.boxX || position.x > container.boxX + container.boxWidth - radius) {
+    if (position.x <= radius + container.boxX || position.x >= container.boxX + container.boxWidth - radius) {
       velocity.x *= -1;
     }
-    if (position.y < radius + container.boxY || position.y > container.boxY + container.boxHeight - radius) {
+    if (position.y <= radius + container.boxY || position.y >= container.boxY + container.boxHeight - radius) {
       velocity.y *= -1;
     }
   }
@@ -77,10 +77,4 @@ public class Particle{
     }
     
   }
-
-  void setDelay(boolean delayy) {
-    delay = delayy;
-  }
-  
-  
 }

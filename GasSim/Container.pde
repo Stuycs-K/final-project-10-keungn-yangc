@@ -38,7 +38,7 @@ private int resizeKnobY;
   }
   public void addSomeParticles(){
     for(int i = 0; i<3; i++){
-      particleList.add(new Particle(220+10*i,200+10*i, 5, 5, 1));
+      particleList.add(new Particle(220,200, 15, 15, 3));
 
     }
   }
