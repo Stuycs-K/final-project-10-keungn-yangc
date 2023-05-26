@@ -38,8 +38,8 @@ private int resizeKnobY;
     particleList = new ArrayList<Particle>();
   }
   public void addSomeParticles(){
-    for(int i = 0; i<10; i++){
-      particleList.add(new Particle(206,200, 10, 10, 1));
+    for(int i = 0; i<3; i++){
+      particleList.add(new Particle(220 + random(5, 15),200+ random(5, 15), 1, 1, 3));
 
     }
   }
