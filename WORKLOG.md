@@ -46,6 +46,13 @@ info
 - only spawns one particle everytime button is pressed when it should spawn(will fix)
 - found error in wall collision for when particle is spawned on the wall
 
+## Natalie
+
+### 5/25
+- made button to do resizing
+- made function to make the box change size
+- function is glitchy but is good placehlder for now
+
 
 
 
