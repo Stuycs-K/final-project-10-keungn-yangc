@@ -21,6 +21,32 @@ info
 - Adjust coloring of the background, particles, and box 
 - Move method calls around in GasSim to produce intended animations
 
-### date y
+### 5/24
+- Trying my best with collisions...........
+
+### 5/25
+- Made collisions work kind of but still suboptimal
+- Working on implementing delay for collisions
+- Adjust spawn point to accommodate for larger particle sizes
 
 info
+
+## Natalie
+
+### 5/23
+- create classes and write base of classes
+- start figuring out buttons and resizing for shapes
+- drafted up unfinished rectangle(container) resizing(does not work)
+
+
+## Natalie
+
+### 5/24
+- made button to spawn more particles from a specific side of the container
+- only spawns one particle everytime button is pressed when it should spawn(will fix)
+- found error in wall collision for when particle is spawned on the wall
+
+
+
+
+
