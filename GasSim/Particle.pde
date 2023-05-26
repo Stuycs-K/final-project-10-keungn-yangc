@@ -7,19 +7,19 @@ public class Particle{
   
   public Particle(float x, float y, float xSpeed, float ySpeed, int period_) {
     position = new PVector(x, y);
-    velocity = new PVector(xSpeed, ySpeed);
+    velocity = new PVector(xSpeed * random(1, 9), ySpeed * random(1, 9));
     period = period_;
     if(period == 1) {
       mass = 4;
-      radius = 140/10;
+      radius = 140/20;
     }
     if(period == 2) {
       mass = 20;
-      radius = 154/10;
+      radius = 154/20;
     }
     if(period == 3) {
       mass = 40;
-      radius = 188/10;
+      radius = 188/20;
     }
   }
     
@@ -42,16 +42,16 @@ public class Particle{
  
   void move(Container container){
     position.add(velocity);
-    if(position.x + radius - 10> container.boxX + container.boxWidth) {
+    if(position.x + radius > container.boxX + container.boxWidth) {
         position.x = container.boxX + container.boxWidth - radius;
       }
-      if(position.y + radius -10> container.boxY + container.boxHeight) {
+      if(position.y + radius > container.boxY + container.boxHeight) {
         position.y = container.boxY + container.boxHeight - radius;
       }
-      if(position.x - radius +10< container.boxX){
+      if(position.x - radius < container.boxX){
         position.x = container.boxX + radius;
       }
-      if(position.y - radius + 10 < container.boxY){
+      if(position.y - radius  < container.boxY){
         position.y = container.boxY + radius;
       }
   }

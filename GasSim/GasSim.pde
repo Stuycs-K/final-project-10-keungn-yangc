@@ -1,7 +1,7 @@
 Container container = new Container();
   Particle test1 = new Particle(500,400, 10, 10, 1);
   ArrayList<Particle> pL = new ArrayList<Particle>();
-  int collisionDelay = 10;
+  int collisionDelay = 100;
 
 
     private int pumpBX;
@@ -53,27 +53,29 @@ void draw() {
   fill(255);
   container.display();
   
- for (int i = 0; i < pL.size(); i++) {
-   Particle particleA = pL.get(i);
-    for (int j = i + 1; j < pL.size(); j++) {
-      Particle particleB = pL.get(j);
-      if(!particleA.delay && !particleB.delay) {
-        particleA.particleCollide(particleB);
-        particleA.delay = true;
-        particleB.delay = true;
-      }
-      
-    }
-  }
-  
   for(Particle p : pL){
     
     p.move(container);
     p.wallCollide(container);
     p.display();
-    if(millis() % collisionDelay == 0) {
+    if(millis() % collisionDelay < 500) {
       p.delay = false;
     }
+  
+ for (int i = 0; i < pL.size(); i++) {
+   Particle particleA = pL.get(i);
+    for (int j = i + 1; j < pL.size(); j++) {
+      Particle particleB = pL.get(j);
+      //if(!particleA.delay && !particleB.delay) {
+        particleA.particleCollide(particleB);
+       // particleA.delay = true;
+       // particleB.delay = true;
+      //}
+      
+    }
+  }
+  
+  
   }
   
  
