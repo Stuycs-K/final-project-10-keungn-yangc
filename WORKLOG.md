@@ -24,3 +24,23 @@ info
 ### date y
 
 info
+
+## Natalie
+
+### 5/23
+- create classes and write base of classes
+- start figuring out buttons and resizing for shapes
+- drafted up unfinished rectangle(container) resizing(does not work)
+
+
+## Natalie
+
+### 5/24
+- made button to spawn more particles from a specific side of the container
+- only spawns one particle everytime button is pressed when it should spawn(will fix)
+- found error in wall collision for when particle is spawned on the wall
+
+
+
+
+
