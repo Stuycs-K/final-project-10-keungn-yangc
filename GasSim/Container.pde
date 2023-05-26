@@ -70,6 +70,7 @@ private int resizeKnobY;
     if(num != 840 && num > 200 && num <900){  
       
     resizeKnobX = num;
+    boxWidth = resizeKnobX - boxX;
     return true;
     }
     return false;
