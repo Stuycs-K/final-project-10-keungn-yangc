@@ -32,14 +32,14 @@ private int resizeKnobY;
     boxX = 200;
     boxY = 150;
     pumpBX = 100;
-    pumpBY = 200;
+    pumpBY = 450;
     resizeKnobX = boxX + boxWidth ;
     resizeKnobY = boxY + boxHeight/2;
     particleList = new ArrayList<Particle>();
   }
   public void addSomeParticles(){
     for(int i = 0; i<10; i++){
-      particleList.add(new Particle(206,200, 10, 10, 1));
+      particleList.add(new Particle(206,500, 10, 10, 1));
 
     }
   }
@@ -55,6 +55,8 @@ private int resizeKnobY;
   stroke(200);
   line(resizeKnobX, resizeKnobY, resizeKnobX+40, resizeKnobY);
   line(resizeKnobX, resizeKnobY+50, resizeKnobX+40, resizeKnobY+50);
+  fill(125);
+  rect(30,175,150,250);//control box
   }
   boolean mouseOnVolB(){
     if(mouseX >= resizeKnobX && mouseX <= resizeKnobX + 60 && mouseY >= resizeKnobY && mouseY <= resizeKnobY + 50){
