@@ -51,31 +51,25 @@ void draw() {
   background(0);
   stroke(0);
   fill(255);
-
   container.display();
-  //test1.move();
-  //test1.display();
-  //test1.wallCollide(container);
-  //test2.move();
-  //test2.wallCollide(container);
-  //test2.display();
-  //test2.wallCollide(container);
+  
  for (int i = 0; i < pL.size(); i++) {
-    Particle ballA = pL.get(i);
+   Particle particleA = pL.get(i);
     for (int j = i + 1; j < pL.size(); j++) {
-      Particle ballB = pL.get(j);
-        ballA.particleCollide(ballB);
+      Particle particleB = pL.get(j);
+        particleA.particleCollide(particleB);
+        
       
     }
   }
+  
   for(Particle p : pL){
     p.move(container);
     p.wallCollide(container);
     p.display();
-    System.out.println(pL.size());
   }
   
-  
+ 
   
  
   /*

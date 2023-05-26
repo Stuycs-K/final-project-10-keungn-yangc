@@ -3,6 +3,7 @@ public class Particle{
   float mass, radius;
   int period;
   color c;
+  boolean delay;
   
   public Particle(float x, float y, float xSpeed, float ySpeed, int period_) {
     position = new PVector(x, y);
@@ -75,6 +76,13 @@ public class Particle{
       other.velocity = newVelocity.copy().mult(-1);
     }
     
+  }
+  boolean isDelayed() {
+    return delay;
+  }
+
+  void setDelay(boolean delayy) {
+    delay = delayy;
   }
   
   
