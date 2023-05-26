@@ -1,9 +1,7 @@
 Container container = new Container();
   Particle test1 = new Particle(500,400, 10, 10, 1);
-
-  Particle test2 = new Particle(500,400, 10, 10, 1);
   ArrayList<Particle> pL = new ArrayList<Particle>();
-
+  int collisionDelay = 10;
 
 
     private int pumpBX;
@@ -55,8 +53,6 @@ void draw() {
   fill(255);
 
   container.display();
-  
-=======
   //test1.move();
   //test1.display();
   //test1.wallCollide(container);
@@ -64,13 +60,23 @@ void draw() {
   //test2.wallCollide(container);
   //test2.display();
   //test2.wallCollide(container);
- 
+ for (int i = 0; i < pL.size(); i++) {
+    Particle ballA = pL.get(i);
+    for (int j = i + 1; j < pL.size(); j++) {
+      Particle ballB = pL.get(j);
+        ballA.particleCollide(ballB);
+      
+    }
+  }
   for(Particle p : pL){
-    p.move();
+    p.move(container);
     p.wallCollide(container);
     p.display();
     System.out.println(pL.size());
   }
+  
+  
+  
  
   /*
   if (position.x + radius >= width || position.x - radius <= 0) {
