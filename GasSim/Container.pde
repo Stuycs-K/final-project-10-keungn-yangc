@@ -14,6 +14,7 @@ public class Container{
 private int resizeKnobX;
 private int resizeKnobY;
 
+
    private int pumpBX;
   private int pumpBY;
   public ArrayList<Particle>particleList;
@@ -49,6 +50,7 @@ private int resizeKnobY;
   public void display() {
   rect(boxX, boxY, container.boxWidth, container.boxHeight);
   rect(pumpBX, pumpBY, 80,70);
+  fill(250,20,30);
   rect(resizeKnobX+ 40, resizeKnobY, 20,50);
   stroke(200);
   line(resizeKnobX, resizeKnobY, resizeKnobX+40, resizeKnobY);
@@ -63,12 +65,23 @@ private int resizeKnobY;
     return false;
   }
   
-  void changeWidth(){
-    if(mouseX < 900){
-    boxWidth = mouseX;
-    System.out.println(boxWidth);
+  boolean changeResizeX(int num){
+    System.out.println(num);
+    if(num != 840 && num > 200 && num <900){  
+      
+    resizeKnobX = num;
+    boxWidth = resizeKnobX - boxX;
+    return true;
     }
+    return false;
   }
+  
+  //void changeWidth(){
+  //  if(mouseX < 900){
+  //  boxWidth = mouseX;
+  //  System.out.println(boxWidth);
+  //  }
+  //}
   public void changeVol(){
     
   }

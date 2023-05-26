@@ -1,8 +1,9 @@
 Container container = new Container();
   Particle test1 = new Particle(500,400, 10, 10, 1);
   ArrayList<Particle> pL = new ArrayList<Particle>();
-  int collisionDelay = 100;
 
+private int released;
+int collisionDelay = 100;
 
     private int pumpBX;
   private int pumpBY;
@@ -22,24 +23,27 @@ Container container = new Container();
       pL = container.getArrayL();
       
     }
+    System.out.println(mouseX + " " + mouseY);
   }
-  
+  void mouseReleased(){
+    released = mouseX;
+  }
   void mouseDragged(){
     if(container.mouseOnVolB()){
        System.out.println("true");
-       container.changeWidth();
-    }
-  }
-
-    //if(mouseOnPump()){
       
-    //  container.addSomeParticles();
-    //  ArrayList<Particle> test;
-    //test = container.getArrayL();
-    //  for(int i = 0; i< test.size(); i++){
-    //    System.out.println(test.get(i));
-    //  }
-    //}
+           int newPlace = released;
+       
+       System.out.println(newPlace);
+       if(container.changeResizeX(newPlace)){
+         System.out.println("dif place");
+         
+    }
+       }
+  }
+  
+
+
   
 void setup() {
   size(1000, 750);
