@@ -11,7 +11,7 @@ public class Particle{
     period = period_;
     if(period == 1) {
       mass = 4;
-      radius = 140/7;
+      radius = 140/10;
     }
     if(period == 2) {
       mass = 20;
@@ -42,18 +42,18 @@ public class Particle{
  
   void move(Container container){
     position.add(velocity);
-    /*if(mouseX + radius > container.boxWidth) {
+    if(position.x + radius > container.boxX + container.boxWidth) {
         position.x = container.boxWidth - radius;
       }
-      if(mouseY + radius > container.boxHeight) {
+      if(position.y + radius > container.boxY + container.boxHeight) {
         position.y = container.boxHeight - radius;
       }
-      if(mouseX - radius < container.boxX){
+      if(position.x - radius < container.boxX){
         position.x = container.boxX + radius;
       }
-      if(mouseY - radius < container.boxY){
+      if(position.y - radius < container.boxY){
         position.y = container.boxY + radius;
-      }*/
+      }
   }
   
   public void wallCollide(Container container) {
@@ -76,9 +76,6 @@ public class Particle{
       other.velocity = newVelocity.copy().mult(-1);
     }
     
-  }
-  boolean isDelayed() {
-    return delay;
   }
 
   void setDelay(boolean delayy) {

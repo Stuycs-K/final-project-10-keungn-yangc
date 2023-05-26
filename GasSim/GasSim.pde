@@ -57,13 +57,19 @@ void draw() {
    Particle particleA = pL.get(i);
     for (int j = i + 1; j < pL.size(); j++) {
       Particle particleB = pL.get(j);
+    //  if(!particleA.delay || !particleB.delay) {
         particleA.particleCollide(particleB);
-        
+        //particleA.setDelay(true);
+      //  particleB.setDelay(true);
+     // }
       
     }
   }
   
   for(Particle p : pL){
+    if(millis() % collisionDelay == 0) {
+      p.setDelay(false);
+    }
     p.move(container);
     p.wallCollide(container);
     p.display();
