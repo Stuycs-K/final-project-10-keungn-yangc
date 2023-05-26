@@ -14,10 +14,14 @@ public class Container{
 private int resizeKnobX;
 private int resizeKnobY;
 
-
    private int pumpBX;
   private int pumpBY;
   public ArrayList<Particle>particleList;
+  
+  public boolean constantN;
+  public boolean constantV;
+  public boolean constantT;
+  public boolean constantP;
   public Container() {
     constantVar = new String[] {"P", "V", "n", "T"};
     
@@ -36,15 +40,13 @@ private int resizeKnobY;
     resizeKnobX = boxX + boxWidth ;
     resizeKnobY = boxY + boxHeight/2;
     particleList = new ArrayList<Particle>();
+    
   }
   public void addSomeParticles(){
-<<<<<<< HEAD
-    for(int i = 0; i<10; i++){
-      particleList.add(new Particle(206,500, 10, 10, 1));
-=======
+
     for(int i = 0; i<3; i++){
       particleList.add(new Particle(220 + random(5, 15),200+ random(5, 15), 1, 1, 3));
->>>>>>> 64de96017dfc132c020439f892f206682e4c9e67
+
 
     }
   }
@@ -62,6 +64,26 @@ private int resizeKnobY;
   line(resizeKnobX, resizeKnobY+50, resizeKnobX+40, resizeKnobY+50);
   fill(125);
   rect(30,175,150,250);//control box
+  fill(255);
+  textSize(25);
+  text("Hold Constant",31 ,200);
+  ellipse(45,220,17,17);
+  ellipse(45,250,17,17);
+  ellipse(45,280,17,17);
+  ellipse(45,310,17,17);
+  ellipse(45,340,17,17);
+  textSize(20);
+  text("Nothing",60 ,225);
+  text("Volume",60 ,255);
+  text("Temperature",60 ,285);
+  text("Pressure(V)",60 ,315);
+  text("Pressure(T)",60 ,345);
+  
+
+  
+  }
+  boolean onConstantButton(){
+    return true;
   }
   boolean mouseOnVolB(){
     if(mouseX >= resizeKnobX && mouseX <= resizeKnobX + 60 && mouseY >= resizeKnobY && mouseY <= resizeKnobY + 50){
