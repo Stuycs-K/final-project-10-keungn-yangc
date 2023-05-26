@@ -50,4 +50,17 @@ public class Particle{
       velocity.y *= -1;
     }
   }
+  
+  public void particleCollide(Particle other) {
+    float touchingDistance = radius + other.radius;
+    PVector difference = PVector.sub(position, other.position);
+    if(difference.mag() < touchingDistance) {
+      PVector v1 = PVector.mult(velocity, (mass - other.mass));
+      PVector v2 = PVector.mult(other.velocity, (2 * other.mass));
+      PVector newVelocity = PVector.add(v1, v2).div(mass + other.mass);
+      velocity = newVelocity.copy();
+      other.velocity = newVelocity.copy().mult(-1);
+    }
+    
+  }
 }
