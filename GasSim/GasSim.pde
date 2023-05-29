@@ -8,7 +8,7 @@ int collisionDelay = 100;
     private int pumpBX;
   private int pumpBY;
   boolean mouseOnPump(){
-    if(pmouseX >= 100 && pmouseX <= 180 && pmouseY >= 200 && pmouseY <= 270){
+    if(pmouseX >= 100 && pmouseX <= 180 && pmouseY >= 450 && pmouseY <= 520){
 
       return true;
     }
