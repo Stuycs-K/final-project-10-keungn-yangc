@@ -56,7 +56,7 @@ void draw() {
 
   for (Particle p : pL) {
 
-    p.move(container);
+    p.move();
     p.wallCollide(container);
     p.display();
   }

@@ -38,28 +38,34 @@ public class Particle {
   }
 
 
-  void move(Container container) {
+  void move() {
     position.add(velocity);
-    if (position.x + radius > container.boxX + container.boxWidth) {
-      position.x = container.boxX + container.boxWidth - radius;
-    }
-    if (position.y + radius > container.boxY + container.boxHeight) {
-      position.y = container.boxY + container.boxHeight - radius;
-    }
-    if (position.x - radius < container.boxX) {
-      position.x = container.boxX + radius;
-    }
-    if (position.y - radius  < container.boxY) {
-      position.y = container.boxY + radius;
-    }
   }
 
   public void wallCollide(Container container) {
-    if (position.x <= radius + container.boxX || position.x >= container.boxX + container.boxWidth - radius) {
+    float offset;
+    offset = position.x + radius - container.boxX - container.boxWidth;
+    if (offset > 0) {
+      position.x -= offset*2;
       velocity.x *= -1;
+    } else {
+      offset = position.x - radius - container.boxX;
+      if (offset < 0) {
+        position.x -= offset*2;
+        velocity.x *= -1;
+      }
     }
-    if (position.y <= radius + container.boxY || position.y >= container.boxY + container.boxHeight - radius) {
+    
+    offset = position.y + radius - container.boxY - container.boxHeight;
+    if (offset > 0) {
+      position.y -= offset*2;
       velocity.y *= -1;
+    } else {
+      offset = position.y - radius - container.boxY;
+      if (offset < 0) {
+        position.y -= offset*2;
+        velocity.y *= -1;
+      }
     }
   }
 
