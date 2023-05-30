@@ -86,7 +86,22 @@ private int resizeKnobY;
   public void changeVol(){
     
   }
-
+  
+  //i guess this handles both temp and moles (n) .. it feels out of place
+  void calcTemperature() {
+    float totalKineticEnergy = 0;
+    for(Particle p: pL) {
+      totalKineticEnergy += 0.5 * p.mass * p.velocity.magSq();
+    }
+    n = pL.size();
+    T = totalKineticEnergy / n;
+  }
+  
+  void calcPressure() {
+    
+    float containerSurface = (container.boxWidth + container.boxHeight) *2;
+    
+}
 
 
 }

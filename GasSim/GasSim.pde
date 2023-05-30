@@ -68,4 +68,11 @@ void draw() {
       particleA.particleCollide(particleB);
     }
   }
+  
+  fill(255);
+  textSize(20);
+  container.calcTemperature();
+  text("# of Particles (moles): " + container.n, 40, 20);
+  text("Temperature:" + container.T, 40, 50);
+  
 }
