@@ -42,17 +42,20 @@ public class Particle {
     position.add(velocity);
   }
 
-  public void wallCollide(Container container) {
+  public float wallCollide(Container container) {
+    float collisionMomentum = 0;
     float offset;
     offset = position.x + radius - container.boxX - container.boxWidth;
     if (offset > 0) {
       position.x -= offset*2;
       velocity.x *= -1;
+      collisionMomentum += mass * abs(velocity.x);
     } else {
       offset = position.x - radius - container.boxX;
       if (offset < 0) {
         position.x -= offset*2;
         velocity.x *= -1;
+        collisionMomentum += mass * abs(velocity.x);
       }
     }
     
@@ -60,13 +63,16 @@ public class Particle {
     if (offset > 0) {
       position.y -= offset*2;
       velocity.y *= -1;
+      collisionMomentum += mass * abs(velocity.y);
     } else {
       offset = position.y - radius - container.boxY;
       if (offset < 0) {
         position.y -= offset*2;
         velocity.y *= -1;
+        collisionMomentum += mass * abs(velocity.y);
       }
     }
+    return collisionMomentum;
   }
 
   public void particleCollide(Particle other) {

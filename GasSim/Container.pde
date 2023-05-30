@@ -97,9 +97,9 @@ private int resizeKnobY;
     T = totalKineticEnergy / n;
   }
   
-  void calcPressure() {
-    
+  void calcPressure(float momentumTotal) {
     float containerSurface = (container.boxWidth + container.boxHeight) *2;
+    P = momentumTotal / (containerSurface * frameCount);
     
 }
 

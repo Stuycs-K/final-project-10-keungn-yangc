@@ -1,9 +1,8 @@
 Container container = new Container();
-Particle test1 = new Particle(500, 400, 10, 10, 1);
 ArrayList<Particle> pL = new ArrayList<Particle>();
 
 private int released;
-int collisionDelay = 100;
+float totMomentum;
 
 private int pumpBX;
 private int pumpBY;
@@ -57,7 +56,7 @@ void draw() {
   for (Particle p : pL) {
 
     p.move();
-    p.wallCollide(container);
+    totMomentum += p.wallCollide(container);
     p.display();
   }
 
@@ -72,7 +71,12 @@ void draw() {
   fill(255);
   textSize(20);
   container.calcTemperature();
+  container.calcPressure(totMomentum);
   text("# of Particles (moles): " + container.n, 40, 20);
   text("Temperature:" + container.T, 40, 50);
-  
+  text("Pressure:" + container.P, 40, 80);
+  if(frameCount % 500 == 0) {
+    
+    totMomentum = 0;
+  }
 }
