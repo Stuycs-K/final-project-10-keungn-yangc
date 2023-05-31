@@ -59,7 +59,6 @@ void draw() {
   container.display();
 
   for (Particle p : pL) {
-
     p.move();
     totMomentum += p.wallCollide(container);
     p.display();
@@ -77,11 +76,14 @@ void draw() {
   textSize(20);
   container.calcTemperature();
   container.calcPressure(totMomentum);
+  container.calcVolume();
   text("# of Particles (moles): " + container.n, 40, 20);
-  text("Temperature:" + container.T, 40, 50);
-  text("Pressure:" + container.P, 40, 80);
-  if(frameCount % 500 == 0) {
-    
+  text("Temperature: " + container.T, 40, 50);
+  text("Pressure: " + container.P, 40, 80);
+  //displays pressure
+  container.barometer();
+  text("Volume: " + container.V, 40, 110);
+  if(frameCount % container.PUpdateFreq == 0) {
     totMomentum = 0;
   }
 }

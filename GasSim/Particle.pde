@@ -25,8 +25,6 @@ public class Particle {
 
 
   void display() {
-    noStroke();
-    fill(31, 123, 43);
     circle(position.x, position.y, radius*2);
   }
 
