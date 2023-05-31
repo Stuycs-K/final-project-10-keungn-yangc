@@ -35,6 +35,12 @@ info
 - Randomize velocity of newly spawned particles
 - Combine parts of move() and wallCollide() because they check for same conditions
 
+### 5/30
+- Add methods to calculate V and T (relatively simple)
+- Add method to calculate P based on impulse of total collisions in a given time frame
+- Display variables
+- Work on barometer visual for interface
+
 info
 
 ## Natalie
