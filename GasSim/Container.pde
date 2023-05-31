@@ -43,6 +43,10 @@ public class Container{
     particleList = new ArrayList<Particle>();
     constantButton = false;
   }
+  
+  void changeConstButt(boolean b){
+    constantButton = b;
+  }
   public void addSomeParticles(){
     for(int i = 0; i<3; i++){
       particleList.add(new Particle(220 + random(5, 15),200+ random(5, 15), 1, 1, 3));
@@ -82,7 +86,11 @@ public class Container{
   text("Temperature",60 ,285);
   text("Pressure(V)",60 ,315);
   text("Pressure(T)",60 ,345);
-  //if boolean display
+  if(constantButton){
+    fill(138, 191, 237);
+  //  constantButtons();
+    ellipse(Xconstant, Yconstant, 14,14);
+  }
 
   
   }
