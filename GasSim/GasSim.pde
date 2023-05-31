@@ -22,6 +22,11 @@ void mouseClicked() {
     pL = container.getArrayL();
   }
   System.out.println(mouseX + " " + mouseY);
+  
+  String s = container.constantButtons();
+  System.out.println(s);
+  
+  container.constantButtonPressed();
 }
 void mouseReleased() {
   released = mouseX;

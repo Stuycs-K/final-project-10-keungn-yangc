@@ -1,23 +1,27 @@
 public class Container{
   private String[] constantVar;
-  private int boxX;
-  private int boxY;
-  private  int boxWidth;
-  private  int boxHeight;
+  private int boxX;//top left corner x-coord of container
+  private int boxY;//top left corner y-coord of container
+  private  int boxWidth;//width of box
+  private  int boxHeight;//height of box
   private  int wallCollisions;
-  private  boolean lidStatus;
+  private  boolean lidStatus;//if lid is on or off
   private  double P;
   private  double V;
   private  int n;
   private  final double R = 0.0821;
   private  double T;
-private int resizeKnobX;
-private int resizeKnobY;
-
-
-   private int pumpBX;
-  private int pumpBY;
+  private int resizeKnobX;//x-coord of where box/container ends and the lines and resize box start
+  private int resizeKnobY;//y-coord of where box/container ends and the lines and resize box start
+  private int Xconstant = 45;//center x-coord of ellipse if one of constant buttons is pressed
+  private int Yconstant;//center y-coord of ellipse if one of constant buttons is pressed
+  private int pumpBX;//box to pump in particles top left corner x-coord
+  private int pumpBY;//box to pump in particles top left corner y-coord
   public ArrayList<Particle>particleList;
+  public boolean constantButton;//sees if ellipse should be filed if button is pressed
+  
+  
+  //------------------------------------------------------------------------------------------------------------------------------------------//
   public Container() {
     constantVar = new String[] {"P", "V", "n", "T"};
     
@@ -36,6 +40,7 @@ private int resizeKnobY;
     resizeKnobX = boxX + boxWidth ;
     resizeKnobY = boxY + boxHeight/2;
     particleList = new ArrayList<Particle>();
+    constantButton = false;
   }
   public void addSomeParticles(){
     for(int i = 0; i<3; i++){
@@ -56,7 +61,99 @@ private int resizeKnobY;
   line(resizeKnobX, resizeKnobY+50, resizeKnobX+40, resizeKnobY+50);
   fill(125);
   rect(30,175,150,250);//control box
+  textSize(25);
+  fill(255);
+  text("Hold Constant",31 ,200);
+  fill(255);
+  ellipse(45,220,17,17);
+  fill(255);
+  ellipse(45,250,17,17);
+  fill(255);
+  ellipse(45,280,17,17);
+  fill(255);
+  ellipse(45,310,17,17);
+  fill(255);
+  ellipse(45,340,17,17);
+  textSize(20);
+  text("Nothing",60 ,225);
+  text("Volume",60 ,255);
+  text("Temperature",60 ,285);
+  text("Pressure(V)",60 ,315);s
+  text("Pressure(T)",60 ,345);
+  //if boolean display
+
+  
   }
+  void constantButtonPressed(){
+    if(bconstantButtons()){
+    fill(138, 191, 237);
+  //  constantButtons();
+    ellipse(Xconstant, Yconstant, 14,14);
+  }
+  }
+  
+  String constantButtons(){
+    if(mouseX >= 36 && mouseX <= 54 ){
+      //System.out.println("nothing");
+      if(mouseY >= 213 && mouseY <= 229){
+    
+       Yconstant = 220;
+      return "Nothing";
+      }
+      if(mouseY >= 243 && mouseY <= 259){
+          Yconstant = 250;
+      return "Volume";
+      }
+      if(mouseY >= 273 && mouseY <= 289){
+          Yconstant = 280;
+      return "Temperature";
+      }
+      if(mouseY >= 303 && mouseY <= 319){
+       Yconstant = 310;
+      return "Pressure(V)";
+      }
+      if(mouseY >= 333 && mouseY <= 349){
+       Yconstant = 340;
+      return "Pressure(T)";
+      }
+     
+     
+     
+    }
+    return "nothing was clicked";
+  }
+boolean bconstantButtons(){
+    if(mouseX >= 36 && mouseX <= 54 ){
+      //System.out.println("nothing");
+      if(mouseY >= 213 && mouseY <= 229){
+       
+      return true;
+      }
+      if(mouseY >= 243 && mouseY <= 259){
+       
+      return true;
+      }
+      if(mouseY >= 273 && mouseY <= 289){
+       
+      return true;
+      }
+      if(mouseY >= 303 && mouseY <= 319){
+       
+      return true;
+      }
+      if(mouseY >= 333 && mouseY <= 349){
+       
+      return true;
+      }
+     
+     
+     
+    }
+    return false;
+  }
+
+  
+  
   boolean mouseOnVolB(){
     if(mouseX >= resizeKnobX && mouseX <= resizeKnobX + 60 && mouseY >= resizeKnobY && mouseY <= resizeKnobY + 50){
       
