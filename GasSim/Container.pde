@@ -25,6 +25,7 @@ public class Container{
   private int PUpdateFreq = 100;
   public ArrayList<Particle>particleList;
   public boolean constantButton;//sees if ellipse should be filed if button is pressed
+  public color b;
   
   
   //------------------------------------------------------------------------------------------------------------------------------------------//
@@ -78,6 +79,7 @@ public class Container{
   controln();
   rect(resizeKnobX+ 40, resizeKnobY, 20,50);
   stroke(200);
+  fill(b);
   line(resizeKnobX, resizeKnobY, resizeKnobX+40, resizeKnobY);
   line(resizeKnobX, resizeKnobY+50, resizeKnobX+40, resizeKnobY+50);
   fill(125);
@@ -189,10 +191,11 @@ boolean bconstantButtons(){
   
   boolean mouseOnVolB(){
     if(mouseX >= resizeKnobX && mouseX <= resizeKnobX + 60 && mouseY >= resizeKnobY && mouseY <= resizeKnobY + 50){
-      
+      b = color(138, 191, 237);
       return true;
      
     }
+    b = color(80,2,9);
     return false;
   }
   
