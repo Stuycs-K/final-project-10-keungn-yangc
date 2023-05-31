@@ -4,33 +4,23 @@ public class Container{
   private int boxY;//top left corner y-coord of container
   private  int boxWidth;//width of box
   private  int boxHeight;//height of box
-  private  int wallCollisions;
   private  boolean lidStatus;//if lid is on or off
   private  float P;
   private  float V;
   private  int n;
-<<<<<<< HEAD
-  private  final double R = 0.0821;
-  private  double T;
-private int resizeKnobX;
-private int resizeKnobY;
-
-   private int pumpBX;
-  private int pumpBY;
-  public ArrayList<Particle>particleList;
-  
   public boolean constantN;
   public boolean constantV;
   public boolean constantT;
   public boolean constantP;
-=======
+  private int pumpX;//box to pump in particles top left corner x-coord
+  private int pumpY;//box to pump in particles top left corner y-coord
   private  final float R = 0.0821;
   private  float T;
   private int resizeKnobX;//x-coord of where box/container ends and the lines and resize box start
   private int resizeKnobY;//y-coord of where box/container ends and the lines and resize box start
   private int Xconstant = 45;//center x-coord of ellipse if one of constant buttons is pressed
   private int Yconstant;//center y-coord of ellipse if one of constant buttons is pressed
-  private int pumpBX;//box to pump in particles top left corner x-coord
+  private int pumpBX;
   private int pumpBY;//box to pump in particles top left corner y-coord
   private int PUpdateFreq = 100;
   public ArrayList<Particle>particleList;
@@ -38,13 +28,11 @@ private int resizeKnobY;
   
   
   //------------------------------------------------------------------------------------------------------------------------------------------//
->>>>>>> c9813f29a9076edbc9c5944a22b1cd20ed6f7c1f
+
   public Container() {
     constantVar = new String[] {"P", "V", "n", "T"};
-    
     boxWidth = 600;
     boxHeight = 450;
-    wallCollisions = 0;
     lidStatus = true;
     P = 0;
     V =0;
@@ -52,40 +40,40 @@ private int resizeKnobY;
     T = 0;
     boxX = 200;
     boxY = 150;
-    pumpBX = 100;
-    pumpBY = 450;
+    pumpX = 45;
+    pumpY = 365;
     resizeKnobX = boxX + boxWidth ;
     resizeKnobY = boxY + boxHeight/2;
     particleList = new ArrayList<Particle>();
-<<<<<<< HEAD
-    
-  }
-  public void addSomeParticles(){
-
-    for(int i = 0; i<3; i++){
-      particleList.add(new Particle(220 + random(5, 15),200+ random(5, 15), 1, 1, 3));
-
-
-=======
     constantButton = false;
   }
+  boolean mouseOnPump() {
+  if (mouseX >= pumpX && mouseX <= (pumpX + 50) && mouseY >= pumpY && pmouseY <= (pumpY + 50)) {
+
+    return true;
+  }
+  return false;
+}
+
   
-  void changeConstButt(boolean b){
+  void changeConstButt(boolean b){//if mousepressed and its pressing a constant button, turns it true, is used in display to show option was chosen
     constantButton = b;
   }
-  public void addSomeParticles(){
+  public void addSomeParticles(){//to add particles into container
     for(int i = 0; i<3; i++){
       particleList.add(new Particle(220 + random(5, 15),200+ random(5, 15), 1, 1, 3));
->>>>>>> c9813f29a9076edbc9c5944a22b1cd20ed6f7c1f
+
     }
   }
-  public ArrayList getArrayL(){
+  
+  public ArrayList getArrayL(){//get arraylist, used to be accessed in gasSim file
     return particleList;
   }
   
-  public void display() {
-  rect(boxX, boxY, container.boxWidth, container.boxHeight);
-  rect(pumpBX, pumpBY, 80,70);
+  public void display() {//displays container
+  rect(boxX, boxY, container.boxWidth, container.boxHeight);//displays big container
+  //fill(255);
+  //rect(pumpBX, pumpBY, 80,70);
   fill(250,20,30);
   controln();
   rect(resizeKnobX+ 40, resizeKnobY, 20,50);
@@ -94,7 +82,8 @@ private int resizeKnobY;
   line(resizeKnobX, resizeKnobY+50, resizeKnobX+40, resizeKnobY+50);
   fill(125);
   rect(30,175,150,250);//control box
-<<<<<<< HEAD
+  fill(255,10,23);
+  rect(pumpX, pumpY, 50,50);
   fill(255);
   textSize(25);
   text("Hold Constant",31 ,200);
@@ -102,7 +91,7 @@ private int resizeKnobY;
   ellipse(45,250,17,17);
   ellipse(45,280,17,17);
   ellipse(45,310,17,17);
-=======
+
   textSize(25);
   fill(255);
   text("Hold Constant",31 ,200);
@@ -115,7 +104,7 @@ private int resizeKnobY;
   fill(255);
   ellipse(45,310,17,17);
   fill(255);
->>>>>>> c9813f29a9076edbc9c5944a22b1cd20ed6f7c1f
+
   ellipse(45,340,17,17);
   textSize(20);
   text("Nothing",60 ,225);
@@ -123,14 +112,6 @@ private int resizeKnobY;
   text("Temperature",60 ,285);
   text("Pressure(V)",60 ,315);
   text("Pressure(T)",60 ,345);
-<<<<<<< HEAD
-  
-
-  
-  }
-  boolean onConstantButton(){
-    return true;
-=======
   if(constantButton){
     fill(138, 191, 237);
   //  constantButtons();
@@ -138,14 +119,10 @@ private int resizeKnobY;
   }
 
   
+
+  
   }
-  void constantButtonPressed(){
-    if(bconstantButtons()){
-    fill(138, 191, 237);
-  //  constantButtons();
-    ellipse(Xconstant, Yconstant, 14,14);
-  }
-  }
+
   
   String constantButtons(){
     if(mouseX >= 36 && mouseX <= 54 ){
@@ -205,7 +182,7 @@ boolean bconstantButtons(){
      
     }
     return false;
->>>>>>> c9813f29a9076edbc9c5944a22b1cd20ed6f7c1f
+
   }
 
   

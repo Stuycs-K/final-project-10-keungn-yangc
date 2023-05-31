@@ -6,17 +6,11 @@ float totMomentum;
 
 private int pumpBX;
 private int pumpBY;
-boolean mouseOnPump() {
-  if (pmouseX >= 100 && pmouseX <= 180 && pmouseY >= 450 && pmouseY <= 520) {
 
-    return true;
-  }
-  return false;
-}
 void mouseClicked() {
 
 
-  if (mouseOnPump()) {
+  if (container.mouseOnPump()) {
 
     container.addSomeParticles();
     pL = container.getArrayL();
