@@ -46,9 +46,13 @@ public class Container {
     particleList = new ArrayList<Particle>();
     constantButton = false;
   }
-  public void addSomeParticles() {
-    for (int i = 0; i<5; i++) {
-      particleList.add(new Particle(220 + random(5, 15), 200+ random(5, 15), 1, 1, 3));
+  
+  void changeConstButt(boolean b){
+    constantButton = b;
+  }
+  public void addSomeParticles(){
+    for(int i = 0; i<5; i++){
+      particleList.add(new Particle(220 + random(5, 15),200+ random(5, 15), 1, 1, 3));
     }
   }
   public ArrayList getArrayL() {
@@ -56,35 +60,41 @@ public class Container {
   }
 
   public void display() {
-    rect(boxX, boxY, container.boxWidth, container.boxHeight);
-    fill(250, 20, 30);
-    controln();
-    rect(resizeKnobX+ 40, resizeKnobY, 20, 50);
-    stroke(200);
-    line(resizeKnobX, resizeKnobY, resizeKnobX+40, resizeKnobY);
-    line(resizeKnobX, resizeKnobY+50, resizeKnobX+40, resizeKnobY+50);
-    fill(125);
-    rect(30, 175, 150, 250);//control box
-    textSize(25);
-    fill(255);
-    text("Hold Constant", 31, 200);
-    fill(255);
-    ellipse(45, 220, 17, 17);
-    fill(255);
-    ellipse(45, 250, 17, 17);
-    fill(255);
-    ellipse(45, 280, 17, 17);
-    fill(255);
-    ellipse(45, 310, 17, 17);
-    fill(255);
-    ellipse(45, 340, 17, 17);
-    textSize(20);
-    text("Nothing", 60, 225);
-    text("Volume", 60, 255);
-    text("Temperature", 60, 285);
-    text("Pressure(V)", 60, 315);
-    text("Pressure(T)", 60, 345);
-    //if boolean display
+  rect(boxX, boxY, container.boxWidth, container.boxHeight);
+  fill(250,20,30);
+  controln();
+  rect(resizeKnobX+ 40, resizeKnobY, 20,50);
+  stroke(200);
+  line(resizeKnobX, resizeKnobY, resizeKnobX+40, resizeKnobY);
+  line(resizeKnobX, resizeKnobY+50, resizeKnobX+40, resizeKnobY+50);
+  fill(125);
+  rect(30,175,150,250);//control box
+  textSize(25);
+  fill(255);
+  text("Hold Constant",31 ,200);
+  fill(255);
+  ellipse(45,220,17,17);
+  fill(255);
+  ellipse(45,250,17,17);
+  fill(255);
+  ellipse(45,280,17,17);
+  fill(255);
+  ellipse(45,310,17,17);
+  fill(255);
+  ellipse(45,340,17,17);
+  textSize(20);
+  text("Nothing",60 ,225);
+  text("Volume",60 ,255);
+  text("Temperature",60 ,285);
+  text("Pressure(V)",60 ,315);
+  text("Pressure(T)",60 ,345);
+  if(constantButton){
+    fill(138, 191, 237);
+  //  constantButtons();
+    ellipse(Xconstant, Yconstant, 14,14);
+  }
+
+  
   }
   void constantButtonPressed() {
     if (bconstantButtons()) {
@@ -217,7 +227,6 @@ public class Container {
     stroke(255, 0, 0);
     line(centerX, centerY, redX, redY);
   }
-
   void controln() {
     n = lightN + mediumN + heavyN;
     fill(125);
