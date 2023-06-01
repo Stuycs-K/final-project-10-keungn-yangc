@@ -41,6 +41,12 @@ info
 - Display variables
 - Work on barometer visual for interface
 
+
+### 5/30
+- Finish barometer visual (still needs some minor tweaks)
+- Differentiate particles of different elements 
+- Starting to add interface for adding and subtracting particles
+
 info
 
 ## Natalie
