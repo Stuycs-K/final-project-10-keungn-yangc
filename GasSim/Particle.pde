@@ -5,26 +5,30 @@ public class Particle {
   color c;
   boolean delay;
 
-  public Particle(float x, float y, float xSpeed, float ySpeed, int period_) {
-    position = new PVector(x, y);
-    velocity = new PVector(xSpeed * random(1, 9), ySpeed * random(1, 9));
+  public Particle(int period_) {
+    position = new PVector(220 + random(5, 15), 200 + random(5, 15));
+    velocity = new PVector(random(1, 9), random(1, 9));
     period = period_;
     if (period == 1) {
       mass = 4;
-      radius = 140/20;
+      radius = 7;
+      c = color(255, 0, 0);
     }
     if (period == 2) {
-      mass = 20;
-      radius = 154/20;
+      mass = 10;
+      radius = 10;
+      c = color(0, 255, 0);
     }
     if (period == 3) {
-      mass = 40;
-      radius = 188/20;
+      mass = 20;
+      radius = 13;
+      c = color(0, 0, 255);
     }
   }
 
 
   void display() {
+    fill(c);
     circle(position.x, position.y, radius*2);
   }
 
@@ -56,7 +60,7 @@ public class Particle {
         collisionMomentum += mass * abs(velocity.x);
       }
     }
-    
+
     offset = position.y + radius - container.boxY - container.boxHeight;
     if (offset > 0) {
       position.y -= offset*2;
