@@ -4,10 +4,17 @@ public class Container {
   private int boxY = 150;//top left corner y-coord of container
   private  int boxWidth = 600;//width of box
   private  int boxHeight = 450;//height of box
+
   private  boolean lidStatus;//if lid is on or off
   private  float P;
   private  float V;
   private  int n;
+  public boolean constantN;
+  public boolean constantV;
+  public boolean constantT;
+  public boolean constantP;
+  private int pumpX;//box to pump in particles top left corner x-coord
+  private int pumpY;//box to pump in particles top left corner y-coord
   private int lightN;
   private int mediumN;
   private int heavyN;
@@ -24,9 +31,10 @@ public class Container {
   private int PUpdateFreq = 100;
   public ArrayList<Particle>particleList = new ArrayList<Particle>();
   public boolean constantButton;//sees if ellipse should be filed if button is pressed
-
-
+  public color b;
+  
   //------------------------------------------------------------------------------------------------------------------------------------------//
+
   public Container() {
     constantVar = new String[] {"P", "V", "n", "T"};
     lidStatus = true;
@@ -34,8 +42,16 @@ public class Container {
     resizeKnobY = boxY + boxHeight/2;
     constantButton = false;
   }
+  boolean mouseOnPump() {
+  if (mouseX >= pumpX && mouseX <= (pumpX + 50) && mouseY >= pumpY && pmouseY <= (pumpY + 50)) {
+
+    return true;
+  }
+  return false;
+}
+
   
-  void changeConstButt(boolean b){
+  void changeConstButt(boolean b){//if mousepressed and its pressing a constant button, turns it true, is used in display to show option was chosen
     constantButton = b;
   }
   public void addSomeParticles(){
@@ -44,17 +60,28 @@ public class Container {
       lightN++;
     }
   }
-
-  public void display() {
-  rect(boxX, boxY, container.boxWidth, container.boxHeight);
+  
+  public void display() {//displays container
+  rect(boxX, boxY, container.boxWidth, container.boxHeight);//displays big container
   fill(250,20,30);
   controln();
   rect(resizeKnobX+ 40, resizeKnobY, 20,50);
   stroke(200);
+  fill(b);
   line(resizeKnobX, resizeKnobY, resizeKnobX+40, resizeKnobY);
   line(resizeKnobX, resizeKnobY+50, resizeKnobX+40, resizeKnobY+50);
   fill(125);
   rect(30,175,150,250);//control box
+  fill(255,10,23);
+  rect(pumpX, pumpY, 50,50);
+  fill(255);
+  textSize(25);
+  text("Hold Constant",31 ,200);
+  ellipse(45,220,17,17);
+  ellipse(45,250,17,17);
+  ellipse(45,280,17,17);
+  ellipse(45,310,17,17);
+
   textSize(25);
   fill(255);
   text("Hold Constant",31 ,200);
@@ -67,6 +94,7 @@ public class Container {
   fill(255);
   ellipse(45,310,17,17);
   fill(255);
+
   ellipse(45,340,17,17);
   textSize(20);
   text("Nothing",60 ,225);
@@ -79,6 +107,8 @@ public class Container {
   //  constantButtons();
     ellipse(Xconstant, Yconstant, 14,14);
   }
+
+  
 
   
   }
@@ -142,15 +172,16 @@ public class Container {
       }
     }
     return false;
+
   }
 
-
-
-  boolean mouseOnVolB() {
-    if (mouseX >= resizeKnobX && mouseX <= resizeKnobX + 60 && mouseY >= resizeKnobY && mouseY <= resizeKnobY + 50) {
-
+  
+  boolean mouseOnVolB(){
+    if(mouseX >= resizeKnobX && mouseX <= resizeKnobX + 60 && mouseY >= resizeKnobY && mouseY <= resizeKnobY + 50){
+      b = color(138, 191, 237);
       return true;
     }
+    b = color(80,2,9);
     return false;
   }
 

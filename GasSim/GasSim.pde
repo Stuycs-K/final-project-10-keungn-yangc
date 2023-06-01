@@ -89,9 +89,6 @@ int addRemove() {
 
 
 
-
-
-
   if (pmouseX > container.pumpBX + container.pumpWidth/20 &&
     pmouseX < container.pumpBX + container.pumpWidth/20 + 2*container.pumpWidth/15 &&
     pmouseY > container.pumpBY + container.pumpHeight/3.5 + 2*container.pumpHeight/3.5 &&
@@ -162,7 +159,6 @@ void mouseClicked() {
     container.particleList.add(new Particle(1));
     container.lightN++;
   }
-
 
 
   if (click == REMOVE_MEDIUM_LITTLE && container.mediumN > 0) {
@@ -238,7 +234,6 @@ void mouseClicked() {
   }
 
   if (mouseOnPump()) {
-
     //container.addSomeParticles();
   }
   System.out.println(mouseX + " " + mouseY);
@@ -248,13 +243,17 @@ void mouseClicked() {
     String s = container.constantButtons();
     System.out.println(s);
   }
-
+  if(container.mouseOnVolB()){
+    System.out.println("ResizeButton is pressed");
+  }
+    
+  //when clicked change colors, follow mouse, click again to switch out. 
   //container.constantButtonPressed();
 }
 void mouseReleased() {
   released = mouseX;
 }
-void mouseDragged() {
+/*void mouseDragged() {
   if (container.mouseOnVolB()) {
     System.out.println("true");
 
@@ -265,7 +264,7 @@ void mouseDragged() {
       System.out.println("dif place");
     }
   }
-}
+}*/
 
 
 
