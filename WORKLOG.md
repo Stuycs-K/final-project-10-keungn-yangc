@@ -42,10 +42,14 @@ info
 - Work on barometer visual for interface
 
 
-### 5/30
+### 5/31
 - Finish barometer visual (still needs some minor tweaks)
 - Differentiate particles of different elements 
-- Starting to add interface for adding and subtracting particles
+- Starting to add interface for adding and removing particles
+
+
+### 6/1
+- Finish interface for adding and removing particles
 
 info
 
