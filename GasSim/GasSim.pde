@@ -74,7 +74,7 @@ void draw() {
       particleA.particleCollide(particleB);
     }
   }
-  
+
   fill(255);
   textSize(20);
   container.calcTemperature();
@@ -86,7 +86,7 @@ void draw() {
   //displays pressure
   container.barometer();
   text("Volume: " + container.V, 40, 110);
-  if(frameCount % container.PUpdateFreq == 0) {
+  if (frameCount % container.PUpdateFreq == 0) {
     totMomentum = 0;
   }
 }
