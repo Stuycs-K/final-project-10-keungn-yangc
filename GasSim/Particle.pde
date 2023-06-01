@@ -5,9 +5,9 @@ public class Particle {
   color c;
   boolean delay;
 
-  public Particle(float x, float y, float xSpeed, float ySpeed, int period_) {
-    position = new PVector(x, y);
-    velocity = new PVector(xSpeed * random(1, 9), ySpeed * random(1, 9));
+  public Particle(int period_) {
+    position = new PVector(220 + random(5, 15), 200 + random(5, 15));
+    velocity = new PVector(random(1, 9), random(1, 9));
     period = period_;
     if (period == 1) {
       mass = 4;

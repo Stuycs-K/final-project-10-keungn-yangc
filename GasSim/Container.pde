@@ -1,9 +1,10 @@
 public class Container {
   private String[] constantVar;
-  private int boxX;//top left corner x-coord of container
-  private int boxY;//top left corner y-coord of container
-  private  int boxWidth;//width of box
-  private  int boxHeight;//height of box
+  private int boxX = 200;//top left corner x-coord of container
+  private int boxY = 150;//top left corner y-coord of container
+  private  int boxWidth = 600;//width of box
+  private  int boxHeight = 450;//height of box
+
   private  boolean lidStatus;//if lid is on or off
   private  float P;
   private  float V;
@@ -23,10 +24,12 @@ public class Container {
   private int resizeKnobY;//y-coord of where box/container ends and the lines and resize box start
   private int Xconstant = 45;//center x-coord of ellipse if one of constant buttons is pressed
   private int Yconstant;//center y-coord of ellipse if one of constant buttons is pressed
-  private int pumpBX;
-  private int pumpBY;//box to pump in particles top left corner y-coord
+  private int pumpBX = 30;//box to pump in particles top left corner x-coord
+  private int pumpBY = 450;//box to pump in particles top left corner y-coord
+  private int pumpWidth = 150;
+  private int pumpHeight = 200;
   private int PUpdateFreq = 100;
-  public ArrayList<Particle>particleList;
+  public ArrayList<Particle>particleList = new ArrayList<Particle>();
   public boolean constantButton;//sees if ellipse should be filed if button is pressed
   public color b;
   
@@ -34,20 +37,9 @@ public class Container {
 
   public Container() {
     constantVar = new String[] {"P", "V", "n", "T"};
-    boxWidth = 600;
-    boxHeight = 450;
     lidStatus = true;
-    P = 0;
-    V =0;
-    n = 0;
-    T = 0;
-    boxX = 200;
-    boxY = 150;
-    pumpX = 45;
-    pumpY = 365;
     resizeKnobX = boxX + boxWidth ;
     resizeKnobY = boxY + boxHeight/2;
-    particleList = new ArrayList<Particle>();
     constantButton = false;
   }
   boolean mouseOnPump() {
@@ -64,20 +56,13 @@ public class Container {
   }
   public void addSomeParticles(){
     for(int i = 0; i<5; i++){
-      particleList.add(new Particle(220 + random(5, 15),200+ random(5, 15), 1, 1, 3));
-
+      particleList.add(new Particle(1));
+      lightN++;
     }
-  }
-  
-  public ArrayList getArrayL(){//get arraylist, used to be accessed in gasSim file
-    return particleList;
   }
   
   public void display() {//displays container
   rect(boxX, boxY, container.boxWidth, container.boxHeight);//displays big container
-  //fill(255);
-  //rect(pumpBX, pumpBY, 80,70);
-
   fill(250,20,30);
   controln();
   rect(resizeKnobX+ 40, resizeKnobY, 20,50);
@@ -220,13 +205,11 @@ public class Container {
   public void changeVol() {
   }
 
-  //i guess this handles both temp and moles (n) .. it feels out of place
   void calcTemperature() {
     float totalKineticEnergy = 0;
-    for (Particle p : pL) {
+    for (Particle p : container.particleList) {
       totalKineticEnergy += 0.5 * p.mass * p.velocity.magSq();
     }
-    n = pL.size();
     T = totalKineticEnergy / n;
   }
 
@@ -264,8 +247,6 @@ public class Container {
     fill(125);
     pumpBX = 30;
     pumpBY = 450;
-    int pumpWidth = 150;
-    int pumpHeight = 200;
     rect(pumpBX, pumpBY, pumpWidth, pumpHeight);
     textSize(25);
     fill(255);
@@ -388,7 +369,7 @@ public class Container {
     
     //display count 
     fill(255);
-    text(n, pumpBX + 2*pumpWidth/5, pumpBY + pumpHeight/2.78);
+    text(heavyN, pumpBX + 2*pumpWidth/5, pumpBY + pumpHeight/2.78);
     
     
     
