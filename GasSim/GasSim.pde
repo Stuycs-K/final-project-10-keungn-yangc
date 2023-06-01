@@ -6,17 +6,11 @@ float totMomentum;
 
 private int pumpBX;
 private int pumpBY;
-boolean mouseOnPump() {
-  if (pmouseX >= 100 && pmouseX <= 180 && pmouseY >= 450 && pmouseY <= 520) {
 
-    return true;
-  }
-  return false;
-}
 void mouseClicked() {
 
 
-  if (mouseOnPump()) {
+  if (container.mouseOnPump()) {
 
     container.addSomeParticles();
     pL = container.getArrayL();
@@ -28,13 +22,17 @@ void mouseClicked() {
   String s = container.constantButtons();
   System.out.println(s);
   }
-  
+  if(container.mouseOnVolB()){
+    System.out.println("ResizeButton is pressed");
+  }
+    
+  //when clicked change colors, follow mouse, click again to switch out. 
   //container.constantButtonPressed();
 }
 void mouseReleased() {
   released = mouseX;
 }
-void mouseDragged() {
+/*void mouseDragged() {
   if (container.mouseOnVolB()) {
     System.out.println("true");
 
@@ -45,7 +43,7 @@ void mouseDragged() {
       System.out.println("dif place");
     }
   }
-}
+}*/
 
 
 
