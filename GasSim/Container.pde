@@ -4,7 +4,6 @@ public class Container {
   private int boxY = 150;//top left corner y-coord of container
   private  int boxWidth = 600;//width of box
   private  int boxHeight = 450;//height of box
-
   private  boolean lidStatus;//if lid is on or off
   private  float P;
   private  float V;
@@ -31,7 +30,9 @@ public class Container {
   private int PUpdateFreq = 100;
   public ArrayList<Particle>particleList = new ArrayList<Particle>();
   public boolean constantButton;//sees if ellipse should be filed if button is pressed
-  public color b;
+  public color b;//color of constant button if pressed
+  public color d;
+  public boolean sized;
   
   //------------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -41,13 +42,30 @@ public class Container {
     resizeKnobX = boxX + boxWidth ;
     resizeKnobY = boxY + boxHeight/2;
     constantButton = false;
+    d = 255;
+    sized = false;
   }
-  boolean mouseOnPump() {
+  void mouseOnPump() {
   if (mouseX >= pumpX && mouseX <= (pumpX + 50) && mouseY >= pumpY && pmouseY <= (pumpY + 50)) {
-
-    return true;
+    sized = true;
+    d = color(245,40,145);
+    System.out.println("color change");
+   
+    //return true;
   }
-  return false;
+  sized = false;
+   d = color(255);
+ //return false;
+ // System.out.println(d);
+} 
+
+void changeResizeColor(){
+  if(sized){
+     d = color(245,40,145);
+  }
+  else{
+    d = color(255);
+  }
 }
 
   
@@ -65,6 +83,7 @@ public class Container {
   rect(boxX, boxY, container.boxWidth, container.boxHeight);//displays big container
   fill(250,20,30);
   controln();
+  fill(d  );
   rect(resizeKnobX+ 40, resizeKnobY, 20,50);
   stroke(200);
   fill(b);

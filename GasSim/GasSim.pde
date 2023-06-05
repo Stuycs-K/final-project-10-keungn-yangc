@@ -119,10 +119,18 @@ int addRemove() {
 
   return 0;
 }
-
+//void resize(){
+//  if 
 
 
 void mouseClicked() {
+  //if(container.mouseOnPump()){
+  //  container.changeResizeColor();
+  //  System.out.println("mouse clicked on resize");
+  //}
+container.mouseOnPump();
+
+  
   int click = addRemove();
   if (click == REMOVE_LIGHT_LITTLE && container.lightN > 0) {
     for (int i = 0; i < container.particleList.size(); i++) {
