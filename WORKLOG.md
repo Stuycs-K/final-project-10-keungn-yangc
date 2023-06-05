@@ -51,6 +51,10 @@ info
 ### 6/1
 - Finish interface for adding and removing particles
 
+### 6/4
+- Drew painstakingly detailed thermometer
+- Display dynamic temperature through thermometer
+
 info
 
 ## Natalie
