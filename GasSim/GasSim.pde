@@ -305,6 +305,7 @@ void draw() {
   text("Pressure: " + container.P, 40, 80);
   //displays pressure
   container.barometer();
+  container.thermometer();
   text("Volume: " + container.V, 40, 110);
   if (frameCount % container.PUpdateFreq == 0) {
     totMomentum = 0;
