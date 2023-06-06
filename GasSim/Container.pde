@@ -1,5 +1,10 @@
 public class Container {
-  private String[] constantVar;
+  private final int NOTHING = 0;
+  private final int CONST_V = 1;
+  private final int CONST_T = 2;
+  private final int CONST_P_V = 3;
+  private final int CONST_P_T = 4;
+  private int[] constantVar = new int[] {NOTHING, CONST_V, CONST_T, CONST_P_V, CONST_P_T};
   private int boxX = 200;//top left corner x-coord of container
   private int boxY = 150;//top left corner y-coord of container
   private  int boxWidth = 600;//width of box
@@ -19,7 +24,7 @@ public class Container {
   private int mediumN;
   private int heavyN;
   private  final float R = 0.0821;
-  private  float T;
+  private  float T = 300;
   private int resizeKnobX;//x-coord of where box/container ends and the lines and resize box start
   private int resizeKnobY;//y-coord of where box/container ends and the lines and resize box start
   private int Xconstant = 45;//center x-coord of ellipse if one of constant buttons is pressed
@@ -30,6 +35,10 @@ public class Container {
   private int pumpHeight = 200;
   private int thermX = 400;
   private int thermY = 100;
+  private int bucketX = 300;
+  private int bucketY = 650;
+  private int bucketWidth = 75;
+  private int bucketHeight = 100;
   private int PUpdateFreq = 100;
   public ArrayList<Particle>particleList = new ArrayList<Particle>();
   public boolean constantButton;//sees if ellipse should be filed if button is pressed
@@ -38,7 +47,6 @@ public class Container {
   //------------------------------------------------------------------------------------------------------------------------------------------//
 
   public Container() {
-    constantVar = new String[] {"P", "V", "n", "T"};
     lidStatus = true;
     resizeKnobX = boxX + boxWidth ;
     resizeKnobY = boxY + boxHeight/2;
@@ -67,6 +75,7 @@ public class Container {
     rect(boxX, boxY, container.boxWidth, container.boxHeight);//displays big container
     fill(250, 20, 30);
     controln();
+    controlTemp();
     rect(resizeKnobX+ 40, resizeKnobY, 20, 50);
     stroke(200);
     fill(b);
@@ -416,5 +425,10 @@ public class Container {
       }
       line(thermX-5.83, thermY-73.8+(i+1)*incrementY, thermX-5.8+incrementX, thermY-73.8+(i+1)*incrementY);
     }
+  }
+  
+  void controlTemp() {
+    fill(100);
+    rect(bucketX, bucketY, bucketWidth, bucketHeight);
   }
 }
