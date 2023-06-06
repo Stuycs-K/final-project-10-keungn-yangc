@@ -55,6 +55,11 @@ info
 - Drew painstakingly detailed thermometer
 - Display dynamic temperature through thermometer
 
+
+### 6/5
+- Start implementing feature for holding variables constants-began with T
+- Add method for adjusting temperature by multiplying kinetic energies of each particle
+
 info
 
 ## Natalie
