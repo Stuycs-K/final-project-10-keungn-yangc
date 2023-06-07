@@ -60,7 +60,9 @@ info
 - Start implementing feature for holding variables constants-began with T
 - Add method for adjusting temperature by multiplying kinetic energies of each particle
 
-info
+
+### 6/6
+- Work on holding temperature constant
 
 ## Natalie
 
