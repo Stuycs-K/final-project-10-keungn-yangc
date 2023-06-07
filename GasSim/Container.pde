@@ -66,7 +66,7 @@ public class Container {
   }
   public void addSomeParticles() {
     for (int i = 0; i<5; i++) {
-      particleList.add(new Particle(1));
+      particleList.add(new Particle(1, T));
       lightN++;
     }
   }

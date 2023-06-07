@@ -150,13 +150,13 @@ void mouseClicked() {
   if (click == ADD_LIGHT_LOT) {
     for (int i = 0; i < 10; i++) {
       if (container.lightN < 100) {
-        container.particleList.add(new Particle(1));
+        container.particleList.add(new Particle(1, container.T));
         container.lightN++;
       }
     }
   }
   if (click == ADD_LIGHT_LITTLE && container.lightN < 100) {
-    container.particleList.add(new Particle(1));
+    container.particleList.add(new Particle(1, container.T));
     container.lightN++;
   }
 
@@ -186,13 +186,13 @@ void mouseClicked() {
   if (click == ADD_MEDIUM_LOT) {
     for (int i = 0; i < 10; i++) {
       if (container.mediumN < 100) {
-        container.particleList.add(new Particle(2));
+        container.particleList.add(new Particle(2, container.T));
         container.mediumN++;
       }
     }
   }
   if (click == ADD_MEDIUM_LITTLE && container.mediumN < 100) {
-    container.particleList.add(new Particle(2));
+    container.particleList.add(new Particle(2, container.T));
     container.mediumN++;
   }
 
@@ -223,13 +223,13 @@ void mouseClicked() {
   if (click == ADD_HEAVY_LOT) {
     for (int i = 0; i < 10; i++) {
       if (container.heavyN < 100) {
-        container.particleList.add(new Particle(3));
+        container.particleList.add(new Particle(3, container.T));
         container.heavyN++;
       }
     }
   }
   if (click == ADD_HEAVY_LITTLE && container.heavyN < 100) {
-    container.particleList.add(new Particle(3));
+    container.particleList.add(new Particle(3, container.T));
     container.heavyN++;
   }
     
