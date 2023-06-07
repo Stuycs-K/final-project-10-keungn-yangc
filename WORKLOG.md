@@ -71,20 +71,28 @@ info
 - start figuring out buttons and resizing for shapes
 - drafted up unfinished rectangle(container) resizing(does not work)
 
-
-## Natalie
-
 ### 5/24
 - made button to spawn more particles from a specific side of the container
 - only spawns one particle everytime button is pressed when it should spawn(will fix)
 - found error in wall collision for when particle is spawned on the wall
 
-## Natalie
-
 ### 5/25
 - made button to do resizing
 - made function to make the box change size
 - function is glitchy but is good placehlder for now
+
+### 5/26/23
+- designed control box
+- tried to fix resize (again)
+
+### 5/28/23
+- made buttons, added variables (mostly booleans), made buttons switch
+
+### 5/29/23
+- restarted resize and got rid of dragged, tried to get separate lines and make a toggle method (didn't not succeed)
+
+### 5/30/23 & 5/31/23
+- worked on resize again, did not work
 
 
 
