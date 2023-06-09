@@ -23,11 +23,9 @@ public class Particle {
       c = color(0, 0, 255);
     }
     position = new PVector(220 + random(5, 15), 200 + random(5, 15));
-    float velocityX = random(1, 9);
-    float velocityY = random(1, 9);
-    velocity = new PVector(velocityX, velocityY);
-    //float mag = velocity.mag();
-    //velocity.mult((float)Math.sqrt(T/mag));
+    float xComponent = random(0.2, 0.8);
+    float yComponent = (float)Math.sqrt(1 - (xComponent*xComponent));
+    velocity = new PVector((float)(Math.sqrt(300/(0.5*mass)) * xComponent), (float)(Math.sqrt(300/(0.5*mass)) * yComponent));
   }
 
 
