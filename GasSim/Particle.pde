@@ -5,7 +5,7 @@ public class Particle {
   color c;
   boolean delay;
 
-  public Particle(int period_) {
+  public Particle(int period_, float T) {
     period = period_;
     if (period == 1) {
       mass = 4;
@@ -23,7 +23,9 @@ public class Particle {
       c = color(0, 0, 255);
     }
     position = new PVector(220 + random(5, 15), 200 + random(5, 15));
-    velocity = new PVector((float)(random(.5, 1.5) * ((Math.sqrt(300/(0.5*mass)))/Math.sqrt(2))), (float)(random(.5, 1.5) * ((Math.sqrt(300/(0.5*mass)))/Math.sqrt(2))));
+    float xComponent = random(0.2, 0.8);
+    float yComponent = (float)Math.sqrt(1 - (xComponent*xComponent));
+    velocity = new PVector((float)(Math.sqrt(300/(0.5*mass)) * xComponent), (float)(Math.sqrt(300/(0.5*mass)) * yComponent));
   }
 
 

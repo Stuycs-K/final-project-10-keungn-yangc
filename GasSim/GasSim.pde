@@ -151,13 +151,13 @@ void mouseClicked() {
   if (click == ADD_LIGHT_LOT) {
     for (int i = 0; i < 10; i++) {
       if (container.lightN < 100) {
-        container.particleList.add(new Particle(1));
+        container.particleList.add(new Particle(1, container.T));
         container.lightN++;
       }
     }
   }
   if (click == ADD_LIGHT_LITTLE && container.lightN < 100) {
-    container.particleList.add(new Particle(1));
+    container.particleList.add(new Particle(1, container.T));
     container.lightN++;
   }
 
@@ -187,13 +187,13 @@ void mouseClicked() {
   if (click == ADD_MEDIUM_LOT) {
     for (int i = 0; i < 10; i++) {
       if (container.mediumN < 100) {
-        container.particleList.add(new Particle(2));
+        container.particleList.add(new Particle(2, container.T));
         container.mediumN++;
       }
     }
   }
   if (click == ADD_MEDIUM_LITTLE && container.mediumN < 100) {
-    container.particleList.add(new Particle(2));
+    container.particleList.add(new Particle(2, container.T));
     container.mediumN++;
   }
 
@@ -224,13 +224,13 @@ void mouseClicked() {
   if (click == ADD_HEAVY_LOT) {
     for (int i = 0; i < 10; i++) {
       if (container.heavyN < 100) {
-        container.particleList.add(new Particle(3));
+        container.particleList.add(new Particle(3, container.T));
         container.heavyN++;
       }
     }
   }
   if (click == ADD_HEAVY_LITTLE && container.heavyN < 100) {
-    container.particleList.add(new Particle(3));
+    container.particleList.add(new Particle(3, container.T));
     container.heavyN++;
   }
     
@@ -326,14 +326,11 @@ void draw() {
   container.calcTemperature();
   container.calcPressure(totMomentum);
   container.calcVolume();
-  text("# of Particles (moles): " + container.n, 40, 20);
-  text("Temperature: " + container.T, 40, 50);
-  text("Pressure: " + container.P, 40, 80);
 
   //displays pressure
   container.barometer();
   container.thermometer();
-  text("Volume: " + container.V, 40, 110);
+  
   if (frameCount % container.PUpdateFreq == 0) {
     totMomentum = 0;
   }

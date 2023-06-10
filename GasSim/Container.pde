@@ -35,6 +35,8 @@ public class Container {
   private int pumpHeight = 200;
   private int thermX = 400;
   private int thermY = 100;
+  private int baroX = 300;
+  private int baroY = 65;
   private int bucketX = 300;
   private int bucketY = 650;
   private int bucketWidth = 75;
@@ -66,7 +68,7 @@ public class Container {
   }
   public void addSomeParticles() {
     for (int i = 0; i<5; i++) {
-      particleList.add(new Particle(1));
+      particleList.add(new Particle(1, T));
       lightN++;
     }
   }
@@ -222,7 +224,11 @@ public class Container {
     for (Particle p : container.particleList) {
       totalKineticEnergy += 0.5 * p.mass * p.velocity.magSq();
     }
-    T = totalKineticEnergy / n;
+    if (totalKineticEnergy > 0) {
+      T = totalKineticEnergy / n;
+    } else {
+      T = 0;
+    }
   }
 
   void calcPressure(float momentumTotal) {
@@ -239,20 +245,24 @@ public class Container {
   //display pressure
   void barometer() {
     fill(255);
-    int centerX = boxX + 100;
-    int centerY = boxY - 85;
+    int baroX = boxX + 100;
+    int baroY = boxY - 85;
     int r = 50;
-    circle(centerX, centerY, r * 2);
+    circle(baroX, baroY, r * 2);
     for (float theta = PI/6; theta > (-7*PI)/6; theta -= PI/6) {
-      line(centerX, centerY, centerX + (cos(theta) * r), centerY + (sin(theta) * r));
+      line(baroX, baroY, baroX + (cos(theta) * r), baroY + (sin(theta) * r));
     }
     noStroke();
-    circle(centerX, centerY, r * 1.5);
+    circle(baroX, baroY, r * 1.5);
     float redTheta = PI/6 + (P / -0.001) * PI/96;
-    float redX = centerX + (cos(redTheta) * r);
-    float redY = centerY + (sin(redTheta) * r);
+    float redX = baroX + (cos(redTheta) * r);
+    float redY = baroY + (sin(redTheta) * r);
     stroke(255, 0, 0);
-    line(centerX, centerY, redX, redY);
+    line(baroX, baroY, redX, redY);
+    stroke(0);
+    rect(baroX - 30, baroY + 58, 60, 20, 5);
+    fill(0);
+    text(nf(container.P, 0, 3), baroX - 22, baroY + 75);
   }
 
 
@@ -431,6 +441,12 @@ public class Container {
       }
       line(thermX-5.83, thermY-73.8+(i+1)*incrementY, thermX-5.8+incrementX, thermY-73.8+(i+1)*incrementY);
     }
+    
+    fill(255);
+    rect(thermX - 30, thermY + 23, 60, 20, 5);
+    textSize(20);
+    fill(0);
+    text(nf(container.T, 4, 0), thermX - 20, thermY + 40);
   }
   
   void controlTemp() {
