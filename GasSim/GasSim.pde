@@ -1,6 +1,7 @@
 Container container = new Container();
 
-private int released;
+private int mouseXLast;
+private boolean isDraggingVolB = false;
 float totMomentum;
 
 private int pumpBX;
@@ -267,21 +268,29 @@ void mouseClicked() {
   //when clicked change colors, follow mouse, click again to switch out. 
   //container.constantButtonPressed();
 }
-void mouseReleased() {
-  released = mouseX;
-}
-/*void mouseDragged() {
+void mousePressed() {
   if (container.mouseOnVolB()) {
+    mouseXLast = mouseX;
+    isDraggingVolB = true;
+  }
+}
+void mouseReleased() {
+  isDraggingVolB = false;
+}
+void mouseDragged() {
+  if (isDraggingVolB) {
     System.out.println("true");
 
-    int newPlace = released;
+    int newPlace = mouseX;
 
     System.out.println(newPlace);
-    if (container.changeResizeX(newPlace)) {
+    if (container.changeResizeX(newPlace-mouseXLast)) {
+      mouseXLast = newPlace;
       System.out.println("dif place");
     }
   }
-}*/
+}
+
 
 
 
@@ -317,13 +326,10 @@ void draw() {
   container.calcTemperature();
   container.calcPressure(totMomentum);
   container.calcVolume();
-  text("# of Particles (moles): " + container.n, 40, 20);
-  text("Temperature: " + container.T, 40, 50);
-  text("Pressure: " + container.P, 40, 80);
   //displays pressure
   container.barometer();
   container.thermometer();
-  text("Volume: " + container.V, 40, 110);
+  
   if (frameCount % container.PUpdateFreq == 0) {
     totMomentum = 0;
   }

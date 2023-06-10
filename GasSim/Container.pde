@@ -195,9 +195,15 @@ public class Container {
 
   boolean changeResizeX(int num) {
     System.out.println(num);
-    if (num != 840 && num > 200 && num <900) {
+    int resizeKnobXNew = resizeKnobX + num;
+    if(resizeKnobXNew < boxX + 200) {
+      resizeKnobXNew = boxX + 200;
+    } else if(resizeKnobXNew > 900) {
+      resizeKnobXNew = 900;
+    }
 
-      resizeKnobX = num;
+    if (resizeKnobXNew != resizeKnobX) {
+      resizeKnobX = resizeKnobXNew;
       boxWidth = resizeKnobX - boxX;
       return true;
     }
@@ -218,7 +224,11 @@ public class Container {
     for (Particle p : container.particleList) {
       totalKineticEnergy += 0.5 * p.mass * p.velocity.magSq();
     }
-    T = totalKineticEnergy / n;
+    if (totalKineticEnergy > 0) {
+      T = totalKineticEnergy / n;
+    } else {
+      T = 0;
+    }
   }
 
   void calcPressure(float momentumTotal) {
@@ -249,8 +259,10 @@ public class Container {
     float redY = baroY + (sin(redTheta) * r);
     stroke(255, 0, 0);
     line(baroX, baroY, redX, redY);
-    
-    rect(baroX - 30, baroY + 20, 60, 20, 5);
+    stroke(0);
+    rect(baroX - 30, baroY + 58, 60, 20, 5);
+    fill(0);
+    text(nf(container.P, 0, 3), baroX - 22, baroY + 75);
   }
 
 
@@ -431,7 +443,10 @@ public class Container {
     }
     
     fill(255);
-    rect(thermX - 30, thermY + 20, 60, 20, 5);
+    rect(thermX - 30, thermY + 23, 60, 20, 5);
+    textSize(20);
+    fill(0);
+    text(nf(container.T, 4, 0), thermX - 20, thermY + 40);
   }
   
   void controlTemp() {
