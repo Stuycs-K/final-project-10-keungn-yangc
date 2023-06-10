@@ -1,6 +1,7 @@
 Container container = new Container();
 
-private int released;
+private int mouseXLast;
+private boolean isDraggingVolB = false;
 float totMomentum;
 
 private int pumpBX;
@@ -119,18 +120,10 @@ int addRemove() {
 
   return 0;
 }
-//void resize(){
-//  if 
+
 
 
 void mouseClicked() {
-  //if(container.mouseOnPump()){
-  //  container.changeResizeColor();
-  //  System.out.println("mouse clicked on resize");
-  //}
-container.mouseOnPump();
-
-  
   int click = addRemove();
   if (click == REMOVE_LIGHT_LITTLE && container.lightN > 0) {
     for (int i = 0; i < container.particleList.size(); i++) {
@@ -240,6 +233,23 @@ container.mouseOnPump();
     container.particleList.add(new Particle(3));
     container.heavyN++;
   }
+    
+  
+  //CONTROL TEMP
+  if(pmouseX > container.bucketX && pmouseX < container.bucketX + container.bucketWidth &&
+     pmouseY > container.bucketY && pmouseY < container.bucketY + container.bucketHeight/2) {
+     for(Particle p: container.particleList) {
+       p.velocity.mult((float)Math.sqrt((container.T+1)/container.T));
+     }
+   }
+   
+   if(pmouseX > container.bucketX && pmouseX < container.bucketX + container.bucketWidth &&
+     pmouseY > container.bucketY + container.bucketHeight/2 && pmouseY < container.bucketY + container.bucketHeight) {
+     for(Particle p: container.particleList) {
+       p.velocity.mult((float)Math.sqrt((container.T-1)/container.T));
+     }
+   }
+  
 
   if (mouseOnPump()) {
     //container.addSomeParticles();
@@ -258,21 +268,29 @@ container.mouseOnPump();
   //when clicked change colors, follow mouse, click again to switch out. 
   //container.constantButtonPressed();
 }
-void mouseReleased() {
-  released = mouseX;
-}
-/*void mouseDragged() {
+void mousePressed() {
   if (container.mouseOnVolB()) {
+    mouseXLast = mouseX;
+    isDraggingVolB = true;
+  }
+}
+void mouseReleased() {
+  isDraggingVolB = false;
+}
+
+void mouseDragged() {
+  if (isDraggingVolB) {
     System.out.println("true");
 
-    int newPlace = released;
+    int newPlace = mouseX;
 
     System.out.println(newPlace);
-    if (container.changeResizeX(newPlace)) {
+    if (container.changeResizeX(newPlace-mouseXLast)) {
+      mouseXLast = newPlace;
       System.out.println("dif place");
     }
   }
-}*/
+}
 
 
 
@@ -311,8 +329,10 @@ void draw() {
   text("# of Particles (moles): " + container.n, 40, 20);
   text("Temperature: " + container.T, 40, 50);
   text("Pressure: " + container.P, 40, 80);
+
   //displays pressure
   container.barometer();
+  container.thermometer();
   text("Volume: " + container.V, 40, 110);
   if (frameCount % container.PUpdateFreq == 0) {
     totMomentum = 0;
