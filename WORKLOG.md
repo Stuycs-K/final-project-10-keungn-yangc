@@ -42,12 +42,27 @@ info
 - Work on barometer visual for interface
 
 
-### 5/30
+### 5/31
 - Finish barometer visual (still needs some minor tweaks)
 - Differentiate particles of different elements 
-- Starting to add interface for adding and subtracting particles
+- Starting to add interface for adding and removing particles
 
-info
+
+### 6/1
+- Finish interface for adding and removing particles
+
+### 6/4
+- Drew painstakingly detailed thermometer
+- Display dynamic temperature through thermometer
+
+
+### 6/5
+- Start implementing feature for holding variables constants-began with T
+- Add method for adjusting temperature by multiplying kinetic energies of each particle
+
+
+### 6/6
+- Work on holding temperature constant
 
 ## Natalie
 
@@ -56,20 +71,28 @@ info
 - start figuring out buttons and resizing for shapes
 - drafted up unfinished rectangle(container) resizing(does not work)
 
-
-## Natalie
-
 ### 5/24
 - made button to spawn more particles from a specific side of the container
 - only spawns one particle everytime button is pressed when it should spawn(will fix)
 - found error in wall collision for when particle is spawned on the wall
 
-## Natalie
-
 ### 5/25
 - made button to do resizing
 - made function to make the box change size
 - function is glitchy but is good placehlder for now
+
+### 5/26/23
+- designed control box
+- tried to fix resize (again)
+
+### 5/28/23
+- made buttons, added variables (mostly booleans), made buttons switch
+
+### 5/29/23
+- restarted resize and got rid of dragged, tried to get separate lines and make a toggle method (didn't not succeed)
+
+### 5/30/23 & 5/31/23
+- worked on resize again, did not work
 
 
 

@@ -277,6 +277,7 @@ void mousePressed() {
 void mouseReleased() {
   isDraggingVolB = false;
 }
+
 void mouseDragged() {
   if (isDraggingVolB) {
     System.out.println("true");
@@ -290,7 +291,6 @@ void mouseDragged() {
     }
   }
 }
-
 
 
 
@@ -326,6 +326,7 @@ void draw() {
   container.calcTemperature();
   container.calcPressure(totMomentum);
   container.calcVolume();
+
   //displays pressure
   container.barometer();
   container.thermometer();
