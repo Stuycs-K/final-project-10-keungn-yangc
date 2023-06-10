@@ -4,7 +4,7 @@ public class Container {
   private final int CONST_T = 2;
   private final int CONST_P_V = 3;
   private final int CONST_P_T = 4;
-  private int[] constantVar = new int[] {NOTHING, CONST_V, CONST_T, CONST_P_V, CONST_P_T};
+  private int constantVar = NOTHING;
   private int boxX = 200;//top left corner x-coord of container
   private int boxY = 150;//top left corner y-coord of container
   private  int boxWidth = 600;//width of box
@@ -66,23 +66,27 @@ public class Container {
   void changeConstButt(boolean b) {//if mousepressed and its pressing a constant button, turns it true, is used in display to show option was chosen
     constantButton = b;
   }
-  public void addSomeParticles() {
-    for (int i = 0; i<5; i++) {
-      particleList.add(new Particle(1, T));
-      lightN++;
-    }
-  }
 
   public void display() {//displays container
     rect(boxX, boxY, container.boxWidth, container.boxHeight);//displays big container
     fill(250, 20, 30);
     controln();
     controlTemp();
-    rect(resizeKnobX+ 40, resizeKnobY, 20, 50);
+    
     stroke(200);
+    if(constantVar != CONST_V && constantVar != CONST_P_V){
+    rect(resizeKnobX+ 40, resizeKnobY, 20, 50);
+    
     fill(b);
     line(resizeKnobX, resizeKnobY, resizeKnobX+40, resizeKnobY);
     line(resizeKnobX, resizeKnobY+50, resizeKnobX+40, resizeKnobY+50);
+  }
+  
+  textSize(20);
+  fill(255);
+      text("Volume: " + nf(V, 0, 0), 35, 165); 
+  
+  
     fill(125);
     rect(30, 175, 150, 250);//control box
     fill(255, 10, 23);
@@ -94,8 +98,6 @@ public class Container {
     ellipse(45, 250, 17, 17);
     ellipse(45, 280, 17, 17);
     ellipse(45, 310, 17, 17);
-
-    textSize(25);
     fill(255);
     text("Hold Constant", 31, 200);
     fill(255);
@@ -121,6 +123,7 @@ public class Container {
       ellipse(Xconstant, Yconstant, 14, 14);
     }
   }
+  
   void constantButtonPressed() {
     if (bconstantButtons()) {
       fill(138, 191, 237);
@@ -129,54 +132,32 @@ public class Container {
     }
   }
 
-  String constantButtons() {
-    if (mouseX >= 36 && mouseX <= 54 ) {
-      //System.out.println("nothing");
-      if (mouseY >= 213 && mouseY <= 229) {
-
-        Yconstant = 220;
-        return "Nothing";
-      }
-      if (mouseY >= 243 && mouseY <= 259) {
-        Yconstant = 250;
-        return "Volume";
-      }
-      if (mouseY >= 273 && mouseY <= 289) {
-        Yconstant = 280;
-        return "Temperature";
-      }
-      if (mouseY >= 303 && mouseY <= 319) {
-        Yconstant = 310;
-        return "Pressure(V)";
-      }
-      if (mouseY >= 333 && mouseY <= 349) {
-        Yconstant = 340;
-        return "Pressure(T)";
-      }
-    }
-    return "nothing was clicked";
-  }
   boolean bconstantButtons() {
     if (mouseX >= 36 && mouseX <= 54 ) {
       //System.out.println("nothing");
       if (mouseY >= 213 && mouseY <= 229) {
-
+        constantVar = NOTHING;
+        Yconstant = 220;
         return true;
       }
       if (mouseY >= 243 && mouseY <= 259) {
-
+        constantVar = CONST_V;
+        Yconstant = 250;
         return true;
       }
       if (mouseY >= 273 && mouseY <= 289) {
-
+        constantVar = CONST_T;
+        Yconstant = 280;
         return true;
       }
       if (mouseY >= 303 && mouseY <= 319) {
-
+        constantVar = CONST_P_V;
+        Yconstant = 310;
         return true;
       }
       if (mouseY >= 333 && mouseY <= 349) {
-
+        constantVar = CONST_P_T;
+        Yconstant = 340;
         return true;
       }
     }
@@ -185,7 +166,7 @@ public class Container {
 
 
   boolean mouseOnVolB() {
-    if (mouseX >= resizeKnobX && mouseX <= resizeKnobX + 60 && mouseY >= resizeKnobY && mouseY <= resizeKnobY + 50) {
+    if (constantVar != CONST_V && constantVar != CONST_P_V && mouseX >= resizeKnobX && mouseX <= resizeKnobX + 60 && mouseY >= resizeKnobY && mouseY <= resizeKnobY + 50) {
       b = color(138, 191, 237);
       return true;
     }
