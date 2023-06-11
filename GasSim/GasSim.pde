@@ -3,7 +3,7 @@ Container container = new Container();
 private int mouseXLast;
 private boolean isDraggingVolB = false;
 private boolean isDraggingLidB = false;
-private boolean isDraggingBucket = false;
+private boolean isDraggingTempSlider = false;
 float totMomentum;
 
 private final int REMOVE_LIGHT_LITTLE = 1;
@@ -125,8 +125,6 @@ int addRemove() {
 
 void mouseClicked() {
   System.out.println(mouseX + " " + mouseY);
-  container.mouseOnLid();
-  System.out.println(container.mouseOnLid());
   int click = addRemove();
   if (click == REMOVE_LIGHT_LITTLE && container.lightN > 0) {
     for (int i = 0; i < container.particleList.size(); i++) {
@@ -154,13 +152,13 @@ void mouseClicked() {
   if (click == ADD_LIGHT_LOT) {
     for (int i = 0; i < 10; i++) {
       if (container.lightN < 100) {
-      if (container.n == 0) {
-        container.particleList.add(new Particle(1));
-        container.lightN++;
-      } else {
-        container.particleList.add(new Particle(1, container.T));
-        container.lightN++;
-      }
+        if (container.n == 0) {
+          container.particleList.add(new Particle(1));
+          container.lightN++;
+        } else {
+          container.particleList.add(new Particle(1, container.T));
+          container.lightN++;
+        }
       }
     }
   }
@@ -286,9 +284,6 @@ void mouseClicked() {
   }
 
 
-  if (mouseOnPump()) {
-    //container.addSomeParticles();
-  }
   System.out.println(mouseX + " " + mouseY);
   if (container.bconstantButtons()) {
     container.changeConstButt(container.bconstantButtons());
@@ -302,13 +297,12 @@ void mouseClicked() {
 
   //when clicked change colors, follow mouse, click again to switch out.
   //container.constantButtonPressed();
-  
-  if(pmouseX > 670 && pmouseX < 685 &&
-     pmouseY > 320 && pmouseY < 340 &&
-     container.popUp != null) {
-       container.popUp = null;
+
+  if (pmouseX > 670 && pmouseX < 685 &&
+    pmouseY > 320 && pmouseY < 340 &&
+    container.popUp != null) {
+    container.popUp = null;
   }
-  
 }
 void mousePressed() {
   if (container.mouseOnVolB()) {
@@ -317,12 +311,15 @@ void mousePressed() {
   } else if (container.mouseOnLidB()) {
     mouseXLast = mouseX;
     isDraggingLidB = true;
+  } else if (container.mouseOnTempSlider()) {
+    isDraggingTempSlider = true;
   }
   //container.mouseOnLid();
 }
 void mouseReleased() {
   isDraggingVolB = false;
   isDraggingLidB = false;
+  isDraggingTempSlider = false;
 }
 
 void mouseDragged() {
@@ -336,13 +333,20 @@ void mouseDragged() {
       mouseXLast = newPlace;
       System.out.println("dif place");
     }
-  } else if(isDraggingLidB) {
+  } else if (isDraggingLidB) {
     int newPlace = mouseX;
     if (container.changeLidOpeningWidth(newPlace-mouseXLast)) {
       mouseXLast = newPlace;
     }
-  }
-  
+  } else if (isDraggingTempSlider) {
+    if (mouseY < container.bucketY + 0.15 * container.bucketHeight) {
+      container.tempSliderY = container.bucketY + 0.15 * container.bucketHeight;
+    } else if (mouseY > container.bucketY + 0.75 * container.bucketHeight) {
+      container.tempSliderY = container.bucketY + 0.75 * container.bucketHeight;
+    } else {
+      container.tempSliderY = mouseY;
+    }
+  } 
 }
 
 
@@ -363,15 +367,15 @@ void draw() {
   for (int i = 0; i < container.particleList.size(); i++) {
     Particle p = container.particleList.get(i);
     p.move();
-    if(!p.escaped) {
+    if (!p.escaped) {
       totMomentum += p.wallCollide(container);
     } else {
-      if(p.position.x < container.boxX || 
-         p.position.x >= container.boxX + container.LID_WIDTH ||
-         p.position.y < container.boxY - 50) {
-        if(p.period==1) {
+      if (p.position.x < container.boxX ||
+        p.position.x >= container.boxX + container.LID_WIDTH ||
+        p.position.y < container.boxY - 50) {
+        if (p.period==1) {
           container.lightN--;
-        } else if(p.period==2) {
+        } else if (p.period==2) {
           container.mediumN--;
         } else {
           container.heavyN--;
@@ -405,15 +409,15 @@ void draw() {
   if (frameCount % container.PUpdateFreq == 0) {
     totMomentum = 0;
   }
-  if(container.popUp != null) {
-      fill(255);
-      rect(300, 300, 400, 150, 20);
-      String[] lines = split(container.popUp, ". ");
-      fill(0);
-      textSize(20);
-      text(lines[0], 350, 350);
-      text(lines[1], 350, 400);
-      textSize(30);
-      text("X", 670, 340);
-    }
+  if (container.popUp != null) {
+    fill(255);
+    rect(300, 300, 400, 150, 20);
+    String[] lines = split(container.popUp, ". ");
+    fill(0);
+    textSize(20);
+    text(lines[0], 350, 350);
+    text(lines[1], 350, 400);
+    textSize(30);
+    text("X", 670, 340);
+  }
 }

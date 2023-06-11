@@ -33,8 +33,8 @@ public class Container {
   private float T = 300;
   private int resizeKnobX;//x-coord of where box/container ends and the lines and resize box start
   private int resizeKnobY;//y-coord of where box/container ends and the lines and resize box start
-  private int Xconstant = 45;//center x-coord of ellipse if one of constant buttons is pressed
-  private int Yconstant;//center y-coord of ellipse if one of constant buttons is pressed
+  private int xonstant = 45;//center x-coord of ellipse if one of constant buttons is pressed
+  private int yonstant;//center y-coord of ellipse if one of constant buttons is pressed
   private int pumpBX = 30;//box to pump in particles top left corner x-coord
   private int pumpBY = 450;//box to pump in particles top left corner y-coord
   private int pumpWidth = 150;
@@ -69,7 +69,6 @@ public class Container {
     constantButton = false;
 
     constantVar = NOTHING;
-
   }
   boolean mouseOnPump() {
     if (mouseX >= pumpX && mouseX <= (pumpX + 50) && mouseY >= pumpY && pmouseY <= (pumpY + 50)) {
@@ -78,10 +77,10 @@ public class Container {
     }
     return false;
   }
-  void setTempUP(){
+  void setTempUP() {
     tempUp = true;
   }
-  void setTempDown(){
+  void setTempDown() {
     tempDown = true;
   }
 
@@ -96,42 +95,43 @@ public class Container {
       lightN++;
     }
   }
-  public boolean mouseOnLid(){//if mouse is on lid button
-    if(mouseX >= 600 && mouseX <= 650 && mouseY >= 1 && mouseY <= 51){
+  public boolean mouseOnLid() {//if mouse is on lid button
+    if (mouseX >= 600 && mouseX <= 650 && mouseY >= 1 && mouseY <= 51) {
       lidOff = true;
       return true;
     }
     return false;
   }
-    
+
 
 
 
   public void display() {//displays container
+
     fill(255);
-   
-    rect(600, 1,50, 50);
+
+    rect(600, 1, 50, 50);
     rect(boxX, boxY, container.boxWidth, container.boxHeight);//displays big container
     fill(250, 20, 30);
     controln();
     controlTemp();
-    
+
     stroke(200);
-    if(constantVar != CONST_V && constantVar != CONST_P_V){
-    rect(resizeKnobX+ 40, resizeKnobY, 20, 50);
-    
-    fill(b);
-    line(resizeKnobX, resizeKnobY, resizeKnobX+40, resizeKnobY);
-    line(resizeKnobX, resizeKnobY+50, resizeKnobX+40, resizeKnobY+50);
-  }
-  
-  textSize(20);
-  fill(255);
-      text("Volume: " + nf(V, 0, 0), 35, 165); 
-   textSize(70);
-   
-   text("R = PV/nT = " + R, 500, 100);
-  
+    if (constantVar != CONST_V && constantVar != CONST_P_V) {
+      rect(resizeKnobX+ 40, resizeKnobY, 20, 50);
+
+      fill(b);
+      line(resizeKnobX, resizeKnobY, resizeKnobX+40, resizeKnobY);
+      line(resizeKnobX, resizeKnobY+50, resizeKnobX+40, resizeKnobY+50);
+    }
+
+    textSize(20);
+    fill(255);
+    text("Volume: " + nf(V, 0, 0), 35, 165);
+    textSize(70);
+
+    text("R = PV/nT = " + R, 500, 100);
+
     fill(125);
     rect(30, 175, 150, 250);//control box
     fill(255);
@@ -160,59 +160,55 @@ public class Container {
     text("Temperature", 60, 285);
     text("Pressure(V)", 60, 315);
     text("Pressure(T)", 60, 345);
-    Yconstant = 220 + constantVar * 30;
+    yonstant = 220 + constantVar * 30;
     if (constantButton) {
       fill(138, 191, 237);
       //  constantButtons();
-      ellipse(Xconstant, Yconstant, 14, 14);
+      ellipse(xonstant, yonstant, 14, 14);
     }
 
-    if(constantVar != CONST_T) {
-    drawLid();
+    if (constantVar != CONST_T) {
+      drawLid();
     }
 
-    if(tempUp){
+    if (tempUp) {
       fire = loadImage("fire.jpeg");
-  image(fire,302,630, width/13, height/13);
-
-    }
-    else if(tempDown){
+      image(fire, 302, 630, width/13, height/13);
+    } else if (tempDown) {
       ice = loadImage("ice.jpeg");
-  image(ice,302,700, width/13, height/13);
-  image(ice,302,700, width/13, height/13);
-  image(ice,302,700, width/13, height/13);
-
+      image(ice, 302, 700, width/13, height/13);
+      image(ice, 302, 700, width/13, height/13);
+      image(ice, 302, 700, width/13, height/13);
     }
-  
+
     tempUp = false;
     tempDown = false;
 
-    
- 
- 
 
-   //if(lidOff){
-   //  drawLid();
-   //   rotate(-PI/6.0);
-   //   drawLid();
-   //  // rotate(PI/4.0);
-   // }
-   // else{
-   //   drawLid();
-   // }
-   // lidOff = false;
 
+
+
+    //if(lidOff){
+    //  drawLid();
+    //   rotate(-PI/6.0);
+    //   drawLid();
+    //  // rotate(PI/4.0);
+    // }
+    // else{
+    //   drawLid();
+    // }
+    // lidOff = false;
   }
-  
+
   //void constantTemperature(){
   //  if(constantVar = CONST_T){
-      
-    
+
+
   void constantButtonPressed() {
     if (bconstantButtons()) {
       fill(138, 191, 237);
       //  constantButtons();
-      ellipse(Xconstant, Yconstant, 14, 14);
+      ellipse(xonstant, yonstant, 14, 14);
     }
   }
 
@@ -221,27 +217,27 @@ public class Container {
       //System.out.println("nothing");
       if (mouseY >= 213 && mouseY <= 229) {
         constantVar = NOTHING;
-        Yconstant = 220;
+        yonstant = 220;
         return true;
       }
       if (mouseY >= 243 && mouseY <= 259) {
         constantVar = CONST_V;
-        Yconstant = 250;
+        yonstant = 250;
         return true;
       }
       if (mouseY >= 273 && mouseY <= 289) {
         constantVar = CONST_T;
-        Yconstant = 280;
+        yonstant = 280;
         return true;
       }
       if (mouseY >= 303 && mouseY <= 319) {
         constantVar = CONST_P_V;
-        Yconstant = 310;
+        yonstant = 310;
         return true;
       }
       if (mouseY >= 333 && mouseY <= 349) {
         constantVar = CONST_P_T;
-        Yconstant = 340;
+        yonstant = 340;
         return true;
       }
     }
@@ -261,9 +257,9 @@ public class Container {
   boolean changeResizeX(int num) {
     System.out.println(num);
     int resizeKnobXNew = resizeKnobX + num;
-    if(resizeKnobXNew < boxX + 200) {
+    if (resizeKnobXNew < boxX + 200) {
       resizeKnobXNew = boxX + 200;
-    } else if(resizeKnobXNew > 900) {
+    } else if (resizeKnobXNew > 900) {
       resizeKnobXNew = 900;
     }
 
@@ -282,7 +278,7 @@ public class Container {
   //  }
   //}
   public void changeVol(int resizeKnobXNew) {
-    if(resizeKnobXNew < resizeKnobX) {
+    if (resizeKnobXNew < resizeKnobX) {
       float f = (float) (resizeKnobXNew - boxX)/(resizeKnobX - boxX);
       for (Particle p : particleList) {
         p.position.x = boxX + (p.position.x-boxX)*f;
@@ -300,13 +296,13 @@ public class Container {
     } else {
       T = 0;
     }
-    
-    if(constantVar == CONST_P_T) {
+
+    if (constantVar == CONST_P_T) {
       //PV/nR = T
       float calcedT = (P * V)/(n * 0.0821);
       for (Particle p : container.particleList) {
         p.velocity.mult((float)Math.sqrt(calcedT/T));
-    }
+      }
     }
   }
 
@@ -316,15 +312,15 @@ public class Container {
       P = momentumTotal / (containerSurface * PUpdateFreq) * 0.155;
     }
   }
-  
+
   void calcR() {
     R = (P*V)/(n*T);
   }
-  
-  //boxWidth*BoxHeight/P      
+
+  //boxWidth*BoxHeight/P
   void calcVolume () {
-    if(constantVar == CONST_P_V) {
-      
+    if (constantVar == CONST_P_V) {
+
       //boxWidth = nRT/(P*boxHeight)
       if ((int)((n * 0.0821 * T)/(P * boxHeight)) > 700) {
         boxWidth = 700;
@@ -332,23 +328,23 @@ public class Container {
         constantVar = NOTHING;
         resizeKnobX = boxX + 700;
       } else
-      if ((int)((n * 0.0821 * T)/(P * boxHeight)) < 200) {
-        boxWidth = 200;
-        popUp = "Pressure cannot be held constant. Volume would be too small";
-        constantVar = NOTHING;
-        resizeKnobX = boxX + 200;
-      } else {
-        boxWidth = (int)((n * 0.0821 * T)/(P * boxHeight));
-      }
+        if ((int)((n * 0.0821 * T)/(P * boxHeight)) < 200) {
+          boxWidth = 200;
+          popUp = "Pressure cannot be held constant. Volume would be too small";
+          constantVar = NOTHING;
+          resizeKnobX = boxX + 200;
+        } else {
+          boxWidth = (int)((n * 0.0821 * T)/(P * boxHeight));
+        }
     }
-    
+
     float particleVolume = 0;
-    for(Particle p : particleList) {
+    for (Particle p : particleList) {
       particleVolume += (PI) * (p.radius * p.radius);
     }
     V = boxWidth * boxHeight - particleVolume;
   }
-  
+
 
 
   //display pressure
@@ -370,29 +366,29 @@ public class Container {
     rect(baroX - 38, baroY + 58, 80, 20, 5);
     fill(0);
     text(nf(container.P * 10000, 4, 0)+ "ATM", baroX - 35, baroY + 75 );
-
   }
-  
+
   boolean mouseOnLidB() {
     return (constantVar != CONST_T && mouseX >= boxX + LID_OPENING_X+lidOpeningWidth &&
       mouseX <= boxX + LID_OPENING_X+lidOpeningWidth + LID_HANDLE_WIDTH +1 &&
       mouseY >= boxY-LID_HEIGHT-LID_HANDLE_HEIGHT && mouseY <= boxY+1);
   }
-  
-  boolean mouseOnBucket() {
-    return (constantVar != CONST_T && mouseX >= boxX + LID_OPENING_X+lidOpeningWidth &&
-      mouseX <= boxX + LID_OPENING_X+lidOpeningWidth + LID_HANDLE_WIDTH +1 &&
-      mouseY >= boxY-LID_HEIGHT-LID_HANDLE_HEIGHT && mouseY <= boxY+1);
+  //rect(bucketX + 0.5 * bucketWidth, tempSliderY, bucketWidth * 0.325, bucketHeight * 0.25, 5);
+  boolean mouseOnTempSlider() {
+    return (constantVar != CONST_T && constantVar != CONST_P_T &&
+      mouseX >= bucketX + 0.5 * bucketWidth &&
+      mouseX <= bucketX + 0.825 * bucketWidth &&
+      mouseY >= tempSliderY && mouseY <= tempSliderY + bucketHeight * 0.25);
   }
 
   void drawLid() {
     noStroke();
     fill(128);
     rect(1+boxX, 1+boxY-LID_HEIGHT, LID_OPENING_X, LID_HEIGHT);
-    rect(1+boxX+LID_OPENING_X+lidOpeningWidth, 1+boxY-LID_HEIGHT, 
+    rect(1+boxX+LID_OPENING_X+lidOpeningWidth, 1+boxY-LID_HEIGHT,
       LID_WIDTH-(LID_OPENING_X+lidOpeningWidth), LID_HEIGHT);
     rect(1+boxX+LID_OPENING_X+lidOpeningWidth,
-      1+boxY-LID_HEIGHT-LID_HANDLE_HEIGHT, 
+      1+boxY-LID_HEIGHT-LID_HANDLE_HEIGHT,
       LID_HANDLE_WIDTH, LID_HANDLE_HEIGHT);
     fill(255);
     rect(1+boxX+LID_OPENING_X, 1+boxY-LID_HEIGHT, lidOpeningWidth, LID_HEIGHT);
@@ -400,9 +396,9 @@ public class Container {
 
   boolean changeLidOpeningWidth(int num) {
     int lidOpeningWidthNew = lidOpeningWidth + num;
-    if(lidOpeningWidthNew < 0) {
+    if (lidOpeningWidthNew < 0) {
       lidOpeningWidthNew = 0;
-    } else if(lidOpeningWidthNew > LID_OPENING_WIDTH_MAX) {
+    } else if (lidOpeningWidthNew > LID_OPENING_WIDTH_MAX) {
       lidOpeningWidthNew = LID_OPENING_WIDTH_MAX;
     }
 
@@ -573,7 +569,7 @@ public class Container {
     float incrementY = 2.7;
     float displayedT = T;
     noStroke();
-    
+
     if (displayedT<0) {
       displayedT = 0;
     } else if (displayedT>5000) {
@@ -589,21 +585,28 @@ public class Container {
       }
       line(thermX-5.83, thermY-73.8+(i+1)*incrementY, thermX-5.8+incrementX, thermY-73.8+(i+1)*incrementY);
     }
-    
+
     fill(255);
     rect(thermX - 30, thermY + 23, 65, 20, 5);
     textSize(20);
     fill(0);
     text(nf(container.T, 4, 0)+ "K", thermX - 20, thermY + 40);
   }
-  
-  
-  
-  
+
+
+
+
   void controlTemp() {
     fill(150);
     stroke(0);
     ellipse(bucketX + 0.5* bucketWidth, bucketY + bucketHeight, bucketWidth * 0.7, 10);
+    if(tempSliderY < container.bucketY + 0.425 * container.bucketHeight) {
+      fire(bucketX + 0.5 * bucketWidth, tempSliderY);
+    }
+    if(tempSliderY > container.bucketY + 0.425 * container.bucketHeight) {
+      ice(bucketX + 0.5 * bucketWidth, (container.bucketY + 0.425 * container.bucketHeight) + (container.bucketY + 0.425 * container.bucketHeight-tempSliderY) - 40, .7);
+    }
+    fill(150);
     noStroke();
     beginShape();
     vertex(bucketX, bucketY);
@@ -613,27 +616,94 @@ public class Container {
     endShape();
     stroke(0);
     ellipse(bucketX + 0.5* bucketWidth, bucketY, bucketWidth, 10);
-    if(constantVar != CONST_T && constantVar != CONST_P
-    noFill();
-    color c1 = color(255, 0, 0);
-    color c2 = color(0, 0, 255);
-    for (float i = bucketY + 0.25 * bucketHeight; i <= bucketY + 0.85 * bucketHeight; i++) {
-      float inter = map(i, bucketY + 0.15 * bucketHeight, bucketY + 0.85 * bucketHeight, 0, 1);
-      color c = lerpColor(c1, c2, inter);
-      stroke(c);
-      line(bucketX + 0.6 * bucketWidth, i, bucketX + 0.7 * bucketWidth, i);
+    if (constantVar != CONST_T && constantVar != CONST_P_T) {
+      noFill();
+      color c1 = color(255, 0, 0);
+      color c2 = color(0, 0, 255);
+      for (float i = bucketY + 0.25 * bucketHeight; i <= bucketY + 0.85 * bucketHeight; i++) {
+        float inter = map(i, bucketY + 0.15 * bucketHeight, bucketY + 0.85 * bucketHeight, 0, 1);
+        color c = lerpColor(c1, c2, inter);
+        stroke(c);
+        line(bucketX + 0.6 * bucketWidth, i, bucketX + 0.7 * bucketWidth, i);
+      }
+      stroke(0);
+      rect(bucketX + 0.6 * bucketWidth, bucketY + 0.25 * bucketHeight, 0.1 * bucketWidth, 0.6 * bucketHeight);
+      line(bucketX + 0.5 * bucketWidth, bucketY + 0.25 * bucketHeight, bucketX + 0.6 * bucketWidth, bucketY + 0.25 * bucketHeight);
+      line(bucketX + 0.5 * bucketWidth, bucketY + 0.85 * bucketHeight, bucketX + 0.6 * bucketWidth, bucketY + 0.85 * bucketHeight);
+      textSize(12.5);
+      fill(0);
+      text("Heat", bucketX + 0.25 * bucketWidth, bucketY + 0.3 * bucketHeight);
+      text("Cool", bucketX + 0.25 * bucketWidth, bucketY + 0.9 * bucketHeight);
+      fill(173, 216, 230);
+      rect(bucketX + 0.5 * bucketWidth, tempSliderY, bucketWidth * 0.325, bucketHeight * 0.25, 5);
+      line(bucketX + 0.5 * bucketWidth, tempSliderY + bucketHeight * 0.125, bucketX + 0.825 * bucketWidth, tempSliderY + bucketHeight * 0.125);
     }
-    stroke(0);
-    rect(bucketX + 0.6 * bucketWidth, bucketY + 0.25 * bucketHeight, 0.1 * bucketWidth, 0.6 * bucketHeight);
-    line(bucketX + 0.5 * bucketWidth, bucketY + 0.25 * bucketHeight, bucketX + 0.6 * bucketWidth, bucketY + 0.25 * bucketHeight);
-    line(bucketX + 0.5 * bucketWidth, bucketY + 0.85 * bucketHeight, bucketX + 0.6 * bucketWidth, bucketY + 0.85 * bucketHeight);
-    textSize(12.5);
-    fill(0);
-    text("Heat", bucketX + 0.25 * bucketWidth, bucketY + 0.3 * bucketHeight);
-    text("Cool", bucketX + 0.25 * bucketWidth, bucketY + 0.9 * bucketHeight);
-    fill(173, 216, 230);
-    rect(bucketX + 0.5 * bucketWidth, tempSliderY, bucketWidth * 0.325, bucketHeight * 0.25, 5);
-    line(bucketX + 0.5 * bucketWidth, tempSliderY + bucketHeight * 0.125, bucketX + 0.825 * bucketWidth, tempSliderY + bucketHeight * 0.125);
+    if (!isDraggingTempSlider) {
+      container.tempSliderY = container.bucketY + 0.425 * container.bucketHeight;
+    }
+    
   }
+
+  void fire(float x, float y) {
+    pushMatrix();
+    translate(x, y);
+    scale(0.5, 0.5);
+    fill(255, 0, 0);
+    fillFireOutline();
+    scale(-0.5, 0.5);
+    fill(255, 240, 0);
+    fillFireOutline();
+    popMatrix();
+  }
+
+  void fillFireOutline() {
+    noStroke();
+    beginShape();
+    vertex(0, 0);
+    bezierVertex(102.1, -18.1, 79.4, -115.1, 49.3, -139.5);
+    bezierVertex(56.1, -95.8, 17.0, -88.4, 21.5, -129.3);
+    bezierVertex(26.1, -154.8, 12.5, -184.8, -16.4, -212.0);
+    bezierVertex(-7.4, -171.8, -65.2, -129.7, -73.7, -103.7);
+    bezierVertex(-102.0, -24.9, -28.3, 4.0, 0, 0);
+    endShape(CLOSE);
   }
   
+  void ice(float x, float y, float f) {
+  pushMatrix();
+
+  translate(x, y);
+  scale(f);
+
+  stroke(0.5);
+  fill(173, 216, 230);
+  beginShape();
+  vertex(-56, 30.3);
+  bezierVertex(-89.1, 37.8*f, -44.6, 68, -21.9, 45.4);
+  bezierVertex(-3, 62.7, 33.5, 59.7, 40.1, 34.7);
+  bezierVertex(74.8, 29.5, 74, 6, 50.5, 1.7);
+  vertex(27, 30.3);
+  endShape(CLOSE);
+  fill(173, 216, 235);
+  beginShape();
+  vertex(50.5, +1.7);
+  vertex(50.5, -61.2);
+  vertex(27, -16.6);
+  vertex(27, 30.3);
+  endShape(CLOSE);
+  fill(210);
+  beginShape();
+  vertex(27, -16.6);
+  vertex(50.5, -61.2);
+  vertex(-32.5, -61.2);
+  vertex(-56, -16.6);
+  endShape(CLOSE);
+  fill(255);
+  beginShape();
+  vertex(-56, -16.6);
+  vertex(-56, 30.3);
+  vertex(27, 30.3);
+  vertex(27, -16.6);
+  endShape(CLOSE);
+  popMatrix();
+}
+}
