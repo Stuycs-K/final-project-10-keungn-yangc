@@ -4,8 +4,6 @@ private int mouseXLast;
 private boolean isDraggingVolB = false;
 float totMomentum;
 
-private int pumpBX;
-private int pumpBY;
 private final int REMOVE_LIGHT_LITTLE = 1;
 private final int REMOVE_LIGHT_LOT = 2;
 private final int ADD_LIGHT_LOT = 3;
@@ -150,12 +148,14 @@ void mouseClicked() {
   }
   if (click == ADD_LIGHT_LOT) {
     for (int i = 0; i < 10; i++) {
+      if (container.lightN < 100) {
       if (container.n == 0) {
         container.particleList.add(new Particle(1));
         container.lightN++;
       } else {
         container.particleList.add(new Particle(1, container.T));
         container.lightN++;
+      }
       }
     }
   }
@@ -295,6 +295,13 @@ void mouseClicked() {
 
   //when clicked change colors, follow mouse, click again to switch out.
   //container.constantButtonPressed();
+  
+  if(pmouseX > 670 && pmouseX < 685 &&
+     pmouseY > 320 && pmouseY < 340 &&
+     container.popUp != null) {
+       container.popUp = null;
+  }
+  
 }
 void mousePressed() {
   if (container.mouseOnVolB()) {
@@ -354,6 +361,7 @@ void draw() {
   container.calcTemperature();
   container.calcPressure(totMomentum);
   container.calcVolume();
+  container.calcR();
 
   //displays pressure
   container.barometer();
@@ -362,4 +370,15 @@ void draw() {
   if (frameCount % container.PUpdateFreq == 0) {
     totMomentum = 0;
   }
+  if(container.popUp != null) {
+      fill(255);
+      rect(300, 300, 400, 150, 20);
+      String[] lines = split(container.popUp, ". ");
+      fill(0);
+      textSize(20);
+      text(lines[0], 350, 350);
+      text(lines[1], 350, 400);
+      textSize(30);
+      text("X", 670, 340);
+    }
 }
