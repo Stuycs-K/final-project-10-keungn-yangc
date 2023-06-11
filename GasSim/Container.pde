@@ -108,7 +108,7 @@ public class Container {
 
   public void display() {//displays container
     fill(255);
-      //drawLid();
+     drawLid();
    
     rect(600, 1,50, 50);
     rect(boxX, boxY, container.boxWidth, container.boxHeight);//displays big container
