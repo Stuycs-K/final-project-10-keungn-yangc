@@ -353,9 +353,26 @@ void draw() {
   container.display();
 
 
-  for (Particle p : container.particleList) {
+  for (int i = 0; i < container.particleList.size(); i++) {
+    Particle p = container.particleList.get(i);
     p.move();
-    totMomentum += p.wallCollide(container);
+    if(!p.escaped) {
+      totMomentum += p.wallCollide(container);
+    } else {
+      if(p.position.x < container.boxX || 
+         p.position.x >= container.boxX + container.LID_WIDTH ||
+         p.position.y < container.boxY - 50) {
+        if(p.period==1) {
+          container.lightN--;
+        } else if(p.period==2) {
+          container.mediumN--;
+        } else {
+          container.heavyN--;
+        }
+        container.particleList.remove(i);
+        i--;
+      }
+    }
     p.display();
   }
 
