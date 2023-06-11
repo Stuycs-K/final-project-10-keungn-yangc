@@ -123,6 +123,9 @@ int addRemove() {
 
 
 void mouseClicked() {
+  System.out.println(mouseX + " " + mouseY);
+  container.mouseOnLid();
+  System.out.println(container.mouseOnLid());
   int click = addRemove();
   if (click == REMOVE_LIGHT_LITTLE && container.lightN > 0) {
     for (int i = 0; i < container.particleList.size(); i++) {
@@ -268,6 +271,7 @@ void mouseClicked() {
   if (pmouseX > container.bucketX && pmouseX < container.bucketX + container.bucketWidth &&
     pmouseY > container.bucketY && pmouseY < container.bucketY + container.bucketHeight/2) {
     for (Particle p : container.particleList) {
+      container.setTempUP();
       p.velocity.mult((float)Math.sqrt((container.T+1)/container.T));
     }
   }
@@ -275,6 +279,7 @@ void mouseClicked() {
   if (pmouseX > container.bucketX && pmouseX < container.bucketX + container.bucketWidth &&
     pmouseY > container.bucketY + container.bucketHeight/2 && pmouseY < container.bucketY + container.bucketHeight) {
     for (Particle p : container.particleList) {
+      container.setTempDown();
       p.velocity.mult((float)Math.sqrt((container.T-1)/container.T));
     }
   }
@@ -312,6 +317,7 @@ void mousePressed() {
     mouseXLast = mouseX;
     isDraggingLidB = true;
   }
+  //container.mouseOnLid();
 }
 void mouseReleased() {
   isDraggingVolB = false;
