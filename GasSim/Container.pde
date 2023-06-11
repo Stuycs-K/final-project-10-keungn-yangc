@@ -43,6 +43,7 @@ public class Container {
   public ArrayList<Particle>particleList = new ArrayList<Particle>();
   public boolean constantButton;//sees if ellipse should be filed if button is pressed
   public color b;
+  public boolean lidOn;
 
   //------------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -51,6 +52,7 @@ public class Container {
     resizeKnobX = boxX + boxWidth ;
     resizeKnobY = boxY + boxHeight/2;
     constantButton = false;
+    lidOn = true;
   }
   boolean mouseOnPump() {
     if (mouseX >= pumpX && mouseX <= (pumpX + 50) && mouseY >= pumpY && pmouseY <= (pumpY + 50)) {
@@ -70,8 +72,18 @@ public class Container {
       lightN++;
     }
   }
+  public boolean mouseOnLid(){//if mouse is on lid button
+    if(mouseX >= 600 && mouseX <= 650 && mouseY >= 1 && mouseY <= 51){
+      lidOn = false;
+      return true;
+    }
+    return false;
+  }
+    
 
   public void display() {//displays container
+    fill(255);
+    rect(600, 1,50, 50);
     rect(boxX, boxY, container.boxWidth, container.boxHeight);//displays big container
     fill(250, 20, 30);
     controln();
@@ -118,7 +130,23 @@ public class Container {
       //  constantButtons();
       ellipse(Xconstant, Yconstant, 14, 14);
     }
+    
+    //lid falls off
+  
+    fill(150);
+    rect(boxX, boxY, container.boxWidth, 7);//lid
+    if(!lidOn){
+      //translate(container.boxWidth/2, 9);
+      rotate(-PI/4.0);
+      rect(boxX, boxY, container.boxWidth, 7);
+    }
+    else{
+      rect(boxX, boxY, container.boxWidth, 7);
+    }
+      
   }
+ 
+    
   void constantButtonPressed() {
     if (bconstantButtons()) {
       fill(138, 191, 237);

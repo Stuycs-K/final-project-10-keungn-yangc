@@ -273,6 +273,7 @@ void mousePressed() {
     mouseXLast = mouseX;
     isDraggingVolB = true;
   }
+  container.mouseOnLid();
 }
 void mouseReleased() {
   isDraggingVolB = false;
