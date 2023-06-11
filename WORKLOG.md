@@ -94,6 +94,18 @@ info
 ### 5/30/23 & 5/31/23
 - worked on resize again, did not work
 
+### 6/3/23
+- reszie works
+
+### 6/6/23
+- added units to display and resized parts of it
+- started working on rotating lid as it falls off
+
+### 6/9/23
+- added graphics to temperature controller(slightly glitchy and slow will fix)
+- kept working on lid falling off
+
+
 
 
 
