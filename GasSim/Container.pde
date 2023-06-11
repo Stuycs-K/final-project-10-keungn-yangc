@@ -4,12 +4,18 @@ public class Container {
   private final int CONST_T = 2;
   private final int CONST_P_V = 3;
   private final int CONST_P_T = 4;
-  private int[] constantVar = new int[] {NOTHING, CONST_V, CONST_T, CONST_P_V, CONST_P_T};
+  private final int LID_WIDTH = 199;
+  private final int LID_HEIGHT = 5;
+  private final int LID_OPENING_X = 20;
+  private final int LID_OPENING_WIDTH_MAX = 150;
+  private final int LID_HANDLE_HEIGHT = 15;
+  private final int LID_HANDLE_WIDTH = 15;
+  private int constantVar = NOTHING;
   private int boxX = 200;//top left corner x-coord of container
   private int boxY = 150;//top left corner y-coord of container
   private  int boxWidth = 600;//width of box
   private  int boxHeight = 450;//height of box
-
+  private int lidOpeningWidth = 0;
   private  boolean lidStatus;//if lid is on or off
   private  float P;
   private  float V;
@@ -23,8 +29,8 @@ public class Container {
   private int lightN;
   private int mediumN;
   private int heavyN;
-  private  final float R = 0.0821;
-  private  float T = 300;
+  private float R;
+  private float T = 300;
   private int resizeKnobX;//x-coord of where box/container ends and the lines and resize box start
   private int resizeKnobY;//y-coord of where box/container ends and the lines and resize box start
   private int Xconstant = 45;//center x-coord of ellipse if one of constant buttons is pressed
@@ -33,8 +39,10 @@ public class Container {
   private int pumpBY = 450;//box to pump in particles top left corner y-coord
   private int pumpWidth = 150;
   private int pumpHeight = 200;
-  private int thermX = 400;
+  private int thermX = 145;
   private int thermY = 100;
+  private int baroX = 65;
+  private int baroY = 65;
   private int bucketX = 300;
   private int bucketY = 650;
   private int bucketWidth = 75;
@@ -43,7 +51,12 @@ public class Container {
   public ArrayList<Particle>particleList = new ArrayList<Particle>();
   public boolean constantButton;//sees if ellipse should be filed if button is pressed
   public color b;
+<<<<<<< HEAD
   public boolean lidOn;
+=======
+  
+  private String popUp = null;
+>>>>>>> 169e82c6b827d80b71d59cc66a169cf7bd65b342
 
   //------------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -52,7 +65,11 @@ public class Container {
     resizeKnobX = boxX + boxWidth ;
     resizeKnobY = boxY + boxHeight/2;
     constantButton = false;
+<<<<<<< HEAD
     lidOn = true;
+=======
+    constantVar = NOTHING;
+>>>>>>> 169e82c6b827d80b71d59cc66a169cf7bd65b342
   }
   boolean mouseOnPump() {
     if (mouseX >= pumpX && mouseX <= (pumpX + 50) && mouseY >= pumpY && pmouseY <= (pumpY + 50)) {
@@ -66,6 +83,7 @@ public class Container {
   void changeConstButt(boolean b) {//if mousepressed and its pressing a constant button, turns it true, is used in display to show option was chosen
     constantButton = b;
   }
+<<<<<<< HEAD
   public void addSomeParticles() {
     for (int i = 0; i<5; i++) {
       particleList.add(new Particle(1));
@@ -80,6 +98,8 @@ public class Container {
     return false;
   }
     
+=======
+>>>>>>> 169e82c6b827d80b71d59cc66a169cf7bd65b342
 
   public void display() {//displays container
     fill(255);
@@ -88,15 +108,25 @@ public class Container {
     fill(250, 20, 30);
     controln();
     controlTemp();
-    rect(resizeKnobX+ 40, resizeKnobY, 20, 50);
+    
     stroke(200);
+    if(constantVar != CONST_V && constantVar != CONST_P_V){
+    rect(resizeKnobX+ 40, resizeKnobY, 20, 50);
+    
     fill(b);
     line(resizeKnobX, resizeKnobY, resizeKnobX+40, resizeKnobY);
     line(resizeKnobX, resizeKnobY+50, resizeKnobX+40, resizeKnobY+50);
+  }
+  
+  textSize(20);
+  fill(255);
+      text("Volume: " + nf(V, 0, 0), 35, 165); 
+   textSize(70);
+   
+   text("R = PV/nT = " + R, 500, 100);
+  
     fill(125);
     rect(30, 175, 150, 250);//control box
-    fill(255, 10, 23);
-    rect(pumpX, pumpY, 50, 50);
     fill(255);
     textSize(25);
     text("Hold Constant", 31, 200);
@@ -104,8 +134,6 @@ public class Container {
     ellipse(45, 250, 17, 17);
     ellipse(45, 280, 17, 17);
     ellipse(45, 310, 17, 17);
-
-    textSize(25);
     fill(255);
     text("Hold Constant", 31, 200);
     fill(255);
@@ -125,11 +153,13 @@ public class Container {
     text("Temperature", 60, 285);
     text("Pressure(V)", 60, 315);
     text("Pressure(T)", 60, 345);
+    Yconstant = 220 + constantVar * 30;
     if (constantButton) {
       fill(138, 191, 237);
       //  constantButtons();
       ellipse(Xconstant, Yconstant, 14, 14);
     }
+<<<<<<< HEAD
     
     //lid falls off
   
@@ -147,6 +177,11 @@ public class Container {
   }
  
     
+=======
+    drawLid();
+  }
+  
+>>>>>>> 169e82c6b827d80b71d59cc66a169cf7bd65b342
   void constantButtonPressed() {
     if (bconstantButtons()) {
       fill(138, 191, 237);
@@ -155,54 +190,32 @@ public class Container {
     }
   }
 
-  String constantButtons() {
-    if (mouseX >= 36 && mouseX <= 54 ) {
-      //System.out.println("nothing");
-      if (mouseY >= 213 && mouseY <= 229) {
-
-        Yconstant = 220;
-        return "Nothing";
-      }
-      if (mouseY >= 243 && mouseY <= 259) {
-        Yconstant = 250;
-        return "Volume";
-      }
-      if (mouseY >= 273 && mouseY <= 289) {
-        Yconstant = 280;
-        return "Temperature";
-      }
-      if (mouseY >= 303 && mouseY <= 319) {
-        Yconstant = 310;
-        return "Pressure(V)";
-      }
-      if (mouseY >= 333 && mouseY <= 349) {
-        Yconstant = 340;
-        return "Pressure(T)";
-      }
-    }
-    return "nothing was clicked";
-  }
   boolean bconstantButtons() {
     if (mouseX >= 36 && mouseX <= 54 ) {
       //System.out.println("nothing");
       if (mouseY >= 213 && mouseY <= 229) {
-
+        constantVar = NOTHING;
+        Yconstant = 220;
         return true;
       }
       if (mouseY >= 243 && mouseY <= 259) {
-
+        constantVar = CONST_V;
+        Yconstant = 250;
         return true;
       }
       if (mouseY >= 273 && mouseY <= 289) {
-
+        constantVar = CONST_T;
+        Yconstant = 280;
         return true;
       }
       if (mouseY >= 303 && mouseY <= 319) {
-
+        constantVar = CONST_P_V;
+        Yconstant = 310;
         return true;
       }
       if (mouseY >= 333 && mouseY <= 349) {
-
+        constantVar = CONST_P_T;
+        Yconstant = 340;
         return true;
       }
     }
@@ -211,7 +224,7 @@ public class Container {
 
 
   boolean mouseOnVolB() {
-    if (mouseX >= resizeKnobX && mouseX <= resizeKnobX + 60 && mouseY >= resizeKnobY && mouseY <= resizeKnobY + 50) {
+    if (constantVar != CONST_V && constantVar != CONST_P_V && mouseX >= resizeKnobX && mouseX <= resizeKnobX + 60 && mouseY >= resizeKnobY && mouseY <= resizeKnobY + 50) {
       b = color(138, 191, 237);
       return true;
     }
@@ -242,7 +255,15 @@ public class Container {
   //  System.out.println(boxWidth);
   //  }
   //}
-  public void changeVol() {
+  public void changeVol(int resizeKnobXNew) {
+    if(resizeKnobXNew < resizeKnobX) {
+      // when width gets smaller, shift particles so they are within
+      // the new box
+      float f = (float) (resizeKnobXNew - boxX)/(resizeKnobX - boxX);
+      for (Particle p : particleList) {
+        p.position.x = boxX + (p.position.x-boxX)*f;
+      }
+    }
   }
 
   void calcTemperature() {
@@ -250,39 +271,109 @@ public class Container {
     for (Particle p : container.particleList) {
       totalKineticEnergy += 0.5 * p.mass * p.velocity.magSq();
     }
-    T = totalKineticEnergy / n;
+    if (totalKineticEnergy > 0) {
+      T = totalKineticEnergy / n;
+    } else {
+      T = 0;
+    }
   }
 
   void calcPressure(float momentumTotal) {
     float containerSurface = (container.boxWidth + container.boxHeight) *2;
     if (frameCount % PUpdateFreq == 0) {
-      P = momentumTotal / (containerSurface * PUpdateFreq);
+      P = momentumTotal / (containerSurface * PUpdateFreq) * 0.155;
     }
   }
-
-  void calcVolume () {
-    V = container.boxWidth * container.boxHeight;
+  
+  void calcR() {
+    R = (P*V)/(n*T);
   }
+  
+  //boxWidth*BoxHeight/P      
+  void calcVolume () {
+    if(constantVar == CONST_P_V) {
+      
+      //boxWidth = nRT/(P*boxHeight)
+      if ((int)((n * 0.0821 * T)/(P * boxHeight)) > 700) {
+        boxWidth = 700;
+        popUp = "Pressure cannot be held constant. Volume would be too large";
+        constantVar = NOTHING;
+        resizeKnobX = boxX + 700;
+      } else
+      if ((int)((n * 0.0821 * T)/(P * boxHeight)) < 200) {
+        boxWidth = 200;
+        popUp = "Pressure cannot be held constant. Volume would be too small";
+        constantVar = NOTHING;
+        resizeKnobX = boxX + 200;
+      } else {
+        boxWidth = (int)((n * 0.0821 * T)/(P * boxHeight));
+      }
+    }
+    
+    float particleVolume = 0;
+    for(Particle p : particleList) {
+      particleVolume += (PI) * (p.radius * p.radius);
+    }
+    V = boxWidth * boxHeight - particleVolume;
+  }
+  
+
 
   //display pressure
   void barometer() {
     fill(255);
-    int centerX = boxX + 100;
-    int centerY = boxY - 85;
     int r = 50;
-    circle(centerX, centerY, r * 2);
+    circle(baroX, baroY, r * 2);
     for (float theta = PI/6; theta > (-7*PI)/6; theta -= PI/6) {
-      line(centerX, centerY, centerX + (cos(theta) * r), centerY + (sin(theta) * r));
+      line(baroX, baroY, baroX + (cos(theta) * r), baroY + (sin(theta) * r));
     }
     noStroke();
-    circle(centerX, centerY, r * 1.5);
+    circle(baroX, baroY, r * 1.5);
     float redTheta = PI/6 + (P / -0.001) * PI/96;
-    float redX = centerX + (cos(redTheta) * r);
-    float redY = centerY + (sin(redTheta) * r);
+    float redX = baroX + (cos(redTheta) * r);
+    float redY = baroY + (sin(redTheta) * r);
     stroke(255, 0, 0);
-    line(centerX, centerY, redX, redY);
+    line(baroX, baroY, redX, redY);
+    stroke(0);
+    rect(baroX - 30, baroY + 58, 60, 20, 5);
+    fill(0);
+    text(nf(container.P, 0, 3), baroX - 22, baroY + 75);
+  }
+  
+  boolean mouseOnLidB() {
+    return (mouseX >= boxX + LID_OPENING_X+lidOpeningWidth &&
+      mouseX <= boxX + LID_OPENING_X+lidOpeningWidth + LID_HANDLE_WIDTH +1 &&
+      mouseY >= boxY-LID_HEIGHT-LID_HANDLE_HEIGHT && mouseY <= boxY+1);
   }
 
+  void drawLid() {
+    noStroke();
+    fill(128);
+    rect(1+boxX, 1+boxY-LID_HEIGHT, LID_OPENING_X, LID_HEIGHT);
+    rect(1+boxX+LID_OPENING_X+lidOpeningWidth, 1+boxY-LID_HEIGHT, 
+      LID_WIDTH-(LID_OPENING_X+lidOpeningWidth), LID_HEIGHT);
+    rect(1+boxX+LID_OPENING_X+lidOpeningWidth,
+      1+boxY-LID_HEIGHT-LID_HANDLE_HEIGHT, 
+      LID_HANDLE_WIDTH, LID_HANDLE_HEIGHT);
+    fill(255);
+    rect(1+boxX+LID_OPENING_X, 1+boxY-LID_HEIGHT, lidOpeningWidth, LID_HEIGHT);
+  }
+
+  boolean changeLidOpeningWidth(int num) {
+    int lidOpeningWidthNew = lidOpeningWidth + num;
+    if(lidOpeningWidthNew < 0) {
+      lidOpeningWidthNew = 0;
+    } else if(lidOpeningWidthNew > LID_OPENING_WIDTH_MAX) {
+      lidOpeningWidthNew = LID_OPENING_WIDTH_MAX;
+    }
+
+    if (lidOpeningWidthNew != lidOpeningWidth) {
+      lidOpeningWidth = lidOpeningWidthNew;
+      return true;
+    }
+
+    return false;
+  }
 
 
   //control particle
@@ -459,6 +550,12 @@ public class Container {
       }
       line(thermX-5.83, thermY-73.8+(i+1)*incrementY, thermX-5.8+incrementX, thermY-73.8+(i+1)*incrementY);
     }
+    
+    fill(255);
+    rect(thermX - 30, thermY + 23, 60, 20, 5);
+    textSize(20);
+    fill(0);
+    text(nf(container.T, 4, 0), thermX - 20, thermY + 40);
   }
   
   void controlTemp() {

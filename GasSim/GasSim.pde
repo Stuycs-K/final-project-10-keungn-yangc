@@ -2,10 +2,9 @@ Container container = new Container();
 
 private int mouseXLast;
 private boolean isDraggingVolB = false;
+private boolean isDraggingLidB = false;
 float totMomentum;
 
-private int pumpBX;
-private int pumpBY;
 private final int REMOVE_LIGHT_LITTLE = 1;
 private final int REMOVE_LIGHT_LOT = 2;
 private final int ADD_LIGHT_LOT = 3;
@@ -151,14 +150,24 @@ void mouseClicked() {
   if (click == ADD_LIGHT_LOT) {
     for (int i = 0; i < 10; i++) {
       if (container.lightN < 100) {
+      if (container.n == 0) {
         container.particleList.add(new Particle(1));
         container.lightN++;
+      } else {
+        container.particleList.add(new Particle(1, container.T));
+        container.lightN++;
+      }
       }
     }
   }
   if (click == ADD_LIGHT_LITTLE && container.lightN < 100) {
-    container.particleList.add(new Particle(1));
-    container.lightN++;
+    if (container.n == 0) {
+      container.particleList.add(new Particle(1));
+      container.lightN++;
+    } else {
+      container.particleList.add(new Particle(1, container.T));
+      container.lightN++;
+    }
   }
 
 
@@ -187,14 +196,24 @@ void mouseClicked() {
   if (click == ADD_MEDIUM_LOT) {
     for (int i = 0; i < 10; i++) {
       if (container.mediumN < 100) {
-        container.particleList.add(new Particle(2));
-        container.mediumN++;
+        if (container.n == 0) {
+          container.particleList.add(new Particle(2));
+          container.mediumN++;
+        } else {
+          container.particleList.add(new Particle(2, container.T));
+          container.mediumN++;
+        }
       }
     }
   }
   if (click == ADD_MEDIUM_LITTLE && container.mediumN < 100) {
-    container.particleList.add(new Particle(2));
-    container.mediumN++;
+    if (container.n == 0) {
+      container.particleList.add(new Particle(2));
+      container.mediumN++;
+    } else {
+      container.particleList.add(new Particle(2, container.T));
+      container.mediumN++;
+    }
   }
 
 
@@ -224,59 +243,80 @@ void mouseClicked() {
   if (click == ADD_HEAVY_LOT) {
     for (int i = 0; i < 10; i++) {
       if (container.heavyN < 100) {
-        container.particleList.add(new Particle(3));
-        container.heavyN++;
+        if (container.n == 0) {
+          container.particleList.add(new Particle(3));
+          container.heavyN++;
+        } else {
+          container.particleList.add(new Particle(3, container.T));
+          container.heavyN++;
+        }
       }
     }
   }
   if (click == ADD_HEAVY_LITTLE && container.heavyN < 100) {
-    container.particleList.add(new Particle(3));
-    container.heavyN++;
+    if (container.n == 0) {
+      container.particleList.add(new Particle(3));
+      container.heavyN++;
+    } else {
+      container.particleList.add(new Particle(3, container.T));
+      container.heavyN++;
+    }
   }
-    
-  
+
+
   //CONTROL TEMP
-  if(pmouseX > container.bucketX && pmouseX < container.bucketX + container.bucketWidth &&
-     pmouseY > container.bucketY && pmouseY < container.bucketY + container.bucketHeight/2) {
-     for(Particle p: container.particleList) {
-       p.velocity.mult((float)Math.sqrt((container.T+1)/container.T));
-     }
-   }
-   
-   if(pmouseX > container.bucketX && pmouseX < container.bucketX + container.bucketWidth &&
-     pmouseY > container.bucketY + container.bucketHeight/2 && pmouseY < container.bucketY + container.bucketHeight) {
-     for(Particle p: container.particleList) {
-       p.velocity.mult((float)Math.sqrt((container.T-1)/container.T));
-     }
-   }
-  
+  if (pmouseX > container.bucketX && pmouseX < container.bucketX + container.bucketWidth &&
+    pmouseY > container.bucketY && pmouseY < container.bucketY + container.bucketHeight/2) {
+    for (Particle p : container.particleList) {
+      p.velocity.mult((float)Math.sqrt((container.T+1)/container.T));
+    }
+  }
+
+  if (pmouseX > container.bucketX && pmouseX < container.bucketX + container.bucketWidth &&
+    pmouseY > container.bucketY + container.bucketHeight/2 && pmouseY < container.bucketY + container.bucketHeight) {
+    for (Particle p : container.particleList) {
+      p.velocity.mult((float)Math.sqrt((container.T-1)/container.T));
+    }
+  }
+
 
   if (mouseOnPump()) {
     //container.addSomeParticles();
   }
   System.out.println(mouseX + " " + mouseY);
   if (container.bconstantButtons()) {
-    container.constantButtons();
     container.changeConstButt(container.bconstantButtons());
-    String s = container.constantButtons();
-    System.out.println(s);
+    System.out.println(container.constantVar);
+    //String s = container.constantButtons();
+    //System.out.println(s);
   }
-  if(container.mouseOnVolB()){
+  if (container.mouseOnVolB()) {
     System.out.println("ResizeButton is pressed");
   }
-    
-  //when clicked change colors, follow mouse, click again to switch out. 
+
+  //when clicked change colors, follow mouse, click again to switch out.
   //container.constantButtonPressed();
+  
+  if(pmouseX > 670 && pmouseX < 685 &&
+     pmouseY > 320 && pmouseY < 340 &&
+     container.popUp != null) {
+       container.popUp = null;
+  }
+  
 }
 void mousePressed() {
   if (container.mouseOnVolB()) {
     mouseXLast = mouseX;
     isDraggingVolB = true;
+  } else if (container.mouseOnLidB()) {
+    mouseXLast = mouseX;
+    isDraggingLidB = true;
   }
   container.mouseOnLid();
 }
 void mouseReleased() {
   isDraggingVolB = false;
+  isDraggingLidB = false;
 }
 
 void mouseDragged() {
@@ -290,7 +330,13 @@ void mouseDragged() {
       mouseXLast = newPlace;
       System.out.println("dif place");
     }
+  } else if(isDraggingLidB) {
+    int newPlace = mouseX;
+    if (container.changeLidOpeningWidth(newPlace-mouseXLast)) {
+      mouseXLast = newPlace;
+    }
   }
+  
 }
 
 
@@ -308,9 +354,26 @@ void draw() {
   container.display();
 
 
-  for (Particle p : container.particleList) {
+  for (int i = 0; i < container.particleList.size(); i++) {
+    Particle p = container.particleList.get(i);
     p.move();
-    totMomentum += p.wallCollide(container);
+    if(!p.escaped) {
+      totMomentum += p.wallCollide(container);
+    } else {
+      if(p.position.x < container.boxX || 
+         p.position.x >= container.boxX + container.LID_WIDTH ||
+         p.position.y < container.boxY - 50) {
+        if(p.period==1) {
+          container.lightN--;
+        } else if(p.period==2) {
+          container.mediumN--;
+        } else {
+          container.heavyN--;
+        }
+        container.particleList.remove(i);
+        i--;
+      }
+    }
     p.display();
   }
 
@@ -327,15 +390,24 @@ void draw() {
   container.calcTemperature();
   container.calcPressure(totMomentum);
   container.calcVolume();
-  text("# of Particles (moles): " + container.n, 40, 20);
-  text("Temperature: " + container.T, 40, 50);
-  text("Pressure: " + container.P, 40, 80);
+  container.calcR();
 
   //displays pressure
   container.barometer();
   container.thermometer();
-  text("Volume: " + container.V, 40, 110);
+
   if (frameCount % container.PUpdateFreq == 0) {
     totMomentum = 0;
   }
+  if(container.popUp != null) {
+      fill(255);
+      rect(300, 300, 400, 150, 20);
+      String[] lines = split(container.popUp, ". ");
+      fill(0);
+      textSize(20);
+      text(lines[0], 350, 350);
+      text(lines[1], 350, 400);
+      textSize(30);
+      text("X", 670, 340);
+    }
 }

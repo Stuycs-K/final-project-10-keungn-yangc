@@ -3,9 +3,11 @@ public class Particle {
   float mass, radius;
   int period;
   color c;
-  boolean delay;
-
+  boolean escaped;
+  
+  
   public Particle(int period_) {
+    escaped = false;
     period = period_;
     if (period == 1) {
       mass = 4;
@@ -23,7 +25,32 @@ public class Particle {
       c = color(0, 0, 255);
     }
     position = new PVector(220 + random(5, 15), 200 + random(5, 15));
-    velocity = new PVector((float)(random(.5, 1.5) * ((Math.sqrt(300/(0.5*mass)))/Math.sqrt(2))), (float)(random(.5, 1.5) * ((Math.sqrt(300/(0.5*mass)))/Math.sqrt(2))));
+    float xComponent = random(0.2, 0.8);
+    float yComponent = (float)Math.sqrt(1 - (xComponent*xComponent));
+    velocity = new PVector((float)(Math.sqrt(300/(0.5*mass)) * xComponent), (float)(Math.sqrt(300/(0.5*mass)) * yComponent));
+  }
+  
+  public Particle(int period_, float T) {
+    period = period_;
+    if (period == 1) {
+      mass = 4;
+      radius = 7;
+      c = color(255, 0, 0);
+    }
+    if (period == 2) {
+      mass = 10;
+      radius = 10;
+      c = color(0, 255, 0);
+    }
+    if (period == 3) {
+      mass = 20;
+      radius = 13;
+      c = color(0, 0, 255);
+    }
+    position = new PVector(220 + random(5, 15), 200 + random(5, 15));
+    float xComponent = random(0.2, 0.8);
+    float yComponent = (float)Math.sqrt(1 - (xComponent*xComponent));
+    velocity = new PVector((float)(Math.sqrt(T/(0.5*mass)) * xComponent), (float)(Math.sqrt(T/(0.5*mass)) * yComponent));
   }
 
 
@@ -69,9 +96,20 @@ public class Particle {
     } else {
       offset = position.y - radius - container.boxY;
       if (offset < 0) {
-        position.y -= offset*2;
-        velocity.y *= -1;
-        collisionMomentum += mass * abs(velocity.y);
+        if(container.lidOpeningWidth>0) {
+          float crossX = position.x + offset/velocity.y * velocity.x;
+          if(crossX >= container.boxX + container.LID_OPENING_X+radius && 
+            crossX < container.boxX + container.LID_OPENING_X +
+            container.lidOpeningWidth-radius) {
+            escaped = true;
+          }
+        }
+     
+        if(!escaped) {
+          position.y -= offset*2;
+          velocity.y *= -1;
+          collisionMomentum += mass * abs(velocity.y);
+        }
       }
     }
     return collisionMomentum;
