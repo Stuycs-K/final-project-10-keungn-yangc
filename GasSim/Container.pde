@@ -51,8 +51,13 @@ public class Container {
   public ArrayList<Particle>particleList = new ArrayList<Particle>();
   public boolean constantButton;//sees if ellipse should be filed if button is pressed
   public color b;
-  
+  public boolean lidOff;
+  PImage fire;
+  PImage ice;
+  public boolean tempUp;
+  public boolean tempDown;
   private String popUp = null;
+
 
   //------------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -61,7 +66,9 @@ public class Container {
     resizeKnobX = boxX + boxWidth ;
     resizeKnobY = boxY + boxHeight/2;
     constantButton = false;
+
     constantVar = NOTHING;
+
   }
   boolean mouseOnPump() {
     if (mouseX >= pumpX && mouseX <= (pumpX + 50) && mouseY >= pumpY && pmouseY <= (pumpY + 50)) {
@@ -70,13 +77,40 @@ public class Container {
     }
     return false;
   }
+  void setTempUP(){
+    tempUp = true;
+  }
+  void setTempDown(){
+    tempDown = true;
+  }
 
 
   void changeConstButt(boolean b) {//if mousepressed and its pressing a constant button, turns it true, is used in display to show option was chosen
     constantButton = b;
   }
 
+  public void addSomeParticles() {
+    for (int i = 0; i<5; i++) {
+      particleList.add(new Particle(1));
+      lightN++;
+    }
+  }
+  public boolean mouseOnLid(){//if mouse is on lid button
+    if(mouseX >= 600 && mouseX <= 650 && mouseY >= 1 && mouseY <= 51){
+      lidOff = true;
+      return true;
+    }
+    return false;
+  }
+    
+
+
+
   public void display() {//displays container
+    fill(255);
+      //drawLid();
+   
+    rect(600, 1,50, 50);
     rect(boxX, boxY, container.boxWidth, container.boxHeight);//displays big container
     fill(250, 20, 30);
     controln();
@@ -132,9 +166,42 @@ public class Container {
       //  constantButtons();
       ellipse(Xconstant, Yconstant, 14, 14);
     }
-    drawLid();
+    if(tempUp){
+      fire = loadImage("fire.jpeg");
+  image(fire,302,630, width/13, height/13);
+
+    }
+    else if(tempDown){
+      ice = loadImage("ice.jpeg");
+  image(ice,302,700, width/13, height/13);
+  image(ice,302,700, width/13, height/13);
+  image(ice,302,700, width/13, height/13);
+
+    }
+  
+    tempUp = false;
+    tempDown = false;
+
+    
+ 
+ 
+
+   //if(lidOff){
+   //  drawLid();
+   //   rotate(-PI/6.0);
+   //   drawLid();
+   //  // rotate(PI/4.0);
+   // }
+   // else{
+   //   drawLid();
+   // }
+   // lidOff = false;
   }
   
+  //void constantTemperature(){
+  //  if(constantVar = CONST_T){
+      
+    
   void constantButtonPressed() {
     if (bconstantButtons()) {
       fill(138, 191, 237);
@@ -288,9 +355,9 @@ public class Container {
     stroke(255, 0, 0);
     line(baroX, baroY, redX, redY);
     stroke(0);
-    rect(baroX - 30, baroY + 58, 60, 20, 5);
+    rect(baroX - 38, baroY + 58, 80, 20, 5);
     fill(0);
-    text(nf(container.P, 0, 3), baroX - 22, baroY + 75);
+    text(nf(container.P, 0, 3)+ "ATM", baroX - 35, baroY + 75 );
   }
   
   boolean mouseOnLidB() {
@@ -505,10 +572,10 @@ public class Container {
     }
     
     fill(255);
-    rect(thermX - 30, thermY + 23, 60, 20, 5);
+    rect(thermX - 30, thermY + 23, 65, 20, 5);
     textSize(20);
     fill(0);
-    text(nf(container.T, 4, 0), thermX - 20, thermY + 40);
+    text(nf(container.T, 4, 0)+ "K", thermX - 20, thermY + 40);
   }
   
   void controlTemp() {
