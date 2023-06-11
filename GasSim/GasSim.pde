@@ -272,8 +272,14 @@ void mouseClicked() {
     }
   }
 
-  if (dist(mouseX, mouseY, 565, 685) < 50) {
+  if (dist(mouseX, mouseY, 565, 685) < 25) {
     paused = !paused;
+  }
+  
+  if (dist(mouseX, mouseY, 625, 685) < 17.5 && paused) {
+     for(Particle p : container.particleList) {
+       p.move();
+     }
   }
 
 

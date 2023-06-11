@@ -188,7 +188,7 @@ public class Container {
     color pauseC;
     if (!paused) {
       pauseC = color(0, 200, 0);
-      if (dist(mouseX, mouseY, 565, 685) < 50) {
+      if (dist(mouseX, mouseY, 565, 685) < 25) {
         pauseC = color(100, 200, 100);
       }
       fill(pauseC);
@@ -198,7 +198,7 @@ public class Container {
       rect(569, 675, 5, 20);
     } else {
       pauseC = color(200, 0, 0);
-      if (dist(mouseX, mouseY, 565, 685) < 50) {
+      if (dist(mouseX, mouseY, 565, 685) < 25) {
         pauseC = color(200, 100, 100);
       }
       fill(pauseC);
@@ -206,6 +206,21 @@ public class Container {
       fill(255);
       triangle(555, 670, 555, 700, 580, 685);
     }
+    
+    color ffC;
+    if(!paused) {
+      ffC = color(150);
+    } else {
+      ffC = color(0, 200, 0);
+      if (dist(mouseX, mouseY, 625, 685) < 17.5) {
+        ffC = color(100, 200, 100);
+      }
+    }
+    fill(ffC);
+    circle(625, 685, 35);
+    fill(255);
+    rect(619, 677.5, 3, 15);
+    triangle(625, 677.5, 634, 685, 625, 692.5);
   
 
 
