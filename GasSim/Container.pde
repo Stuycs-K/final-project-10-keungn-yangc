@@ -4,6 +4,12 @@ public class Container {
   private final int CONST_T = 2;
   private final int CONST_P_V = 3;
   private final int CONST_P_T = 4;
+  private final int LID_WIDTH = 199;
+  private final int LID_HEIGHT = 5;
+  private final int LID_OPENING_X = 20;
+  private final int LID_OPENING_WIDTH_MAX = 150;
+  private final int LID_HANDLE_HEIGHT = 15;
+  private final int LID_HANDLE_WIDTH = 15;
   private int constantVar = NOTHING;
   private int boxX = 200;//top left corner x-coord of container
   private int boxY = 150;//top left corner y-coord of container
