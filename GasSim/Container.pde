@@ -68,7 +68,6 @@ public class Container {
     resizeKnobX = boxX + boxWidth ;
     resizeKnobY = boxY + boxHeight/2;
     constantButton = false;
-
     constantVar = NOTHING;
   }
   boolean mouseOnPump() {
@@ -162,11 +161,10 @@ public class Container {
     text("Pressure(V)", 60, 315);
     text("Pressure(T)", 60, 345);
     yonstant = 220 + constantVar * 30;
-    if (constantButton) {
+
       fill(138, 191, 237);
-      //  constantButtons();
       ellipse(xonstant, yonstant, 14, 14);
-    }
+
 
     if (constantVar != CONST_T) {
       drawLid();
@@ -221,6 +219,20 @@ public class Container {
     fill(255);
     rect(619, 677.5, 3, 15);
     triangle(625, 677.5, 634, 685, 625, 692.5);
+    
+    color resetC = color(255, 165, 0);
+    if (dist(mouseX, mouseY, 920, 685) < 30) {
+        resetC = color(255, 200, 100);
+      }
+    fill(resetC);
+    circle(920, 685, 60);
+    fill(255);
+    circle(920, 685, 45);
+    fill(resetC);
+    circle(920, 685, 30);
+    triangle(925, 660, 920, 685, 945, 675);
+    fill(255);
+    triangle(929, 683, 932, 671, 945, 675);
   
 
 
@@ -245,15 +257,8 @@ public class Container {
   //  if(constantVar = CONST_T){
 
 
-  void constantButtonPressed() {
-    if (bconstantButtons()) {
-      fill(138, 191, 237);
-      //  constantButtons();
-      ellipse(xonstant, yonstant, 14, 14);
-    }
-  }
-
   boolean bconstantButtons() {
+    if(popUp == null) {
     if (mouseX >= 36 && mouseX <= 54 ) {
       //System.out.println("nothing");
       if (mouseY >= 213 && mouseY <= 229) {
@@ -282,7 +287,9 @@ public class Container {
         return true;
       }
     }
+    }
     return false;
+  
   }
 
 

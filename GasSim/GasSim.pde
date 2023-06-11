@@ -281,6 +281,19 @@ void mouseClicked() {
        p.move();
      }
   }
+  
+  if (dist(mouseX, mouseY, 920, 685) < 30) {
+        int size = container.particleList.size();
+        for (int i = 0; i < size; i++) {
+          container.particleList.remove(0);
+        }
+        container.lightN = 0;
+        container.mediumN = 0;
+        container.heavyN = 0;
+        container.T = 0;
+        container.P = 0;
+        container.boxWidth = 600;
+      }
 
 
 
