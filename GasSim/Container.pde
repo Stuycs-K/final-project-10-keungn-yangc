@@ -48,6 +48,7 @@ public class Container {
   private int bucketWidth = 115;
   private int bucketHeight = 85;
   private float tempSliderY = bucketY + 0.425 * bucketHeight;
+  private final float sliderMid = bucketY + 0.425 * bucketHeight;
   private int PUpdateFreq = 100;
   public ArrayList<Particle>particleList = new ArrayList<Particle>();
   public boolean constantButton;//sees if ellipse should be filed if button is pressed
@@ -600,11 +601,11 @@ public class Container {
     fill(150);
     stroke(0);
     ellipse(bucketX + 0.5* bucketWidth, bucketY + bucketHeight, bucketWidth * 0.7, 10);
-    if(tempSliderY < container.bucketY + 0.425 * container.bucketHeight) {
+    if (tempSliderY < sliderMid) {
       fire(bucketX + 0.5 * bucketWidth, tempSliderY);
     }
-    if(tempSliderY > container.bucketY + 0.425 * container.bucketHeight) {
-      ice(bucketX + 0.5 * bucketWidth, (container.bucketY + 0.425 * container.bucketHeight) + (container.bucketY + 0.425 * container.bucketHeight-tempSliderY) - 40, .7);
+    if (tempSliderY > sliderMid) {
+      ice(bucketX + 0.5 * bucketWidth, (sliderMid) + (sliderMid-tempSliderY) - 40, .7);
     }
     fill(150);
     noStroke();
@@ -639,9 +640,28 @@ public class Container {
       line(bucketX + 0.5 * bucketWidth, tempSliderY + bucketHeight * 0.125, bucketX + 0.825 * bucketWidth, tempSliderY + bucketHeight * 0.125);
     }
     if (!isDraggingTempSlider) {
-      container.tempSliderY = container.bucketY + 0.425 * container.bucketHeight;
+      container.tempSliderY = sliderMid;
+    } else {
+      //slower when closer to mid, faster when closer to extremes
+      int changeSpeed = 10000/(int)((abs(tempSliderY - sliderMid) * 100));
+      if (tempSliderY < sliderMid ) {
+        if(frameCount % changeSpeed == 0) {
+        float factor = (float)Math.sqrt((container.T+1)/container.T);
+        for (Particle p : container.particleList) {
+          p.velocity.mult(factor);
+          }
+        }
+      }
+
+      if (tempSliderY > sliderMid) {
+        if(frameCount % changeSpeed == 0) {
+        float factor = (float)Math.sqrt((container.T-1)/container.T);
+        for (Particle p : container.particleList) {
+          p.velocity.mult(factor);
+          }
+        }
+      }
     }
-    
   }
 
   void fire(float x, float y) {
@@ -667,43 +687,43 @@ public class Container {
     bezierVertex(-102.0, -24.9, -28.3, 4.0, 0, 0);
     endShape(CLOSE);
   }
-  
+
   void ice(float x, float y, float f) {
-  pushMatrix();
+    pushMatrix();
 
-  translate(x, y);
-  scale(f);
+    translate(x, y);
+    scale(f);
 
-  stroke(0.5);
-  fill(173, 216, 230);
-  beginShape();
-  vertex(-56, 30.3);
-  bezierVertex(-89.1, 37.8*f, -44.6, 68, -21.9, 45.4);
-  bezierVertex(-3, 62.7, 33.5, 59.7, 40.1, 34.7);
-  bezierVertex(74.8, 29.5, 74, 6, 50.5, 1.7);
-  vertex(27, 30.3);
-  endShape(CLOSE);
-  fill(173, 216, 235);
-  beginShape();
-  vertex(50.5, +1.7);
-  vertex(50.5, -61.2);
-  vertex(27, -16.6);
-  vertex(27, 30.3);
-  endShape(CLOSE);
-  fill(210);
-  beginShape();
-  vertex(27, -16.6);
-  vertex(50.5, -61.2);
-  vertex(-32.5, -61.2);
-  vertex(-56, -16.6);
-  endShape(CLOSE);
-  fill(255);
-  beginShape();
-  vertex(-56, -16.6);
-  vertex(-56, 30.3);
-  vertex(27, 30.3);
-  vertex(27, -16.6);
-  endShape(CLOSE);
-  popMatrix();
-}
+    stroke(0.5);
+    fill(173, 216, 230);
+    beginShape();
+    vertex(-56, 30.3);
+    bezierVertex(-89.1, 37.8*f, -44.6, 68, -21.9, 45.4);
+    bezierVertex(-3, 62.7, 33.5, 59.7, 40.1, 34.7);
+    bezierVertex(74.8, 29.5, 74, 6, 50.5, 1.7);
+    vertex(27, 30.3);
+    endShape(CLOSE);
+    fill(173, 216, 235);
+    beginShape();
+    vertex(50.5, +1.7);
+    vertex(50.5, -61.2);
+    vertex(27, -16.6);
+    vertex(27, 30.3);
+    endShape(CLOSE);
+    fill(210);
+    beginShape();
+    vertex(27, -16.6);
+    vertex(50.5, -61.2);
+    vertex(-32.5, -61.2);
+    vertex(-56, -16.6);
+    endShape(CLOSE);
+    fill(255);
+    beginShape();
+    vertex(-56, -16.6);
+    vertex(-56, 30.3);
+    vertex(27, 30.3);
+    vertex(27, -16.6);
+    endShape(CLOSE);
+    popMatrix();
+  }
 }

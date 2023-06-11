@@ -266,22 +266,7 @@ void mouseClicked() {
   }
 
 
-  //CONTROL TEMP
-  if (pmouseX > container.bucketX && pmouseX < container.bucketX + container.bucketWidth &&
-    pmouseY > container.bucketY && pmouseY < container.bucketY + container.bucketHeight/2) {
-    for (Particle p : container.particleList) {
-      container.setTempUP();
-      p.velocity.mult((float)Math.sqrt((container.T+1)/container.T));
-    }
-  }
-
-  if (pmouseX > container.bucketX && pmouseX < container.bucketX + container.bucketWidth &&
-    pmouseY > container.bucketY + container.bucketHeight/2 && pmouseY < container.bucketY + container.bucketHeight) {
-    for (Particle p : container.particleList) {
-      container.setTempDown();
-      p.velocity.mult((float)Math.sqrt((container.T-1)/container.T));
-    }
-  }
+  
 
 
   System.out.println(mouseX + " " + mouseY);
