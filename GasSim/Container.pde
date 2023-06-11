@@ -194,7 +194,8 @@ public class Container {
       fill(pauseC);
       circle(565, 685, 50);
       fill(255);
-      triangle(555, 670, 555, 700, 580, 685);
+      rect(556, 675, 5, 20);
+      rect(569, 675, 5, 20);
     } else {
       pauseC = color(200, 0, 0);
       if (dist(mouseX, mouseY, 565, 685) < 50) {
