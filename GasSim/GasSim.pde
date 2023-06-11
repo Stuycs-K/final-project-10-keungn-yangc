@@ -3,6 +3,7 @@ Container container = new Container();
 private int mouseXLast;
 private boolean isDraggingVolB = false;
 private boolean isDraggingLidB = false;
+private boolean isDraggingBucket = false;
 float totMomentum;
 
 private final int REMOVE_LIGHT_LITTLE = 1;

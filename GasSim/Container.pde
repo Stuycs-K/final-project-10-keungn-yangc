@@ -45,8 +45,9 @@ public class Container {
   private int baroY = 65;
   private int bucketX = 300;
   private int bucketY = 650;
-  private int bucketWidth = 75;
-  private int bucketHeight = 100;
+  private int bucketWidth = 115;
+  private int bucketHeight = 85;
+  private float tempSliderY = bucketY + 0.425 * bucketHeight;
   private int PUpdateFreq = 100;
   public ArrayList<Particle>particleList = new ArrayList<Particle>();
   public boolean constantButton;//sees if ellipse should be filed if button is pressed
@@ -108,7 +109,6 @@ public class Container {
 
   public void display() {//displays container
     fill(255);
-     drawLid();
    
     rect(600, 1,50, 50);
     rect(boxX, boxY, container.boxWidth, container.boxHeight);//displays big container
@@ -369,11 +369,17 @@ public class Container {
     stroke(0);
     rect(baroX - 38, baroY + 58, 80, 20, 5);
     fill(0);
-    text(nf(container.P, 0, 3)+ "ATM", baroX - 35, baroY + 75 );
+    text(nf(container.P * 10000, 4, 0)+ "ATM", baroX - 35, baroY + 75 );
 
   }
   
   boolean mouseOnLidB() {
+    return (constantVar != CONST_T && mouseX >= boxX + LID_OPENING_X+lidOpeningWidth &&
+      mouseX <= boxX + LID_OPENING_X+lidOpeningWidth + LID_HANDLE_WIDTH +1 &&
+      mouseY >= boxY-LID_HEIGHT-LID_HANDLE_HEIGHT && mouseY <= boxY+1);
+  }
+  
+  boolean mouseOnBucket() {
     return (constantVar != CONST_T && mouseX >= boxX + LID_OPENING_X+lidOpeningWidth &&
       mouseX <= boxX + LID_OPENING_X+lidOpeningWidth + LID_HANDLE_WIDTH +1 &&
       mouseY >= boxY-LID_HEIGHT-LID_HANDLE_HEIGHT && mouseY <= boxY+1);
@@ -591,8 +597,43 @@ public class Container {
     text(nf(container.T, 4, 0)+ "K", thermX - 20, thermY + 40);
   }
   
+  
+  
+  
   void controlTemp() {
-    fill(100);
-    rect(bucketX, bucketY, bucketWidth, bucketHeight);
+    fill(150);
+    stroke(0);
+    ellipse(bucketX + 0.5* bucketWidth, bucketY + bucketHeight, bucketWidth * 0.7, 10);
+    noStroke();
+    beginShape();
+    vertex(bucketX, bucketY);
+    vertex(bucketX + bucketWidth, bucketY);
+    vertex(bucketX + 0.85 * bucketWidth, bucketY + bucketHeight);
+    vertex(bucketX + 0.15 * bucketWidth, bucketY + bucketHeight);
+    endShape();
+    stroke(0);
+    ellipse(bucketX + 0.5* bucketWidth, bucketY, bucketWidth, 10);
+    if(constantVar != CONST_T && constantVar != CONST_P
+    noFill();
+    color c1 = color(255, 0, 0);
+    color c2 = color(0, 0, 255);
+    for (float i = bucketY + 0.25 * bucketHeight; i <= bucketY + 0.85 * bucketHeight; i++) {
+      float inter = map(i, bucketY + 0.15 * bucketHeight, bucketY + 0.85 * bucketHeight, 0, 1);
+      color c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(bucketX + 0.6 * bucketWidth, i, bucketX + 0.7 * bucketWidth, i);
+    }
+    stroke(0);
+    rect(bucketX + 0.6 * bucketWidth, bucketY + 0.25 * bucketHeight, 0.1 * bucketWidth, 0.6 * bucketHeight);
+    line(bucketX + 0.5 * bucketWidth, bucketY + 0.25 * bucketHeight, bucketX + 0.6 * bucketWidth, bucketY + 0.25 * bucketHeight);
+    line(bucketX + 0.5 * bucketWidth, bucketY + 0.85 * bucketHeight, bucketX + 0.6 * bucketWidth, bucketY + 0.85 * bucketHeight);
+    textSize(12.5);
+    fill(0);
+    text("Heat", bucketX + 0.25 * bucketWidth, bucketY + 0.3 * bucketHeight);
+    text("Cool", bucketX + 0.25 * bucketWidth, bucketY + 0.9 * bucketHeight);
+    fill(173, 216, 230);
+    rect(bucketX + 0.5 * bucketWidth, tempSliderY, bucketWidth * 0.325, bucketHeight * 0.25, 5);
+    line(bucketX + 0.5 * bucketWidth, tempSliderY + bucketHeight * 0.125, bucketX + 0.825 * bucketWidth, tempSliderY + bucketHeight * 0.125);
   }
-}
+  }
+  
