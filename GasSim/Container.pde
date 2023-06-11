@@ -166,6 +166,11 @@ public class Container {
       //  constantButtons();
       ellipse(Xconstant, Yconstant, 14, 14);
     }
+
+    if(constantVar != CONST_T) {
+    drawLid();
+    }
+
     if(tempUp){
       fire = loadImage("fire.jpeg");
   image(fire,302,630, width/13, height/13);
@@ -196,6 +201,7 @@ public class Container {
    //   drawLid();
    // }
    // lidOff = false;
+
   }
   
   //void constantTemperature(){
@@ -277,8 +283,6 @@ public class Container {
   //}
   public void changeVol(int resizeKnobXNew) {
     if(resizeKnobXNew < resizeKnobX) {
-      // when width gets smaller, shift particles so they are within
-      // the new box
       float f = (float) (resizeKnobXNew - boxX)/(resizeKnobX - boxX);
       for (Particle p : particleList) {
         p.position.x = boxX + (p.position.x-boxX)*f;
@@ -295,6 +299,14 @@ public class Container {
       T = totalKineticEnergy / n;
     } else {
       T = 0;
+    }
+    
+    if(constantVar == CONST_P_T) {
+      //PV/nR = T
+      float calcedT = (P * V)/(n * 0.0821);
+      for (Particle p : container.particleList) {
+        p.velocity.mult((float)Math.sqrt(calcedT/T));
+    }
     }
   }
 
@@ -358,10 +370,11 @@ public class Container {
     rect(baroX - 38, baroY + 58, 80, 20, 5);
     fill(0);
     text(nf(container.P, 0, 3)+ "ATM", baroX - 35, baroY + 75 );
+
   }
   
   boolean mouseOnLidB() {
-    return (mouseX >= boxX + LID_OPENING_X+lidOpeningWidth &&
+    return (constantVar != CONST_T && mouseX >= boxX + LID_OPENING_X+lidOpeningWidth &&
       mouseX <= boxX + LID_OPENING_X+lidOpeningWidth + LID_HANDLE_WIDTH +1 &&
       mouseY >= boxY-LID_HEIGHT-LID_HANDLE_HEIGHT && mouseY <= boxY+1);
   }
