@@ -131,7 +131,7 @@ public class Container {
       //  constantButtons();
       ellipse(Xconstant, Yconstant, 14, 14);
     }
-    
+    drawLid();
   }
   
   void constantButtonPressed() {
@@ -207,7 +207,15 @@ public class Container {
   //  System.out.println(boxWidth);
   //  }
   //}
-  public void changeVol() {
+  public void changeVol(int resizeKnobXNew) {
+    if(resizeKnobXNew < resizeKnobX) {
+      // when width gets smaller, shift particles so they are within
+      // the new box
+      float f = (float) (resizeKnobXNew - boxX)/(resizeKnobX - boxX);
+      for (Particle p : particleList) {
+        p.position.x = boxX + (p.position.x-boxX)*f;
+      }
+    }
   }
 
   void calcTemperature() {
