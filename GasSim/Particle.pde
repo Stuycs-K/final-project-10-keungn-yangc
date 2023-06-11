@@ -10,20 +10,18 @@ public class Particle {
     escaped = false;
     period = period_;
     if (period == 1) {
-      mass = 4;
-      radius = 7;
+      radius = 4;
       c = color(255, 0, 0);
     }
     if (period == 2) {
-      mass = 10;
-      radius = 10;
+      radius = 6;
       c = color(0, 255, 0);
     }
     if (period == 3) {
-      mass = 20;
-      radius = 13;
+      radius = 9;
       c = color(0, 0, 255);
     }
+    mass = (radius * radius * PI)/10;
     position = new PVector(220 + random(5, 15), 200 + random(5, 15));
     float xComponent = random(0.2, 0.8);
     float yComponent = (float)Math.sqrt(1 - (xComponent*xComponent));
@@ -33,20 +31,18 @@ public class Particle {
   public Particle(int period_, float T) {
     period = period_;
     if (period == 1) {
-      mass = 4;
-      radius = 7;
+      radius = 4;
       c = color(255, 0, 0);
     }
     if (period == 2) {
-      mass = 10;
-      radius = 10;
+      radius = 6;
       c = color(0, 255, 0);
     }
     if (period == 3) {
-      mass = 20;
-      radius = 13;
+      radius = 9;
       c = color(0, 0, 255);
     }
+    mass = (radius * radius * PI)/10;
     position = new PVector(220 + random(5, 15), 200 + random(5, 15));
     float xComponent = random(0.2, 0.8);
     float yComponent = (float)Math.sqrt(1 - (xComponent*xComponent));

@@ -312,6 +312,7 @@ public class Container {
     }
 
     if (resizeKnobXNew != resizeKnobX) {
+      changeVol(resizeKnobXNew);
       resizeKnobX = resizeKnobXNew;
       boxWidth = resizeKnobX - boxX;
       return true;
@@ -326,7 +327,7 @@ public class Container {
   //  }
   //}
   public void changeVol(int resizeKnobXNew) {
-    if (resizeKnobXNew < resizeKnobX) {
+    if (resizeKnobXNew != resizeKnobX) {
       float f = (float) (resizeKnobXNew - boxX)/(resizeKnobX - boxX);
       for (Particle p : particleList) {
         p.position.x = boxX + (p.position.x-boxX)*f;
@@ -357,7 +358,7 @@ public class Container {
   void calcPressure(float momentumTotal) {
     float containerSurface = (container.boxWidth + container.boxHeight) *2;
     if (frameCount % PUpdateFreq == 0) {
-      P = momentumTotal / (containerSurface * PUpdateFreq) * 0.155;
+      P = momentumTotal / (containerSurface * PUpdateFreq) * 0.166;
     }
   }
 
@@ -391,6 +392,12 @@ public class Container {
       particleVolume += (PI) * (p.radius * p.radius);
     }
     V = boxWidth * boxHeight - particleVolume;
+    
+    System.out.println("" + (boxWidth * boxHeight) + "  " + particleVolume);
+    float ratio = particleVolume / (float) (boxWidth * boxHeight);
+    System.out.println("P to B ratio: " + ratio);
+    System.out.println((1-ratio) * R);
+    System.out.println(R / (1/ratio));
   }
 
 

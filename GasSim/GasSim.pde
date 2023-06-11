@@ -293,6 +293,7 @@ void mouseClicked() {
         container.T = 0;
         container.P = 0;
         container.boxWidth = 600;
+        container.resizeKnobX = container.boxX + container.boxWidth;
       }
 
 
