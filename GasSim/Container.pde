@@ -369,7 +369,7 @@ public class Container {
     stroke(0);
     rect(baroX - 38, baroY + 58, 80, 20, 5);
     fill(0);
-    text(nf(container.P, 0, 3)+ "ATM", baroX - 35, baroY + 75 );
+    text(nf(container.P * 10000, 4, 0)+ "ATM", baroX - 35, baroY + 75 );
 
   }
   
