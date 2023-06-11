@@ -4,11 +4,18 @@ public class Container {
   private final int CONST_T = 2;
   private final int CONST_P_V = 3;
   private final int CONST_P_T = 4;
+  private final int LID_WIDTH = 199;
+  private final int LID_HEIGHT = 5;
+  private final int LID_OPENING_X = 20;
+  private final int LID_OPENING_WIDTH_MAX = 150;
+  private final int LID_HANDLE_HEIGHT = 15;
+  private final int LID_HANDLE_WIDTH = 15;
   private int constantVar = NOTHING;
   private int boxX = 200;//top left corner x-coord of container
   private int boxY = 150;//top left corner y-coord of container
   private  int boxWidth = 600;//width of box
   private  int boxHeight = 450;//height of box
+  private int lidOpeningWidth = 0;
   private  boolean lidStatus;//if lid is on or off
   private  float P;
   private  float V;
@@ -125,7 +132,7 @@ public class Container {
       //  constantButtons();
       ellipse(Xconstant, Yconstant, 14, 14);
     }
-    
+    drawLid();
   }
   
   void constantButtonPressed() {
@@ -201,7 +208,15 @@ public class Container {
   //  System.out.println(boxWidth);
   //  }
   //}
-  public void changeVol() {
+  public void changeVol(int resizeKnobXNew) {
+    if(resizeKnobXNew < resizeKnobX) {
+      // when width gets smaller, shift particles so they are within
+      // the new box
+      float f = (float) (resizeKnobXNew - boxX)/(resizeKnobX - boxX);
+      for (Particle p : particleList) {
+        p.position.x = boxX + (p.position.x-boxX)*f;
+      }
+    }
   }
 
   void calcTemperature() {
@@ -277,7 +292,41 @@ public class Container {
     fill(0);
     text(nf(container.P, 0, 3), baroX - 22, baroY + 75);
   }
+  
+  boolean mouseOnLidB() {
+    return (mouseX >= boxX + LID_OPENING_X+lidOpeningWidth &&
+      mouseX <= boxX + LID_OPENING_X+lidOpeningWidth + LID_HANDLE_WIDTH +1 &&
+      mouseY >= boxY-LID_HEIGHT-LID_HANDLE_HEIGHT && mouseY <= boxY+1);
+  }
 
+  void drawLid() {
+    noStroke();
+    fill(128);
+    rect(1+boxX, 1+boxY-LID_HEIGHT, LID_OPENING_X, LID_HEIGHT);
+    rect(1+boxX+LID_OPENING_X+lidOpeningWidth, 1+boxY-LID_HEIGHT, 
+      LID_WIDTH-(LID_OPENING_X+lidOpeningWidth), LID_HEIGHT);
+    rect(1+boxX+LID_OPENING_X+lidOpeningWidth,
+      1+boxY-LID_HEIGHT-LID_HANDLE_HEIGHT, 
+      LID_HANDLE_WIDTH, LID_HANDLE_HEIGHT);
+    fill(255);
+    rect(1+boxX+LID_OPENING_X, 1+boxY-LID_HEIGHT, lidOpeningWidth, LID_HEIGHT);
+  }
+
+  boolean changeLidOpeningWidth(int num) {
+    int lidOpeningWidthNew = lidOpeningWidth + num;
+    if(lidOpeningWidthNew < 0) {
+      lidOpeningWidthNew = 0;
+    } else if(lidOpeningWidthNew > LID_OPENING_WIDTH_MAX) {
+      lidOpeningWidthNew = LID_OPENING_WIDTH_MAX;
+    }
+
+    if (lidOpeningWidthNew != lidOpeningWidth) {
+      lidOpeningWidth = lidOpeningWidthNew;
+      return true;
+    }
+
+    return false;
+  }
 
 
   //control particle
