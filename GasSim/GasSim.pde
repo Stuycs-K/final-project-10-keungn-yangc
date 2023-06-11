@@ -2,6 +2,7 @@ Container container = new Container();
 
 private int mouseXLast;
 private boolean isDraggingVolB = false;
+private boolean isDraggingLidB = false;
 float totMomentum;
 
 private final int REMOVE_LIGHT_LITTLE = 1;
@@ -307,10 +308,14 @@ void mousePressed() {
   if (container.mouseOnVolB()) {
     mouseXLast = mouseX;
     isDraggingVolB = true;
+  } else if (container.mouseOnLidB()) {
+    mouseXLast = mouseX;
+    isDraggingLidB = true;
   }
 }
 void mouseReleased() {
   isDraggingVolB = false;
+  isDraggingLidB = false;
 }
 
 void mouseDragged() {
@@ -324,7 +329,13 @@ void mouseDragged() {
       mouseXLast = newPlace;
       System.out.println("dif place");
     }
+  } else if(isDraggingLidB) {
+    int newPlace = mouseX;
+    if (container.changeLidOpeningWidth(newPlace-mouseXLast)) {
+      mouseXLast = newPlace;
+    }
   }
+  
 }
 
 
