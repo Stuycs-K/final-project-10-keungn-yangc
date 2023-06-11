@@ -105,6 +105,11 @@ info
 - added graphics to temperature controller(slightly glitchy and slow will fix)
 - kept working on lid falling off
 
+### 6/10/23
+- worked on lid some more TnT
+
+### 6/11/23
+- did readme file and some of dev log
 
 
 
