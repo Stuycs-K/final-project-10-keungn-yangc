@@ -3,7 +3,6 @@ public class Particle {
   float mass, radius;
   int period;
   color c;
-  boolean delay;
   
   
   public Particle(int period_) {

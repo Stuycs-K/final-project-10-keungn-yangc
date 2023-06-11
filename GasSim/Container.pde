@@ -9,7 +9,6 @@ public class Container {
   private int boxY = 150;//top left corner y-coord of container
   private  int boxWidth = 600;//width of box
   private  int boxHeight = 450;//height of box
-
   private  boolean lidStatus;//if lid is on or off
   private  float P;
   private  float V;
@@ -23,8 +22,8 @@ public class Container {
   private int lightN;
   private int mediumN;
   private int heavyN;
-  private  final float R = 0.0821;
-  private  float T = 300;
+  private float R;
+  private float T = 300;
   private int resizeKnobX;//x-coord of where box/container ends and the lines and resize box start
   private int resizeKnobY;//y-coord of where box/container ends and the lines and resize box start
   private int Xconstant = 45;//center x-coord of ellipse if one of constant buttons is pressed
@@ -33,9 +32,9 @@ public class Container {
   private int pumpBY = 450;//box to pump in particles top left corner y-coord
   private int pumpWidth = 150;
   private int pumpHeight = 200;
-  private int thermX = 400;
+  private int thermX = 145;
   private int thermY = 100;
-  private int baroX = 300;
+  private int baroX = 65;
   private int baroY = 65;
   private int bucketX = 300;
   private int bucketY = 650;
@@ -45,6 +44,8 @@ public class Container {
   public ArrayList<Particle>particleList = new ArrayList<Particle>();
   public boolean constantButton;//sees if ellipse should be filed if button is pressed
   public color b;
+  
+  private String popUp = null;
 
   //------------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -53,6 +54,7 @@ public class Container {
     resizeKnobX = boxX + boxWidth ;
     resizeKnobY = boxY + boxHeight/2;
     constantButton = false;
+    constantVar = NOTHING;
   }
   boolean mouseOnPump() {
     if (mouseX >= pumpX && mouseX <= (pumpX + 50) && mouseY >= pumpY && pmouseY <= (pumpY + 50)) {
@@ -85,12 +87,12 @@ public class Container {
   textSize(20);
   fill(255);
       text("Volume: " + nf(V, 0, 0), 35, 165); 
-  
+   textSize(70);
+   
+   text("R = PV/nT = " + R, 500, 100);
   
     fill(125);
     rect(30, 175, 150, 250);//control box
-    fill(255, 10, 23);
-    rect(pumpX, pumpY, 50, 50);
     fill(255);
     textSize(25);
     text("Hold Constant", 31, 200);
@@ -117,11 +119,13 @@ public class Container {
     text("Temperature", 60, 285);
     text("Pressure(V)", 60, 315);
     text("Pressure(T)", 60, 345);
+    Yconstant = 220 + constantVar * 30;
     if (constantButton) {
       fill(138, 191, 237);
       //  constantButtons();
       ellipse(Xconstant, Yconstant, 14, 14);
     }
+    
   }
   
   void constantButtonPressed() {
@@ -215,19 +219,47 @@ public class Container {
   void calcPressure(float momentumTotal) {
     float containerSurface = (container.boxWidth + container.boxHeight) *2;
     if (frameCount % PUpdateFreq == 0) {
-      P = momentumTotal / (containerSurface * PUpdateFreq);
+      P = momentumTotal / (containerSurface * PUpdateFreq) * 0.155;
     }
   }
-
-  void calcVolume () {
-    V = container.boxWidth * container.boxHeight;
+  
+  void calcR() {
+    R = (P*V)/(n*T);
   }
+  
+  //boxWidth*BoxHeight/P      
+  void calcVolume () {
+    if(constantVar == CONST_P_V) {
+      
+      //boxWidth = nRT/(P*boxHeight)
+      if ((int)((n * 0.0821 * T)/(P * boxHeight)) > 700) {
+        boxWidth = 700;
+        popUp = "Pressure cannot be held constant. Volume would be too large";
+        constantVar = NOTHING;
+        resizeKnobX = boxX + 700;
+      } else
+      if ((int)((n * 0.0821 * T)/(P * boxHeight)) < 200) {
+        boxWidth = 200;
+        popUp = "Pressure cannot be held constant. Volume would be too small";
+        constantVar = NOTHING;
+        resizeKnobX = boxX + 200;
+      } else {
+        boxWidth = (int)((n * 0.0821 * T)/(P * boxHeight));
+      }
+    }
+    
+    float particleVolume = 0;
+    for(Particle p : particleList) {
+      particleVolume += (PI) * (p.radius * p.radius);
+    }
+    V = boxWidth * boxHeight - particleVolume;
+  }
+  
+
 
   //display pressure
   void barometer() {
     fill(255);
-    int baroX = boxX + 100;
-    int baroY = boxY - 85;
     int r = 50;
     circle(baroX, baroY, r * 2);
     for (float theta = PI/6; theta > (-7*PI)/6; theta -= PI/6) {
