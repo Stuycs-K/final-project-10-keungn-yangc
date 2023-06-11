@@ -184,6 +184,30 @@ public class Container {
 
     tempUp = false;
     tempDown = false;
+    
+    color pauseC;
+    if (!paused) {
+      pauseC = color(0, 200, 0);
+      if (dist(mouseX, mouseY, 565, 685) < 50) {
+        pauseC = color(100, 200, 100);
+      }
+      fill(pauseC);
+      circle(565, 685, 50);
+      fill(255);
+      triangle(555, 670, 555, 700, 580, 685);
+    } else {
+      pauseC = color(200, 0, 0);
+      if (dist(mouseX, mouseY, 565, 685) < 50) {
+        pauseC = color(200, 100, 100);
+      }
+      fill(pauseC);
+      circle(565, 685, 50);
+      fill(255);
+      triangle(555, 670, 555, 700, 580, 685);
+    }
+  
+
+
 
 
 
@@ -643,21 +667,21 @@ public class Container {
       container.tempSliderY = sliderMid;
     } else {
       //slower when closer to mid, faster when closer to extremes
-      int changeSpeed = 10000/(int)((abs(tempSliderY - sliderMid) * 100));
+      int changeSpeed = int(10000/((abs(tempSliderY - sliderMid) * 100)));
       if (tempSliderY < sliderMid ) {
-        if(frameCount % changeSpeed == 0) {
-        float factor = (float)Math.sqrt((container.T+1)/container.T);
-        for (Particle p : container.particleList) {
-          p.velocity.mult(factor);
+        if (frameCount % changeSpeed == 0) {
+          float factor = (float)Math.sqrt((container.T+1)/container.T);
+          for (Particle p : container.particleList) {
+            p.velocity.mult(factor);
           }
         }
       }
 
       if (tempSliderY > sliderMid) {
-        if(frameCount % changeSpeed == 0) {
-        float factor = (float)Math.sqrt((container.T-1)/container.T);
-        for (Particle p : container.particleList) {
-          p.velocity.mult(factor);
+        if (frameCount % changeSpeed == 0) {
+          float factor = (float)Math.sqrt((container.T-1)/container.T);
+          for (Particle p : container.particleList) {
+            p.velocity.mult(factor);
           }
         }
       }

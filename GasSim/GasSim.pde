@@ -23,6 +23,8 @@ private final int REMOVE_HEAVY_LOT = 10;
 private final int ADD_HEAVY_LOT = 11;
 private final int ADD_HEAVY_LITTLE = 12;
 
+private boolean paused = false;
+
 boolean mouseOnPump() {
   return pmouseX >= 100 && pmouseX <= 180 && pmouseY >= 450 && pmouseY <= 520;
 }
@@ -125,7 +127,12 @@ int addRemove() {
 
 void mouseClicked() {
   System.out.println(mouseX + " " + mouseY);
-  int click = addRemove();
+  int click;
+  if (!paused) {
+    click = addRemove();
+  } else {
+    click =0;
+  }
   if (click == REMOVE_LIGHT_LITTLE && container.lightN > 0) {
     for (int i = 0; i < container.particleList.size(); i++) {
       if (container.particleList.get(i).period == 1) {
@@ -265,8 +272,10 @@ void mouseClicked() {
     }
   }
 
+  if (dist(mouseX, mouseY, 565, 685) < 50) {
+    paused = !paused;
+  }
 
-  
 
 
   System.out.println(mouseX + " " + mouseY);
@@ -331,7 +340,7 @@ void mouseDragged() {
     } else {
       container.tempSliderY = mouseY;
     }
-  } 
+  }
 }
 
 
@@ -351,7 +360,9 @@ void draw() {
 
   for (int i = 0; i < container.particleList.size(); i++) {
     Particle p = container.particleList.get(i);
-    p.move();
+    if (!paused) {
+      p.move();
+    }
     if (!p.escaped) {
       totMomentum += p.wallCollide(container);
     } else {
@@ -382,10 +393,12 @@ void draw() {
 
   fill(255);
   textSize(20);
-  container.calcTemperature();
-  container.calcPressure(totMomentum);
-  container.calcVolume();
-  container.calcR();
+  if (!paused) {
+    container.calcTemperature();
+    container.calcPressure(totMomentum);
+    container.calcVolume();
+    container.calcR();
+  }
 
   //displays pressure
   container.barometer();
