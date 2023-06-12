@@ -420,6 +420,9 @@ void draw() {
   if (!paused) {
     container.calcTemperature();
     container.calcPressure(totMomentum);
+    if(container.P >= container.RELIEF_PRESSURE) {
+      container.openLid();
+    }
     container.calcVolume();
     container.calcR();
   }
