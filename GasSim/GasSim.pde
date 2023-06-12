@@ -157,6 +157,7 @@ void mouseClicked() {
     }
   }
   if (click == ADD_LIGHT_LOT) {
+    container.historicPCount = 0;
     for (int i = 0; i < 10; i++) {
       if (container.lightN < 100) {
         if (container.n == 0) {
@@ -170,6 +171,7 @@ void mouseClicked() {
     }
   }
   if (click == ADD_LIGHT_LITTLE && container.lightN < 100) {
+    container.historicPCount = 0;
     if (container.n == 0) {
       container.particleList.add(new Particle(1));
       container.lightN++;
@@ -203,6 +205,7 @@ void mouseClicked() {
     }
   }
   if (click == ADD_MEDIUM_LOT) {
+    container.historicPCount = 0;
     for (int i = 0; i < 10; i++) {
       if (container.mediumN < 100) {
         if (container.n == 0) {
@@ -216,6 +219,7 @@ void mouseClicked() {
     }
   }
   if (click == ADD_MEDIUM_LITTLE && container.mediumN < 100) {
+    container.historicPCount = 0;
     if (container.n == 0) {
       container.particleList.add(new Particle(2));
       container.mediumN++;
@@ -250,6 +254,7 @@ void mouseClicked() {
     }
   }
   if (click == ADD_HEAVY_LOT) {
+    container.historicPCount = 0;
     for (int i = 0; i < 10; i++) {
       if (container.heavyN < 100) {
         if (container.n == 0) {
@@ -263,6 +268,7 @@ void mouseClicked() {
     }
   }
   if (click == ADD_HEAVY_LITTLE && container.heavyN < 100) {
+    container.historicPCount = 0;
     if (container.n == 0) {
       container.particleList.add(new Particle(3));
       container.heavyN++;
@@ -301,16 +307,11 @@ void mouseClicked() {
   System.out.println(mouseX + " " + mouseY);
   if (container.bconstantButtons()) {
     container.changeConstButt(container.bconstantButtons());
-    System.out.println(container.constantVar);
-    //String s = container.constantButtons();
-    //System.out.println(s);
+    container.setGoalValue();
   }
   if (container.mouseOnVolB()) {
-    System.out.println("ResizeButton is pressed");
   }
 
-  //when clicked change colors, follow mouse, click again to switch out.
-  //container.constantButtonPressed();
 
   if (pmouseX > 670 && pmouseX < 685 &&
     pmouseY > 320 && pmouseY < 340 &&
@@ -328,7 +329,6 @@ void mousePressed() {
   } else if (container.mouseOnTempSlider()) {
     isDraggingTempSlider = true;
   }
-  //container.mouseOnLid();
 }
 void mouseReleased() {
   if(isDraggingVolB) {
@@ -342,14 +342,11 @@ void mouseReleased() {
 void mouseDragged() {
   if (isDraggingVolB) {
     paused = true;
-    System.out.println("true");
 
     int newPlace = mouseX;
 
-    System.out.println(newPlace);
     if (container.changeResizeX(newPlace-mouseXLast)) {
       mouseXLast = newPlace;
-      System.out.println("dif place");
     }
   } else if (isDraggingLidB) {
     int newPlace = mouseX;
@@ -409,22 +406,31 @@ void draw() {
 
   for (int i = 0; i < container.particleList.size(); i++) {
     Particle particleA = container.particleList.get(i);
+    if(particleA.escaped) {
+      continue;
+    }
     for (int j = i + 1; j < container.particleList.size(); j++) {
       Particle particleB = container.particleList.get(j);
-      particleA.particleCollide(particleB);
+      if(!particleB.escaped) {
+        particleA.particleCollide(particleB);
+      }
     }
   }
 
   fill(255);
   textSize(20);
-  if (!paused) {
-    container.calcTemperature();
+  container.calcTemperature();
+  if (!paused && frameCount % container.PUpdateFreq == 0) {
     container.calcPressure(totMomentum);
     if(container.P >= container.RELIEF_PRESSURE) {
       container.openLid();
     }
     container.calcVolume();
-    container.calcR();
+
+    container.queueHistoricP();
+    container.reachGoalValue();
+
+    totMomentum = 0;
   }
 
   //displays pressure
