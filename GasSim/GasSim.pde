@@ -307,17 +307,11 @@ void mouseClicked() {
   System.out.println(mouseX + " " + mouseY);
   if (container.bconstantButtons()) {
     container.changeConstButt(container.bconstantButtons());
-    System.out.println(container.constantVar);
-    //String s = container.constantButtons();
-    //System.out.println(s);
     container.setGoalValue();
   }
   if (container.mouseOnVolB()) {
-    System.out.println("ResizeButton is pressed");
   }
 
-  //when clicked change colors, follow mouse, click again to switch out.
-  //container.constantButtonPressed();
 
   if (pmouseX > 670 && pmouseX < 685 &&
     pmouseY > 320 && pmouseY < 340 &&
@@ -335,7 +329,6 @@ void mousePressed() {
   } else if (container.mouseOnTempSlider()) {
     isDraggingTempSlider = true;
   }
-  //container.mouseOnLid();
 }
 void mouseReleased() {
   if(isDraggingVolB) {
@@ -349,14 +342,11 @@ void mouseReleased() {
 void mouseDragged() {
   if (isDraggingVolB) {
     paused = true;
-    System.out.println("true");
 
     int newPlace = mouseX;
 
-    System.out.println(newPlace);
     if (container.changeResizeX(newPlace-mouseXLast)) {
       mouseXLast = newPlace;
-      System.out.println("dif place");
     }
   } else if (isDraggingLidB) {
     int newPlace = mouseX;
