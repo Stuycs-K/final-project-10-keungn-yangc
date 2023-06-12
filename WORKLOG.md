@@ -1,16 +1,5 @@
 # Work Log
 
-## GROUP MEMBER 1
-
-### 5/23
-
-info
-
-### date y
-
-info
-
-
 ## Crystal
 
 ### 5/23
