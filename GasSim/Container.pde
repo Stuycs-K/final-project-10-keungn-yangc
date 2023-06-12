@@ -10,12 +10,14 @@ public class Container {
   private final int LID_OPENING_WIDTH_MAX = 150;
   private final int LID_HANDLE_HEIGHT = 15;
   private final int LID_HANDLE_WIDTH = 15;
+  private final float RELIEF_PRESSURE = 0.08; // 800 on the gauge
   private int constantVar = NOTHING;
   private int boxX = 200;//top left corner x-coord of container
   private int boxY = 150;//top left corner y-coord of container
   private  int boxWidth = 600;//width of box
   private  int boxHeight = 450;//height of box
   private int lidOpeningWidth = 0;
+  private int lidExplosionTime = -1;
   private  boolean lidStatus;//if lid is on or off
   private  float P;
   private  float V;
@@ -91,12 +93,6 @@ public class Container {
     constantButton = b;
   }
 
-  public void addSomeParticles() {
-    for (int i = 0; i<5; i++) {
-      particleList.add(new Particle(1));
-      lightN++;
-    }
-  }
   public boolean mouseOnLid() {//if mouse is on lid button
     if (mouseX >= 600 && mouseX <= 650 && mouseY >= 1 && mouseY <= 51) {
       lidOff = true;
@@ -125,7 +121,7 @@ public class Container {
 
     fill(255);
 
-    //rect(600, 1, 50, 50);
+
     rect(boxX, boxY, container.boxWidth, container.boxHeight);//displays big container
     fill(250, 20, 30);
     controln();
@@ -145,7 +141,7 @@ public class Container {
     text("Volume: " + nf(V, 0, 0), 35, 165);
     textSize(70);
 
-    text("R = PV/nT = " + R, 500, 100);
+    text("R = PV/nT = " + nf(R,0,4), 500, 100);
 
     fill(125);
     rect(30, 175, 150, 250);//control box
@@ -177,8 +173,8 @@ public class Container {
     text("Pressure(T)", 60, 345);
     yonstant = 220 + constantVar * 30;
 
-      fill(138, 191, 237);
-      ellipse(xonstant, yonstant, 14, 14);
+    fill(138, 191, 237);
+    ellipse(xonstant, yonstant, 14, 14);
 
 
 //    if (constantVar != CONST_T) {
@@ -212,7 +208,7 @@ textSize(11);
 
     tempUp = false;
     tempDown = false;
-    
+
     color pauseC;
     if (!paused) {
       pauseC = color(0, 200, 0);
@@ -234,9 +230,9 @@ textSize(11);
       fill(255);
       triangle(555, 670, 555, 700, 580, 685);
     }
-    
+
     color ffC;
-    if(!paused) {
+    if (!paused) {
       ffC = color(150);
     } else {
       ffC = color(0, 200, 0);
@@ -249,11 +245,11 @@ textSize(11);
     fill(255);
     rect(619, 677.5, 3, 15);
     triangle(625, 677.5, 634, 685, 625, 692.5);
-    
+
     color resetC = color(255, 165, 0);
     if (dist(mouseX, mouseY, 920, 685) < 30) {
-        resetC = color(255, 200, 100);
-      }
+      resetC = color(255, 200, 100);
+    }
     fill(resetC);
     circle(920, 685, 60);
     fill(255);
@@ -263,7 +259,7 @@ textSize(11);
     triangle(925, 660, 920, 685, 945, 675);
     fill(255);
     triangle(929, 683, 932, 671, 945, 675);
-  
+
 
 
 
@@ -288,38 +284,37 @@ textSize(11);
 
 
   boolean bconstantButtons() {
-    if(popUp == null) {
-    if (mouseX >= 36 && mouseX <= 54 ) {
-      //System.out.println("nothing");
-      if (mouseY >= 213 && mouseY <= 229) {
-        constantVar = NOTHING;
-        yonstant = 220;
-        return true;
+    if (popUp == null) {
+      if (mouseX >= 36 && mouseX <= 54 ) {
+        //System.out.println("nothing");
+        if (mouseY >= 213 && mouseY <= 229) {
+          constantVar = NOTHING;
+          yonstant = 220;
+          return true;
+        }
+        if (mouseY >= 243 && mouseY <= 259) {
+          constantVar = CONST_V;
+          yonstant = 250;
+          return true;
+        }
+        if (mouseY >= 273 && mouseY <= 289) {
+          constantVar = CONST_T;
+          yonstant = 280;
+          return true;
+        }
+        if (mouseY >= 303 && mouseY <= 319) {
+          constantVar = CONST_P_V;
+          yonstant = 310;
+          return true;
+        }
+        if (mouseY >= 333 && mouseY <= 349) {
+          constantVar = CONST_P_T;
+          yonstant = 340;
+          return true;
+        }
       }
-      if (mouseY >= 243 && mouseY <= 259) {
-        constantVar = CONST_V;
-        yonstant = 250;
-        return true;
-      }
-      if (mouseY >= 273 && mouseY <= 289) {
-        constantVar = CONST_T;
-        yonstant = 280;
-        return true;
-      }
-      if (mouseY >= 303 && mouseY <= 319) {
-        constantVar = CONST_P_V;
-        yonstant = 310;
-        return true;
-      }
-      if (mouseY >= 333 && mouseY <= 349) {
-        constantVar = CONST_P_T;
-        yonstant = 340;
-        return true;
-      }
-    }
     }
     return false;
-  
   }
 
 
@@ -422,7 +417,7 @@ textSize(11);
       particleVolume += (PI) * (p.radius * p.radius);
     }
     V = boxWidth * boxHeight - particleVolume;
-    
+
     System.out.println("" + (boxWidth * boxHeight) + "  " + particleVolume);
     float ratio = particleVolume / (float) (boxWidth * boxHeight);
     System.out.println("P to B ratio: " + ratio);
@@ -434,6 +429,7 @@ textSize(11);
 
   //display pressure
   void barometer() {
+    stroke(1);
     fill(255);
     int r = 50;
     circle(baroX, baroY, r * 2);
@@ -442,15 +438,16 @@ textSize(11);
     }
     noStroke();
     circle(baroX, baroY, r * 1.5);
-    float redTheta = PI/6 + (P / -0.001) * PI/96;
+    float pMax = RELIEF_PRESSURE;
+    float redTheta = -7*PI/6 + (P / pMax) * 4*PI/3;
     float redX = baroX + (cos(redTheta) * r);
     float redY = baroY + (sin(redTheta) * r);
     stroke(255, 0, 0);
     line(baroX, baroY, redX, redY);
     stroke(0);
-    rect(baroX - 38, baroY + 58, 80, 20, 5);
+    rect(baroX - 38, baroY + 58, 82, 20, 5);
     fill(0);
-    text(nf(container.P * 10000, 4, 0)+ "ATM", baroX - 35, baroY + 75 );
+    text(nf(P, 0, 3)+ "ATM", baroX - 35, baroY + 75 );
   }
 
   boolean mouseOnLidB() {
@@ -465,8 +462,27 @@ textSize(11);
       mouseX <= bucketX + 0.825 * bucketWidth &&
       mouseY >= tempSliderY && mouseY <= tempSliderY + bucketHeight * 0.25);
   }
+  
+  void openLid() {
+    if(lidOpeningWidth != LID_OPENING_WIDTH_MAX) {
+      lidOpeningWidth = LID_OPENING_WIDTH_MAX;
+      lidExplosionTime = frameCount;
+    }
+  }
+  
+  boolean isLidAnimationTime() {
+    return (lidExplosionTime > 0 && frameCount - lidExplosionTime < 100);
+  }
 
   void drawLid() {
+    if (isLidAnimationTime()) {
+      pushMatrix();
+      int dt = frameCount-lidExplosionTime;
+      translate(dt*(-0.1), dt*(-0.8));
+      rotate(dt*(-0.004));
+      //translate(boxX, boxY);
+    }
+
     noStroke();
     fill(128);
     rect(1+boxX, 1+boxY-LID_HEIGHT, LID_OPENING_X, LID_HEIGHT);//left part
@@ -477,6 +493,11 @@ textSize(11);
       LID_HANDLE_WIDTH, LID_HANDLE_HEIGHT);//top square
     fill(255);
     rect(1+boxX+LID_OPENING_X, 1+boxY-LID_HEIGHT, lidOpeningWidth, LID_HEIGHT);
+  
+
+  if (isLidAnimationTime()) {
+    popMatrix();
+  }
   }
 
   boolean changeLidOpeningWidth(int num) {
@@ -654,11 +675,12 @@ textSize(11);
     float incrementY = 2.7;
     float displayedT = T;
     noStroke();
-
+    
+    float maxT = 1500;
     if (displayedT<0) {
       displayedT = 0;
-    } else if (displayedT>5000) {
-      displayedT = 5000;
+    } else if (displayedT>maxT) {
+      displayedT = maxT;
     }
     rect(thermX-2.5, thermY-17.1-.054*displayedT, 4.9, 17.1+.054*displayedT);
     stroke(0);
@@ -675,7 +697,7 @@ textSize(11);
     rect(thermX - 30, thermY + 23, 65, 20, 5);
     textSize(20);
     fill(0);
-    text(nf(container.T, 4, 0)+ "K", thermX - 20, thermY + 40);
+    text(round(T)+ "K", thermX - 20, thermY + 40);
   }
 
 
@@ -810,4 +832,6 @@ textSize(11);
     endShape(CLOSE);
     popMatrix();
   }
+  
+  
 }
