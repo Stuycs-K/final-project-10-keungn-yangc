@@ -331,6 +331,9 @@ void mousePressed() {
   //container.mouseOnLid();
 }
 void mouseReleased() {
+  if(isDraggingVolB) {
+    paused = false;
+  }
   isDraggingVolB = false;
   isDraggingLidB = false;
   isDraggingTempSlider = false;
@@ -338,6 +341,7 @@ void mouseReleased() {
 
 void mouseDragged() {
   if (isDraggingVolB) {
+    paused = true;
     System.out.println("true");
 
     int newPlace = mouseX;
@@ -360,7 +364,7 @@ void mouseDragged() {
     } else {
       container.tempSliderY = mouseY;
     }
-  }
+  } 
 }
 
 
