@@ -10,8 +10,11 @@ Chemistry Gas Simulation - Demonstration type simulation remodeled from a phet c
 1. Pressing play button will bring you to simulation screen, nothing is happening at this point
 2. Top left corner will have the statistics and numbers for any changes that might affect the movement of the particles and top right corner displays the PV = nRT equation and how it changes throughout the simulation
 3. To start the simulation, press the arrow keys under the box that says particles. This will spawn gas particles into the container and numbers will start changing. You are able to add and remove particles here and there is three kidns of particles to add/remove
-4. To change the volume and see how it affects the simulation, there is a grey box on the right of the container, dragging it left and right will change the volume. 
+4. To change the volume and see how it affects the simulation, there is a light blue box on the right of the container, dragging it left and right will change the volume. 
 5. There is a grey piece on the top left of the container. This is the lid, dragging it left and right will create a gap in the container that lets gas particles escape into the surroundings(container is the system). 
-6. To manually change the temperature, clicking the top half of the grey box on the bottom of the screen will increase the temperature, clicking the bottom half of the box will decrease the temperature (you can check the thermometer reading if the temperature changes) as well as see graphics
+6. To manually change the temperature, dragging the slider on the bucket up to heat will increase the temperature, dragging the slider on the bucket down to cool will decrease the temperature (you can check the thermometer reading if the temperature changes) as well as see graphics
 7. The Hold Constant grey box will change what is being held constant in the simulation and pressing any of the circles that correspond to the word next to it will keep that factor constant. If the circle turns blue, you will know if you clicked it
-8. Have fun and learn about how volume, temperature, moles of particles, and pressure change how gas particles move according to the ideal gas law!!
+8. There is a play and pause button to stop and start the simulation at any time.
+9. There is a reset orange button to restart the simulation and clear the container. 
+10. There is a fast forward button that zooms up the simulation. 
+11. Have fun and learn about how volume, temperature, moles of particles, and pressure change how gas particles move according to the ideal gas law!!
