@@ -59,6 +59,7 @@ public class Container {
   public boolean tempUp;
   public boolean tempDown;
   private String popUp = null;
+  
 
 
   //------------------------------------------------------------------------------------------------------------------------------------------//
@@ -69,6 +70,7 @@ public class Container {
     resizeKnobY = boxY + boxHeight/2;
     constantButton = false;
     constantVar = NOTHING;
+    lidOff = false;
   }
   boolean mouseOnPump() {
     if (mouseX >= pumpX && mouseX <= (pumpX + 50) && mouseY >= pumpY && pmouseY <= (pumpY + 50)) {
@@ -102,15 +104,28 @@ public class Container {
     }
     return false;
   }
+  void lidAgain(){//after lid falls off if mouse clicks button to add lid back on and be adjustable again
+    if (mouseX >= 450 && mouseX <=470 && mouseY>= 110 && mouseY <= 130){
+      lidOff = false;
+      drawLid();
+    }
+  }
 
-
-
+  void lidMovement(){
+    System.out.println((0.0821 * n * T)/V);
+    System.out.println(P);
+    if ((0.0821 * n * T)/V > P){
+      lidOff = true;
+    
+      System.out.println("lidoFF turned to true");
+    }
+  }
 
   public void display() {//displays container
 
     fill(255);
 
-    rect(600, 1, 50, 50);
+    //rect(600, 1, 50, 50);
     rect(boxX, boxY, container.boxWidth, container.boxHeight);//displays big container
     fill(250, 20, 30);
     controln();
@@ -166,9 +181,24 @@ public class Container {
       ellipse(xonstant, yonstant, 14, 14);
 
 
-    if (constantVar != CONST_T) {
-      drawLid();
-    }
+//    if (constantVar != CONST_T) {
+//      drawLid();
+//    }
+lidMovement();
+System.out.println(lidOff);
+if(lidOff == false){
+  drawLid();
+}
+else{
+  fill(255);
+  changeLidOpeningWidth(LID_OPENING_WIDTH_MAX);
+  drawLid();
+  fill(255);
+textSize(11);
+  text("<----   Oh no! lid popped off, press the button to be able to adjust lid again",450,130);
+  rect(450,110,20,20);
+}
+
 
     if (tempUp) {
       fire = loadImage("fire.jpeg");
@@ -439,12 +469,12 @@ public class Container {
   void drawLid() {
     noStroke();
     fill(128);
-    rect(1+boxX, 1+boxY-LID_HEIGHT, LID_OPENING_X, LID_HEIGHT);
+    rect(1+boxX, 1+boxY-LID_HEIGHT, LID_OPENING_X, LID_HEIGHT);//left part
     rect(1+boxX+LID_OPENING_X+lidOpeningWidth, 1+boxY-LID_HEIGHT,
-      LID_WIDTH-(LID_OPENING_X+lidOpeningWidth), LID_HEIGHT);
+      LID_WIDTH-(LID_OPENING_X+lidOpeningWidth), LID_HEIGHT);//right part and under square
     rect(1+boxX+LID_OPENING_X+lidOpeningWidth,
       1+boxY-LID_HEIGHT-LID_HANDLE_HEIGHT,
-      LID_HANDLE_WIDTH, LID_HANDLE_HEIGHT);
+      LID_HANDLE_WIDTH, LID_HANDLE_HEIGHT);//top square
     fill(255);
     rect(1+boxX+LID_OPENING_X, 1+boxY-LID_HEIGHT, lidOpeningWidth, LID_HEIGHT);
   }

@@ -127,6 +127,7 @@ int addRemove() {
 
 void mouseClicked() {
   System.out.println(mouseX + " " + mouseY);
+  container.lidAgain();
   int click;
   if (!paused) {
     click = addRemove();
