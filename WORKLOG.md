@@ -64,6 +64,26 @@ info
 ### 6/6
 - Work on holding temperature constant
 
+### 6/9
+- Make newly initialized particles consistent with current temperature of container so behavior aligns with PhET simulation--also streamlines keeping temperature constant 
+
+### 6/10
+- Display temperature and pressure values underneath their respective tools
+- Fix bug with initializing particles with the container temperature
+- Make volume handle disappear when volume is being held constant
+- Create popups for messages when volume reaches limits while pressure is being held constant when Pressure(V) is selected
+- Made slideable lid that allows for particles to leave the container and change container variables accordingly
+- Work on Pressure(T)
+
+### 6/11
+- Made adjusting temperature feature look and work better
+- Add pause, fast forward, and reset buttons + pause when volume is being adjusted
+- Make position of particles change proportionally to container width changes
+- Adjust size of particles to make gas law more accurate (negligible volume) and also solve problem of negative volume when volume of particles is greater than volume of container
+- Adjust masses of particles to be proportional to volume to balance out PV = NRT and make the constant R more constant
+- Made animation for lid falling off when pressure gets too high
+- Ensure pressure is stable before using it in calculations or allowing it to be held constant--not as smooth but most importantly less spazzes and fluctuations and outright bugs
+
 ## Natalie
 
 ### 5/23
