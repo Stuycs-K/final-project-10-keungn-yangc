@@ -149,6 +149,7 @@
 - Processing reference
 - Simple Linear Gradient / Examples / Processing.org (https://processing.org/examples/lineargradient.html)
 - Elastic collision - Wikipedia (https://en.wikipedia.org/wiki/Elastic_collision)
+- inspiration for project https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_all.html
 
 
 
