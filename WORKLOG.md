@@ -144,7 +144,7 @@
   = Pressure T
 
 ## Broken Features/Bugs
-
+- barometer doesn't have a max but once it meets a threshold, the lid will fall off, however it goes on a loop and back if the pressure change is drastic
 ## Content Resources
 - Processing reference
 - Simple Linear Gradient / Examples / Processing.org (https://processing.org/examples/lineargradient.html)
