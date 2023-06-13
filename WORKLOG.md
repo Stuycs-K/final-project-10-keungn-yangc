@@ -106,9 +106,9 @@
 ### 6/3/23
 - reszie works
 
-### 6/6/23
-- added units to display and resized parts of it
-- started working on rotating lid as it falls off
+### 6/7/23
+- made and tested button for lid
+- started working on rotating lid as it falls off (flawed)
 
 ### 6/9/23
 - added graphics to temperature controller(slightly glitchy and slow will fix)
@@ -118,8 +118,37 @@
 - worked on lid some more TnT
 
 ### 6/11/23
+- deleted unneccesary files
+- added units to display and resized parts of it
 - did readme file and some of dev log
+- tried to calculate lid limits (did not work) with lid opening max
 
+
+# Dev Log
+## Working features
+- Container resizing
+- Lid slider (so particles can escape to the surroundings)
+  = lid popping off animation when pressure is too high
+- Particle-particle collisions and particle-wall/container collisions
+- Pressure barometer display
+- Temperature thermometer display
+- Particle pump
+- Three different particles
+- Ability to add and remove particles in increments of one and ten
+- Manual temperature change with graphics
+- Holding factors constant
+  = Nothing 
+  = Volume
+  = Temperature
+  = Pressure V (container changes itself)
+  = Pressure T
+
+## Broken Features/Bugs
+
+## Content Resources
+- Processing reference
+- Simple Linear Gradient / Examples / Processing.org (https://processing.org/examples/lineargradient.html)
+- Elastic collision - Wikipedia (https://en.wikipedia.org/wiki/Elastic_collision)
 
 
 
